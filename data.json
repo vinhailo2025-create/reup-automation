@@ -1,0 +1,256 @@
+{
+  "hero": {
+    "badge": "🚀 NHIỆM VỤ TÂN THỦ",
+    "title": "HÀNH TRÌNH REUP\nAUTOMATION 30 NGÀY",
+    "subtitle": "Chào mừng bạn đến với hệ thống tự động hóa",
+    "description": "Chúc mừng bạn đã bắt đầu hành trình kiếm tiền với hệ thống tự động hóa.\nĐây không phải khóa học — đây là hành trình thực chiến.",
+    "highlight": "👉 Chỉ cần làm đúng – làm đủ – làm đều",
+    "ctaText": "🚀 BẮT ĐẦU HÀNH TRÌNH"
+  },
+  "video": {
+    "label": "🎬 Video Giới Thiệu",
+    "title": "Xem trước toàn bộ hành trình",
+    "subtitle": "Dành vài phút để hiểu toàn bộ hành trình bạn sắp đi",
+    "url": "",
+    "placeholder": "VIDEO: GIỚI THIỆU REUP AUTOMATION"
+  },
+  "missions": [
+    {
+      "icon": "🧩",
+      "title": "CHỌN HƯỚNG",
+      "subtitle": "Chọn chủ đề & nguồn video",
+      "description": "Xác định chủ đề reup, loại video bạn muốn làm, và sản phẩm bạn sẽ gắn. Đây là bước nền tảng quan trọng nhất.",
+      "color": "yellow",
+      "week": "w1",
+      "steps": [
+        "Nghiên cứu các chủ đề đang hot trên mạng xã hội",
+        "Chọn loại video phù hợp với sản phẩm bạn muốn quảng bá",
+        "Xác định nguồn video chất lượng để reup"
+      ],
+      "videoTitle": "Chọn nguồn video Reup",
+      "videoSubtitle": "Video hướng dẫn chi tiết",
+      "videoUrl": "",
+      "links": [],
+      "note": "Sau bước này bạn phải xác định: Chủ đề reup, Loại video, Sản phẩm gắn",
+      "noteType": "info",
+      "checklist": [
+        "Đã xem video hướng dẫn",
+        "Đã chọn được chủ đề reup",
+        "Đã xác định sản phẩm gắn kèm"
+      ],
+      "tip": "Bạn đang đi đúng hướng — đây là bước quan trọng nhất!"
+    },
+    {
+      "icon": "📘",
+      "title": "TẠO FANPAGE",
+      "subtitle": "Tạo hệ thống 5 Fanpage",
+      "description": "Tạo 5 Fanpage theo chủ đề đã chọn. Đây là nền tảng traffic chính. Sau khi tạo xong, điền form thông tin để admin hỗ trợ.",
+      "color": "purple",
+      "week": "w1",
+      "steps": [
+        "Tạo 5 Fanpage với tên liên quan đến chủ đề",
+        "Thiết lập avatar, cover & mô tả cho từng page",
+        "Điền form thông tin gửi cho admin"
+      ],
+      "videoTitle": "Hướng dẫn tạo Fanpage",
+      "videoSubtitle": "Cách tạo đúng chuẩn",
+      "videoUrl": "",
+      "links": [
+        { "text": "📄 ĐIỀN FORM THÔNG TIN", "url": "#", "style": "primary" }
+      ],
+      "note": "Yêu cầu: Tạo 5 Fanpage theo chủ đề",
+      "noteType": "info",
+      "checklist": [
+        "Đã tạo 5 Fanpage",
+        "Đã điền form thông tin"
+      ],
+      "tip": "Đây là nền tảng traffic — làm kỹ bước này!"
+    },
+    {
+      "icon": "💰",
+      "title": "SHOPEE AFFILIATE",
+      "subtitle": "Kích hoạt nguồn thu nhập",
+      "description": "Tạo tài khoản Shopee Affiliate và liên kết với Fanpage. Test từng page để đảm bảo hoạt động.",
+      "color": "green",
+      "week": "w1",
+      "steps": [
+        "Đăng ký tài khoản Shopee Affiliate",
+        "Liên kết với từng Fanpage đã tạo",
+        "Test thử link affiliate trên mỗi page"
+      ],
+      "videoTitle": "Hướng dẫn Shopee Affiliate",
+      "videoSubtitle": "Từ đăng ký đến liên kết",
+      "videoUrl": "",
+      "links": [],
+      "note": "Đây là nguồn tiền của hệ thống",
+      "noteType": "warning",
+      "checklist": [
+        "Đã tạo tài khoản Shopee Affiliate",
+        "Đã thử liên kết Fanpage"
+      ],
+      "tip": "Đây là nguồn tiền của hệ thống — kích hoạt ngay!"
+    },
+    {
+      "icon": "🔍",
+      "title": "TÌM SẢN PHẨM",
+      "subtitle": "Tìm sản phẩm dễ ra đơn",
+      "description": "Tìm sản phẩm hot, dễ bán bằng phương pháp tìm kiếm hình ảnh.",
+      "color": "cyan",
+      "week": "w1",
+      "steps": [
+        "Sử dụng công cụ tìm kiếm bằng hình ảnh",
+        "Lọc sản phẩm có hoa hồng cao & dễ bán",
+        "Chọn ít nhất 3 sản phẩm tiềm năng"
+      ],
+      "videoTitle": "Tìm sản phẩm bằng hình ảnh",
+      "videoSubtitle": "Mẹo tìm sản phẩm hot",
+      "videoUrl": "",
+      "links": [],
+      "note": "Sau bước này bạn phải biết cách tìm sản phẩm hot và biết sản phẩm nào dễ bán",
+      "noteType": "info",
+      "checklist": [
+        "Đã tìm được ít nhất 3 sản phẩm"
+      ],
+      "tip": "Chọn đúng sản phẩm = kiếm tiền nhanh!"
+    },
+    {
+      "icon": "⚙️",
+      "title": "CÀI GEMLOGIN",
+      "subtitle": "Setup nền tảng automation",
+      "description": "Tải và cài đặt Gemlogin — nền tảng chạy tool automation.",
+      "color": "orange",
+      "week": "w2",
+      "steps": [
+        "Tải Gemlogin từ link chính thức",
+        "Đăng ký tài khoản bằng link ref",
+        "Đăng nhập và kiểm tra giao diện"
+      ],
+      "videoTitle": "Hướng dẫn cài Gemlogin",
+      "videoSubtitle": "Từ A đến Z",
+      "videoUrl": "",
+      "links": [
+        { "text": "📥 TẢI GEMLOGIN", "url": "#", "style": "primary" },
+        { "text": "🔗 LINK REF ĐĂNG KÝ", "url": "#", "style": "secondary" }
+      ],
+      "note": "",
+      "noteType": "info",
+      "checklist": [
+        "Đã tải và cài đặt Gemlogin",
+        "Đã đăng nhập thành công"
+      ],
+      "tip": "Đây là nền tảng chạy tool — cài đúng cách nhé!"
+    },
+    {
+      "icon": "🤖",
+      "title": "CÀI TOOL",
+      "subtitle": "Kích hoạt Super Reup",
+      "description": "Gửi mail Gemlogin + Ultra view cho admin. Liên hệ Zalo Vinh để được cài tool Super Reup.",
+      "color": "purple",
+      "week": "w2",
+      "steps": [
+        "Chuẩn bị mail Gemlogin đã đăng ký",
+        "Gửi thông tin cho admin qua Zalo",
+        "Chờ admin add tool vào tài khoản"
+      ],
+      "videoTitle": "",
+      "videoSubtitle": "",
+      "videoUrl": "",
+      "links": [],
+      "note": "Phải đúng mail đã đăng ký Gemlogin",
+      "noteType": "warning",
+      "checklist": [
+        "Đã gửi thông tin cho admin",
+        "Đã được add tool thành công"
+      ],
+      "tip": "Đây là bước unlock automation — đừng bỏ qua!"
+    },
+    {
+      "icon": "🎬",
+      "title": "CHẠY TOOL",
+      "subtitle": "Bắt đầu tạo video đầu tiên",
+      "description": "Bắt đầu chạy tool để tạo video reup và đăng bài lên Fanpage.",
+      "color": "cyan",
+      "week": "w2",
+      "steps": [
+        "Mở tool Super Reup trong Gemlogin",
+        "Cấu hình theo hướng dẫn video",
+        "Chạy tạo video đầu tiên & đăng bài"
+      ],
+      "videoTitle": "Sử dụng Tool Super Reup",
+      "videoSubtitle": "Hướng dẫn chi tiết từng bước",
+      "videoUrl": "",
+      "links": [],
+      "note": "Sau bước này bạn sẽ biết cách chạy video và bắt đầu đăng bài",
+      "noteType": "info",
+      "checklist": [
+        "Đã chạy video đầu tiên"
+      ],
+      "tip": "Bắt đầu có traffic — chạy ngay video đầu tiên!"
+    },
+    {
+      "icon": "✅",
+      "title": "CHECKLIST CUỐI",
+      "subtitle": "Kiểm tra toàn bộ hệ thống",
+      "description": "Vào nhóm bình chọn checklist để admin hỗ trợ. Đảm bảo hệ thống hoạt động đúng.",
+      "color": "green",
+      "week": "w2",
+      "steps": [
+        "Vào nhóm và bình chọn checklist",
+        "Admin kiểm tra hệ thống của bạn",
+        "Xác nhận mọi thứ hoạt động đúng"
+      ],
+      "videoTitle": "",
+      "videoSubtitle": "",
+      "videoUrl": "",
+      "links": [],
+      "note": "Mục tiêu: Không thiếu bước nào, không bị sai hệ thống",
+      "noteType": "warning",
+      "checklist": [
+        "Đã check checklist trong nhóm"
+      ],
+      "tip": "Bạn đã sẵn sàng scale — kiểm tra lần cuối!"
+    }
+  ],
+  "completion": {
+    "title": "Chúc mừng bạn!",
+    "description": "Bạn đã hoàn thành Hành Trình Reup Automation 30 Ngày",
+    "subtitle": "👉 Giờ mới là lúc bắt đầu thực sự!",
+    "items": [
+      {
+        "icon": "🚀",
+        "title": "Đăng video",
+        "desc": "Mỗi ngày đều đặn"
+      },
+      {
+        "icon": "🧪",
+        "title": "Test sản phẩm",
+        "desc": "Tìm sản phẩm hot mới"
+      },
+      {
+        "icon": "📈",
+        "title": "Scale 10x",
+        "desc": "Nhân bản hệ thống"
+      }
+    ],
+    "ctaText": "👉 VÀO NHÓM NGAY",
+    "ctaUrl": "#",
+    "footerText": "✨ Chúc bạn kiếm được tiền thật từ hệ thống này!"
+  },
+  "footer": {
+    "text": "Reup Automation System — Hành trình thực chiến 30 ngày",
+    "links": [
+      {
+        "text": "Hỗ trợ",
+        "url": "#"
+      },
+      {
+        "text": "Nhóm Zalo",
+        "url": "#"
+      },
+      {
+        "text": "Hướng dẫn",
+        "url": "#"
+      }
+    ]
+  }
+}

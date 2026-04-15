@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reup Automation - Hanh Trinh 30 Ngay</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        :root {
+            --bg: #0b0614;
+            --bg2: #110a1f;
+            --bg3: #1a1030;
+            --bg4: #251845;
+            --purple: #b36dff;
+            --purple-glow: rgba(179,109,255,.25);
+            --cyan: #00d4ff;
+            --cyan-glow: rgba(0,212,255,.2);
+            --green: #22c55e;
+            --yellow: #ffd233;
+            --red: #ef4444;
+            --orange: #f97316;
+            --text: #f5f0ff;
+            --text2: #b8a8d4;
+            --text3: #7a6897;
+            --border: rgba(179,109,255,.1);
+            --border2: rgba(179,109,255,.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(ellipse at 0% 0%, rgba(179,109,255,.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(0,212,255,.04) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-screen {
+            position: fixed; inset: 0; background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity .6s ease;
+            background-image: radial-gradient(ellipse at 50% 50%, rgba(179,109,255,.08) 0%, transparent 70%);
+        }
+        .loading-screen.hide { opacity: 0; pointer-events: none; }
+        .loader { text-align: center; }
+        .loader-icon { font-size: 56px; animation: pulse 1.5s infinite; }
+        .loader-text { margin-top: 16px; color: var(--text2); font-size: 14px; letter-spacing: .5px; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 80px 20px 60px; position: relative;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(179,109,255,.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(0,212,255,.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255,210,51,.04) 0%, transparent 60%);
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-content { max-width: 720px; position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-block; padding: 10px 24px; border-radius: 50px;
+            background: linear-gradient(135deg, rgba(179,109,255,.15), rgba(255,210,51,.12));
+            border: 1px solid rgba(179,109,255,.35);
+            color: var(--yellow); font-size: 13px; font-weight: 800;
+            margin-bottom: 28px; letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeInDown .8s ease;
+            text-shadow: 0 0 20px rgba(255,210,51,.3);
+        }
+        .hero-title {
+            font-size: clamp(34px, 6vw, 58px); font-weight: 900;
+            line-height: 1.1; margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--cyan) 0%, #8bffff 30%, #fff 60%, var(--purple) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp .8s ease .2s both;
+        }
+        .hero-subtitle {
+            font-size: 19px; color: var(--text2); margin-bottom: 16px; font-weight: 500;
+            animation: fadeInUp .8s ease .4s both;
+        }
+        .hero-desc {
+            font-size: 15px; color: var(--text3); line-height: 1.8; margin-bottom: 20px;
+            white-space: pre-line;
+            animation: fadeInUp .8s ease .5s both;
+        }
+        .hero-highlight {
+            font-size: 17px; font-weight: 800; color: var(--yellow);
+            margin-bottom: 36px;
+            animation: fadeInUp .8s ease .6s both;
+            text-shadow: 0 0 30px rgba(255,210,51,.25);
+        }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 18px 44px; border-radius: 16px;
+            background: linear-gradient(135deg, var(--yellow), #ffb800);
+            color: #0b0614; font-size: 17px; font-weight: 800; text-decoration: none;
+            transition: all .3s; cursor: pointer; border: none;
+            box-shadow: 0 8px 40px rgba(255,210,51,.3);
+            animation: fadeInUp .8s ease .7s both;
+            position: relative; overflow: hidden;
+        }
+        .hero-cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,.25) 50%, transparent 70%);
+            transform: translateX(-100%); transition: transform .6s;
+        }
+        .hero-cta:hover::before { transform: translateX(100%); }
+        .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(255,210,51,.4); }
+
+        .scroll-hint {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: var(--text3); font-size: 28px; animation: bounce 2s infinite;
+        }
+
+        @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-12px); } }
+
+        /* ===== SECTIONS ===== */
+        .section { padding: 80px 20px; max-width: 860px; margin: 0 auto; }
+        .section-label {
+            display: inline-block; padding: 6px 18px; border-radius: 50px;
+            background: rgba(179,109,255,.1); border: 1px solid rgba(179,109,255,.25);
+            color: var(--purple); font-size: 12px; font-weight: 700;
+            letter-spacing: .5px; margin-bottom: 14px; text-transform: uppercase;
+        }
+        .section-title { font-size: 30px; font-weight: 900; margin-bottom: 10px; color: var(--cyan); }
+        .section-subtitle { color: var(--text2); font-size: 15px; margin-bottom: 40px; line-height: 1.6; }
+
+        /* ===== VIDEO SECTION ===== */
+        .video-wrapper {
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 20px;
+            overflow: hidden; aspect-ratio: 16/9; display: flex; align-items: center;
+            justify-content: center; position: relative;
+            box-shadow: 0 0 40px rgba(179,109,255,.08);
+        }
+        .video-wrapper iframe { width: 100%; height: 100%; border: none; }
+        .video-placeholder {
+            color: var(--text3); font-size: 16px; font-weight: 600;
+            display: flex; flex-direction: column; align-items: center; gap: 14px;
+        }
+        .video-placeholder .play-icon {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(179,109,255,.2), rgba(0,212,255,.2));
+            border: 2px solid rgba(179,109,255,.35);
+            display: flex; align-items: center; justify-content: center; font-size: 28px;
+            transition: transform .3s;
+            box-shadow: 0 0 30px rgba(179,109,255,.15);
+        }
+        .video-placeholder:hover .play-icon { transform: scale(1.1); }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-section {
+            background: linear-gradient(135deg, var(--bg3), var(--bg4));
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 32px; margin-bottom: 48px; text-align: center;
+            position: relative; overflow: hidden;
+            box-shadow: 0 4px 30px rgba(179,109,255,.06);
+        }
+        .progress-section::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--purple), var(--cyan), var(--yellow));
+        }
+        .progress-label { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--purple); }
+        .progress-bar {
+            height: 12px; background: var(--bg); border-radius: 12px; overflow: hidden;
+            margin-bottom: 10px; position: relative;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 12px; transition: width .6s ease;
+            background: linear-gradient(90deg, var(--purple), var(--cyan), var(--yellow));
+            position: relative;
+        }
+        .progress-fill::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .progress-text { font-size: 14px; color: var(--text2); font-weight: 600; }
+        .progress-dots {
+            display: flex; justify-content: space-between; margin-top: 16px; padding: 0 4px;
+        }
+        .progress-dot {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--bg); border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800; color: var(--text3);
+            transition: all .3s; position: relative;
+        }
+        .progress-dot.completed {
+            background: var(--green); border-color: var(--green); color: #fff;
+            box-shadow: 0 0 12px rgba(34,197,94,.3);
+        }
+        .progress-dot.current {
+            border-color: var(--purple); color: var(--purple);
+            box-shadow: 0 0 15px rgba(179,109,255,.3);
+            animation: pulse 2s infinite;
+        }
+
+        /* ===== MISSION SECTIONS ===== */
+        .mission-section {
+            margin-bottom: 24px; border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg2);
+            transition: all .3s;
+            box-shadow: 0 2px 20px rgba(0,0,0,.2);
+        }
+        .mission-section:hover:not(.locked) {
+            border-color: rgba(179,109,255,.2);
+            box-shadow: 0 4px 30px rgba(179,109,255,.08);
+        }
+        .mission-section.locked {
+            opacity: .5; pointer-events: none; filter: grayscale(.3);
+        }
+        .mission-section.completed-mission {
+            border-color: rgba(34,197,94,.25);
+            box-shadow: 0 0 20px rgba(34,197,94,.06);
+        }
+
+        .mission-header {
+            padding: 24px 28px; cursor: pointer; display: flex; align-items: center; gap: 16px;
+            position: relative; transition: background .2s;
+        }
+        .mission-header:hover { background: rgba(255,255,255,.02); }
+        .mission-header::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+        }
+        .mission-section[data-color="yellow"] .mission-header::before { background: var(--yellow); }
+        .mission-section[data-color="purple"] .mission-header::before { background: var(--purple); }
+        .mission-section[data-color="green"] .mission-header::before { background: var(--green); }
+        .mission-section[data-color="cyan"] .mission-header::before { background: var(--cyan); }
+        .mission-section[data-color="orange"] .mission-header::before { background: var(--orange); }
+
+        .mh-icon {
+            width: 52px; height: 52px; border-radius: 14px; display: flex;
+            align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(0,0,0,.2);
+        }
+        .mission-section[data-color="yellow"] .mh-icon { background: rgba(255,210,51,.15); }
+        .mission-section[data-color="purple"] .mh-icon { background: rgba(179,109,255,.15); }
+        .mission-section[data-color="green"] .mh-icon { background: rgba(34,197,94,.15); }
+        .mission-section[data-color="cyan"] .mh-icon { background: rgba(0,212,255,.15); }
+        .mission-section[data-color="orange"] .mh-icon { background: rgba(249,115,22,.15); }
+
+        .mh-info { flex: 1; }
+        .mh-label {
+            font-size: 11px; font-weight: 800; letter-spacing: .5px;
+            text-transform: uppercase; margin-bottom: 4px;
+        }
+        .mission-section[data-color="yellow"] .mh-label { color: var(--yellow); text-shadow: 0 0 15px rgba(255,210,51,.2); }
+        .mission-section[data-color="purple"] .mh-label { color: var(--purple); text-shadow: 0 0 15px rgba(179,109,255,.2); }
+        .mission-section[data-color="green"] .mh-label { color: var(--green); text-shadow: 0 0 15px rgba(34,197,94,.2); }
+        .mission-section[data-color="cyan"] .mh-label { color: var(--cyan); text-shadow: 0 0 15px rgba(0,212,255,.2); }
+        .mission-section[data-color="orange"] .mh-label { color: var(--orange); text-shadow: 0 0 15px rgba(249,115,22,.2); }
+
+        .mh-title { font-size: 18px; font-weight: 800; color: #fff; }
+        .mh-subtitle { font-size: 13px; color: var(--text2); margin-top: 2px; }
+
+        .mh-status {
+            display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
+            padding: 6px 14px; border-radius: 8px; flex-shrink: 0;
+        }
+        .mh-status.pending { color: var(--text3); background: rgba(255,255,255,.05); }
+        .mh-status.done { color: var(--green); background: rgba(34,197,94,.1); }
+        .mh-status.locked-status { color: var(--text3); background: rgba(255,255,255,.03); }
+
+        .mh-toggle {
+            width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+            color: var(--text3); font-size: 18px; transition: transform .3s; flex-shrink: 0;
+        }
+        .mission-section.open .mh-toggle { transform: rotate(180deg); }
+
+        .mission-body {
+            max-height: 0; overflow: hidden; transition: max-height .4s ease;
+        }
+        .mission-section.open .mission-body { max-height: 2000px; }
+
+        .mission-content {
+            padding: 0 28px 28px; border-top: 1px solid var(--border);
+        }
+
+        .mc-desc {
+            font-size: 15px; color: var(--text2); line-height: 1.7; padding-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Video in mission */
+        .mc-video-section { margin-bottom: 24px; }
+        .mc-video-label {
+            font-size: 12px; font-weight: 700; color: var(--text2);
+            text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .mc-video-box {
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+            overflow: hidden; aspect-ratio: 16/9; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .mc-video-box iframe { width: 100%; height: 100%; border: none; }
+
+        /* Steps in mission */
+        .mc-steps-section { margin-bottom: 24px; }
+        .mc-steps-label {
+            font-size: 12px; font-weight: 700; color: var(--text2);
+            text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .mc-step {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 14px 16px; background: var(--bg3); border: 1px solid var(--border);
+            border-radius: 12px; margin-bottom: 8px; font-size: 14px; line-height: 1.5;
+        }
+        .mc-step-num {
+            width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+        }
+        .mission-section[data-color="yellow"] .mc-step-num { background: rgba(255,210,51,.18); color: var(--yellow); }
+        .mission-section[data-color="purple"] .mc-step-num { background: rgba(179,109,255,.18); color: var(--purple); }
+        .mission-section[data-color="green"] .mc-step-num { background: rgba(34,197,94,.18); color: var(--green); }
+        .mission-section[data-color="cyan"] .mc-step-num { background: rgba(0,212,255,.18); color: var(--cyan); }
+        .mission-section[data-color="orange"] .mc-step-num { background: rgba(249,115,22,.18); color: var(--orange); }
+
+        /* Links/buttons in mission */
+        .mc-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+        .mc-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 20px; border-radius: 10px;
+            font-size: 13px; font-weight: 700; text-decoration: none;
+            transition: all .2s; cursor: pointer;
+        }
+        .mc-link.primary {
+            background: linear-gradient(135deg, var(--yellow), #ffb800);
+            color: #0b0614; border: none; font-weight: 800;
+        }
+        .mc-link.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,210,51,.3); }
+        .mc-link.secondary {
+            background: rgba(179,109,255,.08); border: 1px solid rgba(179,109,255,.25);
+            color: var(--purple);
+        }
+        .mc-link.secondary:hover { border-color: var(--purple); color: #fff; background: rgba(179,109,255,.15); }
+
+        /* Note in mission */
+        .mc-note {
+            padding: 14px 18px; border-radius: 12px; margin-bottom: 24px;
+            font-size: 14px; line-height: 1.6;
+        }
+        .mc-note.info {
+            background: rgba(0,212,255,.08); border: 1px solid rgba(0,212,255,.2);
+            color: var(--cyan);
+        }
+        .mc-note.warning {
+            background: rgba(255,210,51,.08); border: 1px solid rgba(255,210,51,.2);
+            color: var(--yellow);
+        }
+
+        /* Checklist in mission */
+        .mc-checklist { margin-bottom: 24px; }
+        .mc-checklist-label {
+            font-size: 12px; font-weight: 700; color: var(--text2);
+            text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .check-item {
+            display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+            cursor: pointer; transition: all .2s; font-size: 14px; user-select: none;
+            margin-bottom: 8px;
+        }
+        .check-item:hover { border-color: var(--border2); }
+        .check-item.checked { border-color: rgba(34,197,94,.3); background: rgba(34,197,94,.04); }
+        .check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+        .check-item.checked .check-box::after { content: ''; display: block; }
+        .check-item.checked .check-text { color: var(--text2); text-decoration: line-through; }
+        .check-box {
+            width: 24px; height: 24px; border-radius: 7px; border: 2px solid var(--border2);
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+            transition: all .2s; position: relative;
+        }
+        .check-box::after {
+            content: none; width: 6px; height: 11px;
+            border: solid #fff; border-width: 0 2.5px 2.5px 0;
+            transform: rotate(45deg); margin-top: -2px;
+        }
+        .check-text { flex: 1; }
+
+        /* Tip in mission */
+        .mc-tip {
+            padding: 16px 20px; border-radius: 12px;
+            background: rgba(255,210,51,.08); border: 1px solid rgba(255,210,51,.18);
+            color: var(--yellow); font-size: 14px; font-weight: 600;
+            display: flex; align-items: flex-start; gap: 10px;
+            margin-bottom: 24px; line-height: 1.5;
+        }
+
+        /* Complete button */
+        .mc-complete-btn {
+            width: 100%; padding: 16px; border-radius: 14px;
+            font-size: 15px; font-weight: 800; cursor: pointer;
+            transition: all .3s; display: flex; align-items: center;
+            justify-content: center; gap: 8px; border: none;
+        }
+        .mc-complete-btn.incomplete {
+            background: linear-gradient(135deg, var(--yellow), #ffb800);
+            color: #0b0614; box-shadow: 0 6px 25px rgba(255,210,51,.25);
+            font-weight: 800;
+        }
+        .mc-complete-btn.incomplete:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(255,210,51,.35); }
+        .mc-complete-btn.is-completed {
+            background: rgba(34,197,94,.12); color: var(--green);
+            border: 1px solid rgba(34,197,94,.3); cursor: default;
+        }
+
+        /* ===== COMPLETION SCREEN ===== */
+        .completion-section {
+            text-align: center; padding: 100px 20px 80px;
+            background:
+                radial-gradient(ellipse at 50% 30%, rgba(34,197,94,.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(179,109,255,.06) 0%, transparent 50%);
+            display: none;
+        }
+        .completion-section.show { display: block; }
+        .comp-icon { font-size: 72px; margin-bottom: 24px; animation: pulse 2s infinite; }
+        .comp-title {
+            font-size: 36px; font-weight: 900; margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--cyan), #8bffff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .comp-desc { font-size: 17px; color: var(--text2); margin-bottom: 10px; }
+        .comp-subtitle { font-size: 20px; color: var(--yellow); font-weight: 800; margin-bottom: 48px; }
+        .comp-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; max-width: 700px; margin: 0 auto 48px;
+        }
+        .comp-card {
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 16px;
+            padding: 28px; text-align: center; transition: all .3s;
+        }
+        .comp-card:hover { transform: translateY(-4px); border-color: rgba(179,109,255,.25); box-shadow: 0 8px 30px rgba(179,109,255,.08); }
+        .comp-card-icon { font-size: 36px; margin-bottom: 12px; }
+        .comp-card-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+        .comp-card-desc { font-size: 13px; color: var(--text3); }
+        .comp-cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 18px 44px; border-radius: 16px;
+            background: linear-gradient(135deg, var(--yellow), #ffb800);
+            color: #0b0614; font-size: 17px; font-weight: 800; text-decoration: none;
+            transition: all .3s; margin-bottom: 24px;
+            box-shadow: 0 8px 35px rgba(255,210,51,.25);
+        }
+        .comp-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 45px rgba(255,210,51,.35); }
+        .comp-footer-text { font-size: 16px; color: var(--text2); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center; padding: 48px 20px; border-top: 1px solid var(--border);
+            background: rgba(179,109,255,.02);
+        }
+        .footer-text { font-size: 13px; color: var(--text3); margin-bottom: 14px; }
+        .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+        .footer-links a {
+            color: var(--text2); text-decoration: none; font-size: 13px;
+            transition: color .2s; font-weight: 500;
+        }
+        .footer-links a:hover { color: var(--cyan); }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(179,109,255,.15); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(179,109,255,.3); }
+
+        /* ===== FADE IN ON SCROLL ===== */
+        .fade-in {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .hero { padding: 60px 16px 40px; }
+            .section { padding: 60px 16px; }
+            .mission-header { padding: 18px 20px; gap: 12px; }
+            .mission-content { padding: 0 20px 20px; }
+            .mh-icon { width: 44px; height: 44px; font-size: 22px; border-radius: 12px; }
+            .mh-title { font-size: 16px; }
+            .mh-status { font-size: 11px; padding: 5px 10px; }
+            .progress-dots { display: none; }
+            .comp-cards { grid-template-columns: 1fr; }
+            .mc-links { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loading -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loader">
+        <div class="loader-icon">🚀</div>
+        <div class="loader-text">Dang tai hanh trinh...</div>
+    </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="heroSection">
+    <div class="hero-content">
+        <div class="hero-badge" id="heroBadge"></div>
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <p class="hero-subtitle" id="heroSubtitle"></p>
+        <p class="hero-desc" id="heroDesc"></p>
+        <p class="hero-highlight" id="heroHighlight"></p>
+        <button class="hero-cta" id="heroCta" onclick="scrollToMissions()"></button>
+    </div>
+    <div class="scroll-hint">&#8595;</div>
+</section>
+
+<!-- Video Section -->
+<section class="section" id="videoSection">
+    <div class="section-label" id="videoLabel"></div>
+    <h2 class="section-title" id="videoTitle"></h2>
+    <p class="section-subtitle" id="videoSubtitle"></p>
+    <div class="video-wrapper" id="videoContainer"></div>
+</section>
+
+<!-- Missions -->
+<section class="section" id="missionsSection">
+    <div class="section-label">🎯 NHIEM VU</div>
+    <h2 class="section-title">Hanh trinh cua ban</h2>
+    <p class="section-subtitle">Hoan thanh tung nhiem vu de xay dung he thong kiem tien tu dong</p>
+
+    <!-- Progress -->
+    <div class="progress-section">
+        <div class="progress-label" id="progressLabel">⚡ Tien do hanh trinh</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <div class="progress-text" id="progressText">0 / 8 nhiem vu hoan thanh</div>
+        <div class="progress-dots" id="progressDots"></div>
+    </div>
+
+    <!-- Mission Sections -->
+    <div id="missionsList"></div>
+</section>
+
+<!-- Completion -->
+<section class="completion-section" id="completionSection"></section>
+
+<!-- Footer -->
+<footer class="footer" id="footerSection">
+    <div class="footer-text" id="footerText"></div>
+    <div class="footer-links" id="footerLinks"></div>
+</footer>
+
+<script>
+// ===========================
+// STATE
+// ===========================
+let data = null;
+let checkedItems = {};
+let completedMissions = {};
+let openMissions = {};
+
+// Load saved progress from localStorage
+try {
+    checkedItems = JSON.parse(localStorage.getItem('reup_checklist') || '{}');
+    completedMissions = JSON.parse(localStorage.getItem('reup_missions') || '{}');
+} catch(e) {}
+
+// ===========================
+// LOAD DATA
+// ===========================
+async function init() {
+    try {
+        const res = await fetch('/api/data');
+        data = await res.json();
+        render();
+        setTimeout(() => {
+            document.getElementById('loadingScreen').classList.add('hide');
+        }, 600);
+        // Setup scroll observer
+        setupScrollObserver();
+    } catch(e) {
+        console.error('Cannot load data:', e);
+        document.querySelector('.loader-text').textContent = 'Loi ket noi server!';
+    }
+}
+
+// ===========================
+// RENDER
+// ===========================
+function render() {
+    renderHero();
+    renderVideo();
+    renderMissions();
+    renderCompletion();
+    renderFooter();
+    updateProgress();
+}
+
+function renderHero() {
+    const h = data.hero;
+    document.getElementById('heroBadge').textContent = h.badge;
+    document.getElementById('heroTitle').innerHTML = escHtml(h.title).replace(/\\n|\n/g, '<br>');
+    document.getElementById('heroSubtitle').textContent = h.subtitle;
+    document.getElementById('heroDesc').textContent = h.description;
+    document.getElementById('heroHighlight').textContent = h.highlight;
+    document.getElementById('heroCta').textContent = h.ctaText;
+}
+
+function renderVideo() {
+    const v = data.video;
+    document.getElementById('videoLabel').textContent = v.label;
+    document.getElementById('videoTitle').textContent = v.title;
+    document.getElementById('videoSubtitle').textContent = v.subtitle;
+
+    const container = document.getElementById('videoContainer');
+    if (v.url) {
+        container.innerHTML = '<iframe src="' + escAttr(v.url) + '" allowfullscreen></iframe>';
+    } else {
+        container.innerHTML =
+            '<div class="video-placeholder">' +
+                '<div class="play-icon">&#9654;</div>' +
+                '<span>' + escHtml(v.placeholder || 'Video sap duoc cap nhat') + '</span>' +
+            '</div>';
+    }
+}
+
+function renderMissions() {
+    const list = document.getElementById('missionsList');
+    list.innerHTML = '';
+
+    // Progress dots
+    const dotsEl = document.getElementById('progressDots');
+    dotsEl.innerHTML = '';
+
+    data.missions.forEach(function(m, i) {
+        var isCompleted = isMissionCompleted(i);
+        var isLocked = !isCompleted && i > 0 && !isMissionCompleted(i - 1) && i > getFirstIncompleteMission();
+        var isOpen = openMissions[i] || false;
+
+        // Progress dot
+        var dot = document.createElement('div');
+        dot.className = 'progress-dot' + (isCompleted ? ' completed' : (i === getFirstIncompleteMission() ? ' current' : ''));
+        dot.textContent = isCompleted ? '✓' : (i + 1);
+        dotsEl.appendChild(dot);
+
+        // Mission section
+        var section = document.createElement('div');
+        section.className = 'mission-section fade-in' +
+            (isOpen ? ' open' : '') +
+            (isLocked ? ' locked' : '') +
+            (isCompleted ? ' completed-mission' : '');
+        section.dataset.color = m.color;
+        section.dataset.index = i;
+
+        var statusClass = isCompleted ? 'done' : (isLocked ? 'locked-status' : 'pending');
+        var statusText = isCompleted ? '✅ Hoan thanh' : (isLocked ? '🔒 Chua mo' : '⏳ Dang cho');
+
+        // Build links HTML
+        var linksHtml = '';
+        if (m.links && m.links.length > 0) {
+            linksHtml = '<div class="mc-links">';
+            m.links.forEach(function(link) {
+                var cls = link.style === 'primary' ? 'mc-link primary' : 'mc-link secondary';
+                linksHtml += '<a href="' + escAttr(link.url) + '" class="' + cls + '" target="_blank">' + escHtml(link.text) + '</a>';
+            });
+            linksHtml += '</div>';
+        }
+
+        // Build note HTML
+        var noteHtml = '';
+        if (m.note) {
+            var noteType = m.noteType || 'info';
+            noteHtml = '<div class="mc-note ' + noteType + '">📌 ' + escHtml(m.note) + '</div>';
+        }
+
+        // Build steps HTML
+        var stepsHtml = '';
+        if (m.steps && m.steps.length > 0) {
+            stepsHtml = '<div class="mc-steps-section">' +
+                '<div class="mc-steps-label">📋 Cac buoc thuc hien</div>';
+            m.steps.forEach(function(s, si) {
+                stepsHtml += '<div class="mc-step"><div class="mc-step-num">' + (si + 1) + '</div><span>' + escHtml(s) + '</span></div>';
+            });
+            stepsHtml += '</div>';
+        }
+
+        // Build video HTML
+        var videoHtml = '';
+        if (m.videoTitle || m.videoUrl) {
+            videoHtml = '<div class="mc-video-section">' +
+                '<div class="mc-video-label">🎬 Video huong dan</div>' +
+                '<div class="mc-video-box">';
+            if (m.videoUrl) {
+                videoHtml += '<iframe src="' + escAttr(m.videoUrl) + '" allowfullscreen></iframe>';
+            } else {
+                videoHtml += '<div class="video-placeholder"><div class="play-icon" style="width:56px;height:56px;font-size:22px">&#9654;</div><span>' + escHtml(m.videoTitle || 'Video sap cap nhat') + '</span></div>';
+            }
+            videoHtml += '</div></div>';
+        }
+
+        // Build checklist HTML
+        var checklistHtml = '';
+        if (m.checklist && m.checklist.length > 0) {
+            checklistHtml = '<div class="mc-checklist">' +
+                '<div class="mc-checklist-label">✅ Xac nhan hoan thanh</div>';
+            m.checklist.forEach(function(c, ci) {
+                var key = 'mission_' + i + '_' + ci;
+                var checked = checkedItems[key] ? ' checked' : '';
+                checklistHtml += '<div class="check-item' + checked + '" onclick="toggleCheck(this, \'' + key + '\', ' + i + ')">' +
+                    '<div class="check-box"></div>' +
+                    '<span class="check-text">' + escHtml(c) + '</span>' +
+                '</div>';
+            });
+            checklistHtml += '</div>';
+        }
+
+        // Build tip HTML
+        var tipHtml = '';
+        if (m.tip) {
+            tipHtml = '<div class="mc-tip">💡 ' + escHtml(m.tip) + '</div>';
+        }
+
+        // Complete button
+        var btnClass = isCompleted ? 'mc-complete-btn is-completed' : 'mc-complete-btn incomplete';
+        var btnText = isCompleted ? '✅ DA HOAN THANH' : '✔ TOI DA HOAN THANH';
+
+        section.innerHTML =
+            '<div class="mission-header" onclick="toggleMission(' + i + ')">' +
+                '<div class="mh-icon">' + m.icon + '</div>' +
+                '<div class="mh-info">' +
+                    '<div class="mh-label">NHIEM VU ' + (i + 1) + '</div>' +
+                    '<div class="mh-title">' + escHtml(m.title) + '</div>' +
+                    '<div class="mh-subtitle">' + escHtml(m.subtitle) + '</div>' +
+                '</div>' +
+                '<div class="mh-status ' + statusClass + '">' + statusText + '</div>' +
+                '<div class="mh-toggle">&#9662;</div>' +
+            '</div>' +
+            '<div class="mission-body">' +
+                '<div class="mission-content">' +
+                    '<div class="mc-desc">' + escHtml(m.description) + '</div>' +
+                    videoHtml +
+                    stepsHtml +
+                    linksHtml +
+                    noteHtml +
+                    checklistHtml +
+                    tipHtml +
+                    '<button class="' + btnClass + '" ' + (isCompleted ? 'disabled' : 'onclick="completeMission(' + i + ')"') + '>' + btnText + '</button>' +
+                '</div>' +
+            '</div>';
+
+        list.appendChild(section);
+    });
+}
+
+// ===========================
+// COMPLETION SCREEN
+// ===========================
+function renderCompletion() {
+    var c = data.completion;
+    var section = document.getElementById('completionSection');
+    var itemsHtml = '';
+    if (c.items) {
+        c.items.forEach(function(item) {
+            itemsHtml += '<div class="comp-card">' +
+                '<div class="comp-card-icon">' + item.icon + '</div>' +
+                '<div class="comp-card-title">' + escHtml(item.title) + '</div>' +
+                '<div class="comp-card-desc">' + escHtml(item.desc) + '</div>' +
+            '</div>';
+        });
+    }
+
+    section.innerHTML =
+        '<div class="comp-icon">🏆</div>' +
+        '<h2 class="comp-title">' + escHtml(c.title) + '</h2>' +
+        '<p class="comp-desc">' + escHtml(c.description) + '</p>' +
+        '<p class="comp-subtitle">' + escHtml(c.subtitle) + '</p>' +
+        '<div class="comp-cards">' + itemsHtml + '</div>' +
+        '<a href="' + escAttr(c.ctaUrl || '#') + '" class="comp-cta" target="_blank">' + escHtml(c.ctaText) + '</a>' +
+        '<p class="comp-footer-text">' + escHtml(c.footerText) + '</p>';
+}
+
+function renderFooter() {
+    var f = data.footer;
+    document.getElementById('footerText').textContent = f.text;
+    var linksEl = document.getElementById('footerLinks');
+    var html = '';
+    if (f.links) {
+        f.links.forEach(function(l) {
+            html += '<a href="' + escAttr(l.url) + '">' + escHtml(l.text) + '</a>';
+        });
+    }
+    linksEl.innerHTML = html;
+}
+
+// ===========================
+// INTERACTIONS
+// ===========================
+function toggleMission(index) {
+    if (openMissions[index]) {
+        openMissions[index] = false;
+    } else {
+        openMissions[index] = true;
+    }
+    var sections = document.querySelectorAll('.mission-section');
+    sections.forEach(function(s) {
+        var idx = parseInt(s.dataset.index);
+        if (idx === index) {
+            s.classList.toggle('open', openMissions[index]);
+        }
+    });
+}
+
+function toggleCheck(el, key, missionIndex) {
+    el.classList.toggle('checked');
+    checkedItems[key] = el.classList.contains('checked');
+    localStorage.setItem('reup_checklist', JSON.stringify(checkedItems));
+    checkAutoComplete(missionIndex);
+    updateProgress();
+}
+
+function checkAutoComplete(missionIndex) {
+    var m = data.missions[missionIndex];
+    if (!m.checklist || m.checklist.length === 0) return;
+    var allChecked = m.checklist.every(function(_, ci) {
+        return checkedItems['mission_' + missionIndex + '_' + ci];
+    });
+    if (allChecked && !completedMissions[missionIndex]) {
+        completedMissions[missionIndex] = true;
+        localStorage.setItem('reup_missions', JSON.stringify(completedMissions));
+        renderMissions();
+    }
+}
+
+function completeMission(index) {
+    completedMissions[index] = true;
+    localStorage.setItem('reup_missions', JSON.stringify(completedMissions));
+    // Also check all checklist items
+    var m = data.missions[index];
+    if (m.checklist) {
+        m.checklist.forEach(function(_, ci) {
+            checkedItems['mission_' + index + '_' + ci] = true;
+        });
+        localStorage.setItem('reup_checklist', JSON.stringify(checkedItems));
+    }
+    renderMissions();
+    updateProgress();
+}
+
+function isMissionCompleted(index) {
+    return !!completedMissions[index];
+}
+
+function getFirstIncompleteMission() {
+    for (var i = 0; i < data.missions.length; i++) {
+        if (!completedMissions[i]) return i;
+    }
+    return data.missions.length;
+}
+
+// ===========================
+// PROGRESS
+// ===========================
+function updateProgress() {
+    var total = data.missions.length;
+    var done = 0;
+    for (var key in completedMissions) {
+        if (completedMissions[key]) done++;
+    }
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = done + ' / ' + total + ' nhiem vu hoan thanh (' + pct + '%)';
+
+    var compSection = document.getElementById('completionSection');
+    if (done >= total && total > 0) {
+        compSection.classList.add('show');
+    } else {
+        compSection.classList.remove('show');
+    }
+}
+
+// ===========================
+// SCROLL
+// ===========================
+function scrollToMissions() {
+    document.getElementById('missionsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function setupScrollObserver() {
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+        observer.observe(el);
+    });
+}
+
+// ===========================
+// HELPERS
+// ===========================
+function escHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function escAttr(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        // close all missions
+        openMissions = {};
+        document.querySelectorAll('.mission-section').forEach(function(s) { s.classList.remove('open'); });
+    }
+});
+
+// ===========================
+// INIT
+// ===========================
+init();
+</script>
+</body>
+</html>

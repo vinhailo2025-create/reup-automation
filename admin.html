@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin CMS - Reup Automation</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        :root{--bg:#0b0614;--bg2:#110a1f;--bg3:#1a1030;--bg4:#251845;--purple:#b36dff;--cyan:#00d4ff;--green:#22c55e;--yellow:#ffd233;--red:#ef4444;--orange:#f97316;--text:#f5f0ff;--text2:#b8a8d4;--text3:#7a6897;--border:rgba(179,109,255,.1);--border2:rgba(179,109,255,.2)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse at 0% 0%,rgba(179,109,255,.04) 0%,transparent 50%),radial-gradient(ellipse at 100% 100%,rgba(0,212,255,.03) 0%,transparent 50%);background-attachment:fixed}
+
+        /* ===== LOGIN ===== */
+        .login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);background-image:radial-gradient(ellipse at 50% 50%,rgba(179,109,255,.08) 0%,transparent 70%)}
+        .login-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:40px;width:420px;max-width:90vw;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.3),0 0 60px rgba(179,109,255,.06)}
+        .login-card h1{font-size:24px;margin-bottom:8px;color:var(--cyan)}
+        .login-card p{color:var(--text2);font-size:14px;margin-bottom:30px}
+        .login-card .logo{font-size:48px;margin-bottom:16px}
+        .form-group{margin-bottom:16px;text-align:left}
+        .form-group label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+        .form-input{width:100%;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;transition:border .2s}
+        .form-input:focus{border-color:var(--purple);box-shadow:0 0 15px rgba(179,109,255,.1)}
+        .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--yellow),#ffb800);color:#0b0614;font-weight:800;font-size:15px;border:none;border-radius:10px;cursor:pointer;transition:all .2s;margin-top:8px;box-shadow:0 4px 20px rgba(255,210,51,.2)}
+        .login-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 25px rgba(255,210,51,.3)}
+        .login-error{color:var(--red);font-size:13px;margin-top:12px;display:none}
+
+        /* ===== LAYOUT ===== */
+        .app{display:none;min-height:100vh}
+        .app.visible{display:flex}
+        .sidebar{width:270px;background:var(--bg2);border-right:1px solid var(--border);padding:20px 0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:50;box-shadow:4px 0 20px rgba(0,0,0,.2)}
+        .sidebar-brand{padding:0 20px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;color:var(--cyan)}
+        .sidebar-brand span{font-size:22px}
+        .sidebar-nav{padding:16px 12px}
+        .nav-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:8px 12px;margin-top:8px}
+        .nav-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .2s;margin-bottom:2px}
+        .nav-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
+        .nav-item.active{background:rgba(179,109,255,.12);color:var(--purple);font-weight:600}
+        .nav-item .nav-icon{font-size:16px;width:22px;text-align:center}
+        .nav-item .nav-badge{margin-left:auto;font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(179,109,255,.15);color:var(--purple);font-weight:600}
+        .sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);margin-top:auto}
+        .sidebar-footer .preview-btn{width:100%;padding:10px;background:linear-gradient(135deg,var(--yellow),#ffb800);color:#0b0614;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 15px rgba(255,210,51,.15)}
+        .sidebar-footer .preview-btn:hover{opacity:.85;box-shadow:0 5px 20px rgba(255,210,51,.25)}
+        .logout-btn{width:100%;padding:8px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text3);font-size:12px;cursor:pointer;margin-top:8px;transition:all .2s}
+        .logout-btn:hover{border-color:var(--red);color:var(--red)}
+
+        .main{margin-left:270px;flex:1;padding:30px;max-width:850px}
+        .main-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;position:sticky;top:0;background:var(--bg);padding:16px 0;z-index:10;border-bottom:1px solid var(--border)}
+        .main-header h2{font-size:22px;font-weight:800;color:var(--cyan)}
+        .header-actions{display:flex;gap:10px}
+        .save-btn{padding:10px 24px;background:linear-gradient(135deg,var(--yellow),#ffb800);color:#0b0614;border:none;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;box-shadow:0 3px 15px rgba(255,210,51,.15)}
+        .save-btn:hover{opacity:.85;transform:translateY(-1px);box-shadow:0 5px 20px rgba(255,210,51,.25)}
+        .save-btn:disabled{opacity:.4;cursor:not-allowed}
+        .reset-btn{padding:10px 16px;background:transparent;border:1px solid var(--border);color:var(--text3);border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s}
+        .reset-btn:hover{border-color:var(--red);color:var(--red)}
+
+        /* ===== PANELS ===== */
+        .panel{display:none}
+        .panel.active{display:block}
+        .card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 2px 15px rgba(0,0,0,.15)}
+        .card-title{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:var(--cyan)}
+        .card-title .ct-icon{font-size:18px}
+        .card-subtitle{font-size:12px;color:var(--text3);margin-top:-10px;margin-bottom:16px}
+
+        .field{margin-bottom:16px}
+        .field label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600}
+        .field input,.field textarea,.field select{width:100%;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border .2s;resize:vertical}
+        .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--purple)}
+        .field textarea{min-height:80px}
+        .field-hint{font-size:11px;color:var(--text3);margin-top:4px}
+
+        .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+        /* Dynamic list */
+        .dyn-list{display:flex;flex-direction:column;gap:8px}
+        .dyn-item{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+        .dyn-item input{flex:1;background:transparent;border:none;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+        .dyn-item .dyn-drag{color:var(--text3);cursor:grab;font-size:14px;padding:0 4px}
+        .dyn-item .dyn-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:4px;transition:background .2s}
+        .dyn-item .dyn-remove:hover{background:rgba(239,68,68,.1)}
+        .dyn-add{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border:1px dashed var(--border2);border-radius:8px;background:transparent;color:var(--text2);font-size:12px;cursor:pointer;transition:all .2s;margin-top:4px}
+        .dyn-add:hover{border-color:var(--purple);color:var(--purple)}
+
+        /* Link editor in missions */
+        .link-item{display:grid;grid-template-columns:1fr 2fr auto auto;gap:8px;margin-bottom:8px;align-items:center}
+        .link-item input,.link-item select{padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
+        .link-item input:focus{border-color:var(--purple)}
+        .link-item select{background:var(--bg2);cursor:pointer}
+        .link-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:18px;padding:6px}
+
+        /* Completion items editor */
+        .comp-item-editor{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;display:grid;grid-template-columns:60px 1fr 1fr auto;gap:10px;align-items:center}
+        .comp-item-editor input{padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
+        .comp-item-editor input:focus{border-color:var(--purple)}
+        .comp-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:4px}
+
+        /* Footer link editor */
+        .footer-link-editor{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin-bottom:8px}
+        .footer-link-editor input{padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
+        .footer-link-editor input:focus{border-color:var(--purple)}
+
+        /* Mission nav */
+        .mission-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+        .mission-tab{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+        .mission-tab.active{background:rgba(179,109,255,.15);border-color:rgba(179,109,255,.4);color:var(--purple)}
+        .mission-tab:hover:not(.active){border-color:var(--border2);color:var(--text2)}
+        .mission-panel{display:none}
+        .mission-panel.active{display:block}
+
+        /* Color selector */
+        .color-options{display:flex;gap:8px;flex-wrap:wrap}
+        .color-opt{width:32px;height:32px;border-radius:8px;border:2px solid transparent;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:14px}
+        .color-opt:hover{transform:scale(1.1)}
+        .color-opt.selected{border-color:#fff;box-shadow:0 0 12px rgba(255,255,255,.2)}
+        .color-opt[data-c="yellow"]{background:rgba(255,210,51,.2)}
+        .color-opt[data-c="purple"]{background:rgba(179,109,255,.2)}
+        .color-opt[data-c="green"]{background:rgba(34,197,94,.2)}
+        .color-opt[data-c="cyan"]{background:rgba(0,212,255,.2)}
+        .color-opt[data-c="orange"]{background:rgba(249,115,22,.2)}
+
+        /* Note type selector */
+        .note-type-options{display:flex;gap:8px}
+        .note-type-opt{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;cursor:pointer;transition:all .2s}
+        .note-type-opt.selected{font-weight:600}
+        .note-type-opt[data-type="info"].selected{background:rgba(0,212,255,.15);border-color:rgba(0,212,255,.3);color:var(--cyan)}
+        .note-type-opt[data-type="warning"].selected{background:rgba(255,210,51,.15);border-color:rgba(255,210,51,.3);color:var(--yellow)}
+
+        /* Toast */
+        .toast{position:fixed;bottom:30px;right:30px;padding:14px 24px;border-radius:12px;font-weight:600;font-size:14px;z-index:999;transform:translateY(100px);transition:transform .4s ease;display:flex;align-items:center;gap:8px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+        .toast.show{transform:translateY(0)}
+        .toast.success{background:var(--bg3);border:1px solid var(--green);color:var(--green);box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 20px rgba(34,197,94,.1)}
+        .toast.error{background:var(--bg3);border:1px solid var(--red);color:var(--red);box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 20px rgba(239,68,68,.1)}
+
+        /* Responsive */
+        @media(max-width:768px){
+            .sidebar{width:100%;position:relative;border-right:none;border-bottom:1px solid var(--border)}
+            .main{margin-left:0;padding:20px}
+            .app.visible{flex-direction:column}
+            .field-row,.field-row-3{grid-template-columns:1fr}
+            .comp-item-editor{grid-template-columns:1fr;gap:8px}
+            .link-item{grid-template-columns:1fr;gap:6px}
+            .main-header{position:relative}
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-track{background:var(--bg)}
+        ::-webkit-scrollbar-thumb{background:rgba(179,109,255,.15);border-radius:3px}
+    </style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div class="login-page" id="loginPage">
+    <div class="login-card">
+        <div class="logo">🔧</div>
+        <h1>Admin CMS</h1>
+        <p>Reup Automation System</p>
+        <div class="form-group">
+            <label>Email</label>
+            <input class="form-input" type="email" id="loginEmail" placeholder="admin@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input class="form-input" type="password" id="loginPass" placeholder="••••••" autocomplete="current-password">
+        </div>
+        <button class="login-btn" onclick="doLogin()">Dang nhap</button>
+        <div class="login-error" id="loginError"></div>
+    </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div class="app" id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand"><span>🔧</span> Admin CMS</div>
+        <nav class="sidebar-nav" id="sidebarNav">
+            <div class="nav-label">Noi dung</div>
+            <div class="nav-item active" data-panel="hero" onclick="showPanel('hero',this)"><span class="nav-icon">🏠</span> Hero Section</div>
+            <div class="nav-item" data-panel="video" onclick="showPanel('video',this)"><span class="nav-icon">🎬</span> Video Gioi Thieu</div>
+            <div class="nav-item" data-panel="missions" onclick="showPanel('missions',this)"><span class="nav-icon">🎯</span> Nhiem Vu <span class="nav-badge" id="missionCount">8</span></div>
+            <div class="nav-item" data-panel="completion" onclick="showPanel('completion',this)"><span class="nav-icon">🏆</span> Completion</div>
+            <div class="nav-item" data-panel="footer" onclick="showPanel('footer',this)"><span class="nav-icon">📎</span> Footer & Links</div>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="preview-btn" onclick="window.open('/','_blank')">👁 Xem trang chinh</button>
+            <button class="logout-btn" onclick="doLogout()">🚪 Dang xuat</button>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main" id="mainContent">
+        <div class="main-header">
+            <h2 id="panelTitle">Hero Section</h2>
+            <div class="header-actions">
+                <button class="save-btn" onclick="saveAll()">💾 Luu tat ca</button>
+            </div>
+        </div>
+
+        <!-- HERO Panel -->
+        <div class="panel active" id="panel-hero">
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🏠</span> Hero Section</div>
+                <div class="field"><label>Badge text</label><input id="hero-badge" placeholder="🚀 NHIEM VU TAN THU"></div>
+                <div class="field"><label>Tieu de chinh (dung \n de xuong dong)</label><input id="hero-title" placeholder="HANH TRINH REUP\nAUTOMATION 30 NGAY"></div>
+                <div class="field"><label>Phu de</label><input id="hero-subtitle" placeholder="Chao mung ban den voi..."></div>
+                <div class="field"><label>Mo ta (ho tro xuong dong)</label><textarea id="hero-description" rows="3"></textarea></div>
+                <div class="field"><label>Highlight text</label><input id="hero-highlight"></div>
+                <div class="field"><label>Nut CTA</label><input id="hero-ctaText" placeholder="🚀 BAT DAU HANH TRINH"></div>
+            </div>
+        </div>
+
+        <!-- VIDEO Panel -->
+        <div class="panel" id="panel-video">
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🎬</span> Video Gioi Thieu</div>
+                <div class="field"><label>Label</label><input id="video-label"></div>
+                <div class="field"><label>Tieu de</label><input id="video-title"></div>
+                <div class="field"><label>Phu de</label><input id="video-subtitle"></div>
+                <div class="field"><label>Video URL (YouTube embed hoac direct link)</label><input id="video-url" placeholder="https://www.youtube.com/embed/..."></div>
+                <div class="field-hint">De trong neu chua co video</div>
+                <div class="field"><label>Placeholder text (hien khi chua co video)</label><input id="video-placeholder"></div>
+            </div>
+        </div>
+
+        <!-- MISSIONS Panel -->
+        <div class="panel" id="panel-missions">
+            <div class="mission-tabs" id="missionTabs"></div>
+            <div id="missionPanels"></div>
+        </div>
+
+        <!-- COMPLETION Panel -->
+        <div class="panel" id="panel-completion">
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🏆</span> Completion Screen</div>
+                <div class="field"><label>Tieu de</label><input id="comp-title"></div>
+                <div class="field"><label>Mo ta</label><input id="comp-description"></div>
+                <div class="field"><label>Phu de</label><input id="comp-subtitle"></div>
+                <div class="field-row">
+                    <div class="field"><label>Nut CTA text</label><input id="comp-ctaText"></div>
+                    <div class="field"><label>Nut CTA URL</label><input id="comp-ctaUrl" placeholder="https://..."></div>
+                </div>
+                <div class="field"><label>Footer text</label><input id="comp-footerText"></div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">📦</span> Action Items</div>
+                <p class="card-subtitle">Cac the hien thi sau khi hoan thanh tat ca nhiem vu</p>
+                <div id="compItems"></div>
+                <button class="dyn-add" onclick="addCompItem()">+ Them item</button>
+            </div>
+        </div>
+
+        <!-- FOOTER Panel -->
+        <div class="panel" id="panel-footer">
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">📎</span> Footer</div>
+                <div class="field"><label>Footer text</label><input id="footer-text"></div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🔗</span> Footer Links</div>
+                <div id="footerLinksContainer"></div>
+                <button class="dyn-add" onclick="addFooterLink()">+ Them link</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===========================
+// STATE
+// ===========================
+var token = localStorage.getItem('admin_token') || '';
+var data = null;
+var currentMission = 0;
+
+// ===========================
+// AUTH
+// ===========================
+async function doLogin() {
+    var email = document.getElementById('loginEmail').value;
+    var password = document.getElementById('loginPass').value;
+    var errEl = document.getElementById('loginError');
+    errEl.style.display = 'none';
+
+    try {
+        var res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
+        });
+        var json = await res.json();
+        if (json.success) {
+            token = json.token;
+            localStorage.setItem('admin_token', token);
+            await loadAndRender();
+        } else {
+            errEl.textContent = json.error || 'Login failed';
+            errEl.style.display = 'block';
+        }
+    } catch (e) {
+        errEl.textContent = 'Khong the ket noi server';
+        errEl.style.display = 'block';
+    }
+}
+
+function doLogout() {
+    token = '';
+    localStorage.removeItem('admin_token');
+    document.getElementById('app').classList.remove('visible');
+    document.getElementById('loginPage').style.display = 'flex';
+}
+
+async function checkAuth() {
+    if (!token) return false;
+    try {
+        var res = await fetch('/api/auth', { headers: { Authorization: 'Bearer ' + token } });
+        return res.ok;
+    } catch(e) { return false; }
+}
+
+// ===========================
+// DATA
+// ===========================
+async function loadData() {
+    var res = await fetch('/api/data');
+    data = await res.json();
+    // Ensure new fields exist
+    data.missions.forEach(function(m) {
+        if (!m.links) m.links = [];
+        if (!m.note) m.note = '';
+        if (!m.noteType) m.noteType = 'info';
+    });
+}
+
+async function saveAll() {
+    collectData();
+    try {
+        var res = await fetch('/api/data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify(data)
+        });
+        var json = await res.json();
+        if (json.success) showToast('Luu thanh cong! ✅', 'success');
+        else showToast('Loi: ' + (json.error || 'Unknown'), 'error');
+    } catch (e) {
+        showToast('Loi ket noi server', 'error');
+    }
+}
+
+// ===========================
+// RENDER
+// ===========================
+async function loadAndRender() {
+    await loadData();
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('app').classList.add('visible');
+    document.getElementById('missionCount').textContent = data.missions.length;
+    renderAll();
+}
+
+function renderAll() {
+    // Hero
+    document.getElementById('hero-badge').value = data.hero.badge || '';
+    document.getElementById('hero-title').value = data.hero.title || '';
+    document.getElementById('hero-subtitle').value = data.hero.subtitle || '';
+    document.getElementById('hero-description').value = data.hero.description || '';
+    document.getElementById('hero-highlight').value = data.hero.highlight || '';
+    document.getElementById('hero-ctaText').value = data.hero.ctaText || '';
+
+    // Video
+    document.getElementById('video-label').value = data.video.label || '';
+    document.getElementById('video-title').value = data.video.title || '';
+    document.getElementById('video-subtitle').value = data.video.subtitle || '';
+    document.getElementById('video-url').value = data.video.url || '';
+    document.getElementById('video-placeholder').value = data.video.placeholder || '';
+
+    // Missions
+    renderMissionTabs();
+    renderMissionPanel(0);
+
+    // Completion
+    document.getElementById('comp-title').value = data.completion.title || '';
+    document.getElementById('comp-description').value = data.completion.description || '';
+    document.getElementById('comp-subtitle').value = data.completion.subtitle || '';
+    document.getElementById('comp-ctaText').value = data.completion.ctaText || '';
+    document.getElementById('comp-ctaUrl').value = data.completion.ctaUrl || '';
+    document.getElementById('comp-footerText').value = data.completion.footerText || '';
+    renderCompItems();
+
+    // Footer
+    document.getElementById('footer-text').value = data.footer.text || '';
+    renderFooterLinks();
+}
+
+// ===========================
+// MISSIONS
+// ===========================
+function renderMissionTabs() {
+    var container = document.getElementById('missionTabs');
+    container.innerHTML = '';
+    data.missions.forEach(function(m, i) {
+        var btn = document.createElement('button');
+        btn.className = 'mission-tab' + (i === currentMission ? ' active' : '');
+        btn.textContent = m.icon + ' NV' + (i + 1);
+        btn.onclick = function() {
+            collectMissionData();
+            currentMission = i;
+            renderMissionTabs();
+            renderMissionPanel(i);
+        };
+        container.appendChild(btn);
+    });
+}
+
+function renderMissionPanel(index) {
+    var m = data.missions[index];
+    var container = document.getElementById('missionPanels');
+    var colors = ['yellow', 'purple', 'green', 'cyan', 'orange'];
+
+    // Build steps
+    var stepsHtml = '';
+    (m.steps || []).forEach(function(s, i) {
+        stepsHtml += '<div class="dyn-item"><span class="dyn-drag">⠿</span><span style="color:var(--purple);font-weight:700;font-size:12px">' + (i + 1) + '</span><input value="' + esc(s) + '"><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button></div>';
+    });
+
+    // Build checklist
+    var checklistHtml = '';
+    (m.checklist || []).forEach(function(c) {
+        checklistHtml += '<div class="dyn-item"><input value="' + esc(c) + '"><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button></div>';
+    });
+
+    // Build links
+    var linksHtml = '';
+    (m.links || []).forEach(function(link) {
+        linksHtml += '<div class="link-item">' +
+            '<input value="' + esc(link.text) + '" placeholder="Text nut" class="ml-text">' +
+            '<input value="' + esc(link.url) + '" placeholder="URL" class="ml-url">' +
+            '<select class="ml-style">' +
+                '<option value="primary"' + (link.style === 'primary' ? ' selected' : '') + '>Primary</option>' +
+                '<option value="secondary"' + (link.style === 'secondary' ? ' selected' : '') + '>Secondary</option>' +
+            '</select>' +
+            '<button class="link-remove" onclick="this.parentElement.remove()">✕</button>' +
+        '</div>';
+    });
+
+    // Note type
+    var noteTypeInfo = (!m.noteType || m.noteType === 'info') ? ' selected' : '';
+    var noteTypeWarning = (m.noteType === 'warning') ? ' selected' : '';
+
+    container.innerHTML =
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">' + m.icon + '</span> Nhiem vu ' + (index + 1) + ': ' + esc(m.title) + '</div>' +
+            '<div class="field-row">' +
+                '<div class="field"><label>Icon (emoji)</label><input id="m-icon" value="' + esc(m.icon) + '"></div>' +
+                '<div class="field"><label>Tieu de</label><input id="m-title" value="' + esc(m.title) + '"></div>' +
+            '</div>' +
+            '<div class="field"><label>Phu de</label><input id="m-subtitle" value="' + esc(m.subtitle) + '"></div>' +
+            '<div class="field"><label>Mo ta chi tiet</label><textarea id="m-description" rows="3">' + esc(m.description) + '</textarea></div>' +
+            '<div class="field-row">' +
+                '<div class="field">' +
+                    '<label>Mau</label>' +
+                    '<div class="color-options">' +
+                        colors.map(function(c) {
+                            var emoji = c === 'yellow' ? '🟡' : c === 'purple' ? '🟣' : c === 'green' ? '🟢' : c === 'cyan' ? '🔵' : '🟠';
+                            return '<div class="color-opt ' + (c === m.color ? 'selected' : '') + '" data-c="' + c + '" onclick="selectColor(this,\'' + c + '\')">' + emoji + '</div>';
+                        }).join('') +
+                    '</div>' +
+                '</div>' +
+                '<div class="field">' +
+                    '<label>Tuan</label>' +
+                    '<select id="m-week" style="padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px">' +
+                        '<option value="w1"' + (m.week === 'w1' ? ' selected' : '') + '>Tuan 1</option>' +
+                        '<option value="w2"' + (m.week === 'w2' ? ' selected' : '') + '>Tuan 2</option>' +
+                        '<option value="w3"' + (m.week === 'w3' ? ' selected' : '') + '>Tuan 3</option>' +
+                        '<option value="w4"' + (m.week === 'w4' ? ' selected' : '') + '>Tuan 4</option>' +
+                    '</select>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">📋</span> Cac buoc huong dan</div>' +
+            '<div class="dyn-list" id="m-steps">' + stepsHtml + '</div>' +
+            '<button class="dyn-add" onclick="addDynItem(\'m-steps\')">+ Them buoc</button>' +
+        '</div>' +
+
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">🎬</span> Video huong dan</div>' +
+            '<div class="field-row">' +
+                '<div class="field"><label>Tieu de video</label><input id="m-videoTitle" value="' + esc(m.videoTitle) + '"></div>' +
+                '<div class="field"><label>Phu de video</label><input id="m-videoSubtitle" value="' + esc(m.videoSubtitle) + '"></div>' +
+            '</div>' +
+            '<div class="field"><label>Video URL</label><input id="m-videoUrl" value="' + esc(m.videoUrl) + '" placeholder="https://www.youtube.com/embed/..."></div>' +
+            '<div class="field-hint">Ho tro YouTube embed, Vimeo, hoac direct video URL</div>' +
+        '</div>' +
+
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">🔗</span> Links & Buttons</div>' +
+            '<p class="card-subtitle">Them cac nut/link vao nhiem vu (VD: link tai, form, zalo...)</p>' +
+            '<div id="m-links">' + linksHtml + '</div>' +
+            '<button class="dyn-add" onclick="addMissionLink()">+ Them link/button</button>' +
+        '</div>' +
+
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">📌</span> Ghi chu / Luu y</div>' +
+            '<div class="field"><label>Noi dung ghi chu</label><textarea id="m-note" rows="2">' + esc(m.note) + '</textarea></div>' +
+            '<div class="field">' +
+                '<label>Kieu ghi chu</label>' +
+                '<div class="note-type-options">' +
+                    '<div class="note-type-opt' + noteTypeInfo + '" data-type="info" onclick="selectNoteType(this, \'info\')">ℹ️ Info</div>' +
+                    '<div class="note-type-opt' + noteTypeWarning + '" data-type="warning" onclick="selectNoteType(this, \'warning\')">⚠️ Warning</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="field-hint">De trong neu khong can ghi chu</div>' +
+        '</div>' +
+
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">✅</span> Checklist items</div>' +
+            '<p class="card-subtitle">Nguoi dung phai check tat ca muc nay de hoan thanh nhiem vu</p>' +
+            '<div class="dyn-list" id="m-checklist">' + checklistHtml + '</div>' +
+            '<button class="dyn-add" onclick="addDynItem(\'m-checklist\')">+ Them item</button>' +
+        '</div>' +
+
+        '<div class="card">' +
+            '<div class="card-title"><span class="ct-icon">💡</span> Tip / Goi y</div>' +
+            '<div class="field"><label>Noi dung tip (hien o cuoi nhiem vu)</label><input id="m-tip" value="' + esc(m.tip) + '"></div>' +
+        '</div>';
+}
+
+function selectColor(el, color) {
+    el.closest('.color-options').querySelectorAll('.color-opt').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+}
+
+function selectNoteType(el, type) {
+    el.closest('.note-type-options').querySelectorAll('.note-type-opt').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+}
+
+function addDynItem(containerId) {
+    var list = document.getElementById(containerId);
+    var div = document.createElement('div');
+    div.className = 'dyn-item';
+    div.innerHTML = '<input value="" placeholder="Nhap noi dung..." autofocus><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button>';
+    list.appendChild(div);
+    div.querySelector('input').focus();
+}
+
+function addMissionLink() {
+    var container = document.getElementById('m-links');
+    var div = document.createElement('div');
+    div.className = 'link-item';
+    div.innerHTML =
+        '<input value="" placeholder="Text nut" class="ml-text">' +
+        '<input value="" placeholder="URL" class="ml-url">' +
+        '<select class="ml-style"><option value="primary">Primary</option><option value="secondary">Secondary</option></select>' +
+        '<button class="link-remove" onclick="this.parentElement.remove()">✕</button>';
+    container.appendChild(div);
+    div.querySelector('.ml-text').focus();
+}
+
+// ===========================
+// COMPLETION ITEMS
+// ===========================
+function renderCompItems() {
+    var container = document.getElementById('compItems');
+    container.innerHTML = '';
+    (data.completion.items || []).forEach(function(item, i) {
+        var div = document.createElement('div');
+        div.className = 'comp-item-editor';
+        div.dataset.idx = i;
+        div.innerHTML =
+            '<input value="' + esc(item.icon) + '" placeholder="Icon" class="ci-icon">' +
+            '<input value="' + esc(item.title) + '" placeholder="Tieu de" class="ci-title">' +
+            '<input value="' + esc(item.desc) + '" placeholder="Mo ta" class="ci-desc">' +
+            '<button class="comp-remove" onclick="this.parentElement.remove()">✕</button>';
+        container.appendChild(div);
+    });
+}
+
+function addCompItem() {
+    var container = document.getElementById('compItems');
+    var div = document.createElement('div');
+    div.className = 'comp-item-editor';
+    div.innerHTML =
+        '<input value="" placeholder="Icon" class="ci-icon">' +
+        '<input value="" placeholder="Tieu de" class="ci-title">' +
+        '<input value="" placeholder="Mo ta" class="ci-desc">' +
+        '<button class="comp-remove" onclick="this.parentElement.remove()">✕</button>';
+    container.appendChild(div);
+    div.querySelector('.ci-icon').focus();
+}
+
+// ===========================
+// FOOTER LINKS
+// ===========================
+function renderFooterLinks() {
+    var container = document.getElementById('footerLinksContainer');
+    container.innerHTML = '';
+    (data.footer.links || []).forEach(function(link) {
+        var div = document.createElement('div');
+        div.className = 'footer-link-editor';
+        div.innerHTML =
+            '<input value="' + esc(link.text) + '" placeholder="Text" class="fl-text">' +
+            '<input value="' + esc(link.url) + '" placeholder="URL" class="fl-url">' +
+            '<button class="link-remove" onclick="this.parentElement.remove()">✕</button>';
+        container.appendChild(div);
+    });
+}
+
+function addFooterLink() {
+    var container = document.getElementById('footerLinksContainer');
+    var div = document.createElement('div');
+    div.className = 'footer-link-editor';
+    div.innerHTML =
+        '<input value="" placeholder="Text" class="fl-text">' +
+        '<input value="" placeholder="URL" class="fl-url">' +
+        '<button class="link-remove" onclick="this.parentElement.remove()">✕</button>';
+    container.appendChild(div);
+    div.querySelector('.fl-text').focus();
+}
+
+// ===========================
+// COLLECT DATA
+// ===========================
+function collectData() {
+    // Hero
+    data.hero.badge = document.getElementById('hero-badge').value;
+    data.hero.title = document.getElementById('hero-title').value;
+    data.hero.subtitle = document.getElementById('hero-subtitle').value;
+    data.hero.description = document.getElementById('hero-description').value;
+    data.hero.highlight = document.getElementById('hero-highlight').value;
+    data.hero.ctaText = document.getElementById('hero-ctaText').value;
+
+    // Video
+    data.video.label = document.getElementById('video-label').value;
+    data.video.title = document.getElementById('video-title').value;
+    data.video.subtitle = document.getElementById('video-subtitle').value;
+    data.video.url = document.getElementById('video-url').value;
+    data.video.placeholder = document.getElementById('video-placeholder').value;
+
+    // Current mission
+    collectMissionData();
+
+    // Completion
+    data.completion.title = document.getElementById('comp-title').value;
+    data.completion.description = document.getElementById('comp-description').value;
+    data.completion.subtitle = document.getElementById('comp-subtitle').value;
+    data.completion.ctaText = document.getElementById('comp-ctaText').value;
+    data.completion.ctaUrl = document.getElementById('comp-ctaUrl').value;
+    data.completion.footerText = document.getElementById('comp-footerText').value;
+
+    // Completion items
+    var compEditors = document.querySelectorAll('.comp-item-editor');
+    data.completion.items = Array.from(compEditors).map(function(el) {
+        return {
+            icon: el.querySelector('.ci-icon').value,
+            title: el.querySelector('.ci-title').value,
+            desc: el.querySelector('.ci-desc').value
+        };
+    });
+
+    // Footer
+    data.footer.text = document.getElementById('footer-text').value;
+    var linkEditors = document.querySelectorAll('.footer-link-editor');
+    data.footer.links = Array.from(linkEditors).map(function(el) {
+        return {
+            text: el.querySelector('.fl-text').value,
+            url: el.querySelector('.fl-url').value
+        };
+    });
+}
+
+function collectMissionData() {
+    var iconEl = document.getElementById('m-icon');
+    if (!iconEl) return;
+
+    var m = data.missions[currentMission];
+    m.icon = iconEl.value;
+    m.title = document.getElementById('m-title').value;
+    m.subtitle = document.getElementById('m-subtitle').value;
+    m.description = document.getElementById('m-description').value;
+    m.week = document.getElementById('m-week').value;
+    m.videoTitle = document.getElementById('m-videoTitle').value;
+    m.videoSubtitle = document.getElementById('m-videoSubtitle').value;
+    m.videoUrl = document.getElementById('m-videoUrl').value;
+    m.tip = document.getElementById('m-tip').value;
+    m.note = document.getElementById('m-note').value;
+
+    // Note type
+    var selectedNoteType = document.querySelector('.note-type-opt.selected');
+    if (selectedNoteType) m.noteType = selectedNoteType.dataset.type;
+
+    // Color
+    var selectedColor = document.querySelector('.color-opt.selected');
+    if (selectedColor) m.color = selectedColor.dataset.c;
+
+    // Steps
+    m.steps = Array.from(document.querySelectorAll('#m-steps .dyn-item input')).map(function(i) { return i.value; }).filter(function(v) { return v; });
+
+    // Checklist
+    m.checklist = Array.from(document.querySelectorAll('#m-checklist .dyn-item input')).map(function(i) { return i.value; }).filter(function(v) { return v; });
+
+    // Links
+    var linkItems = document.querySelectorAll('#m-links .link-item');
+    m.links = Array.from(linkItems).map(function(el) {
+        return {
+            text: el.querySelector('.ml-text').value,
+            url: el.querySelector('.ml-url').value,
+            style: el.querySelector('.ml-style').value
+        };
+    }).filter(function(l) { return l.text || l.url; });
+}
+
+// ===========================
+// UI
+// ===========================
+function showPanel(name, el) {
+    collectData();
+
+    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+    document.getElementById('panel-' + name).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+    if (el) el.classList.add('active');
+
+    var titles = {
+        hero: 'Hero Section',
+        video: 'Video Gioi Thieu',
+        missions: 'Nhiem Vu (' + data.missions.length + ')',
+        completion: 'Completion Screen',
+        footer: 'Footer & Links'
+    };
+    document.getElementById('panelTitle').textContent = titles[name] || name;
+
+    // Re-render mission panel when switching to missions
+    if (name === 'missions') {
+        renderMissionTabs();
+        renderMissionPanel(currentMission);
+    }
+}
+
+function showToast(msg, type) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type + ' show';
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+
+function esc(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ===========================
+// KEYBOARD
+// ===========================
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        saveAll();
+    }
+});
+
+// Enter on login
+document.getElementById('loginPass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+document.getElementById('loginEmail').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('loginPass').focus(); });
+
+// ===========================
+// INIT
+// ===========================
+(async function init() {
+    if (await checkAuth()) {
+        await loadAndRender();
+    }
+})();
+</script>
+</body>
+</html>
