@@ -33,6 +33,7 @@
       "links": [],
       "note": "Sau bước này bạn phải xác định: Chủ đề reup, Loại video, Sản phẩm gắn",
       "noteType": "info",
+      "videos": [],
       "checklist": [
         "Đã xem video hướng dẫn",
         "Đã chọn được chủ đề reup",
@@ -60,6 +61,7 @@
       ],
       "note": "Yêu cầu: Tạo 5 Fanpage theo chủ đề",
       "noteType": "info",
+      "videos": [],
       "checklist": [
         "Đã tạo 5 Fanpage",
         "Đã điền form thông tin"
@@ -84,6 +86,7 @@
       "links": [],
       "note": "Đây là nguồn tiền của hệ thống",
       "noteType": "warning",
+      "videos": [],
       "checklist": [
         "Đã tạo tài khoản Shopee Affiliate",
         "Đã thử liên kết Fanpage"
@@ -108,6 +111,7 @@
       "links": [],
       "note": "Sau bước này bạn phải biết cách tìm sản phẩm hot và biết sản phẩm nào dễ bán",
       "noteType": "info",
+      "videos": [],
       "checklist": [
         "Đã tìm được ít nhất 3 sản phẩm"
       ],
@@ -134,6 +138,7 @@
       ],
       "note": "",
       "noteType": "info",
+      "videos": [],
       "checklist": [
         "Đã tải và cài đặt Gemlogin",
         "Đã đăng nhập thành công"
@@ -158,6 +163,7 @@
       "links": [],
       "note": "Phải đúng mail đã đăng ký Gemlogin",
       "noteType": "warning",
+      "videos": [],
       "checklist": [
         "Đã gửi thông tin cho admin",
         "Đã được add tool thành công"
@@ -182,6 +188,7 @@
       "links": [],
       "note": "Sau bước này bạn sẽ biết cách chạy video và bắt đầu đăng bài",
       "noteType": "info",
+      "videos": [],
       "checklist": [
         "Đã chạy video đầu tiên"
       ],
@@ -205,6 +212,7 @@
       "links": [],
       "note": "Mục tiêu: Không thiếu bước nào, không bị sai hệ thống",
       "noteType": "warning",
+      "videos": [],
       "checklist": [
         "Đã check checklist trong nhóm"
       ],
@@ -252,5 +260,8 @@
         "url": "#"
       }
     ]
+  },
+  "settings": {
+    "unlockPassword": ""
   }
 }

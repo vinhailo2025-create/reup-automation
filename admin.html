@@ -89,6 +89,12 @@
         .link-item select{background:var(--bg2);cursor:pointer}
         .link-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:18px;padding:6px}
 
+        /* Video item editor in missions */
+        .video-item{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin-bottom:10px;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px}
+        .video-item input{padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
+        .video-item input:focus{border-color:var(--purple)}
+        .video-item .video-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:18px;padding:6px}
+
         /* Completion items editor */
         .comp-item-editor{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;display:grid;grid-template-columns:60px 1fr 1fr auto;gap:10px;align-items:center}
         .comp-item-editor input{padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
@@ -165,7 +171,7 @@
             <label>Password</label>
             <input class="form-input" type="password" id="loginPass" placeholder="••••••" autocomplete="current-password">
         </div>
-        <button class="login-btn" onclick="doLogin()">Dang nhap</button>
+        <button class="login-btn" onclick="doLogin()">Đăng nhập</button>
         <div class="login-error" id="loginError"></div>
     </div>
 </div>
@@ -176,16 +182,18 @@
     <aside class="sidebar">
         <div class="sidebar-brand"><span>🔧</span> Admin CMS</div>
         <nav class="sidebar-nav" id="sidebarNav">
-            <div class="nav-label">Noi dung</div>
+            <div class="nav-label">Nội dung</div>
             <div class="nav-item active" data-panel="hero" onclick="showPanel('hero',this)"><span class="nav-icon">🏠</span> Hero Section</div>
-            <div class="nav-item" data-panel="video" onclick="showPanel('video',this)"><span class="nav-icon">🎬</span> Video Gioi Thieu</div>
-            <div class="nav-item" data-panel="missions" onclick="showPanel('missions',this)"><span class="nav-icon">🎯</span> Nhiem Vu <span class="nav-badge" id="missionCount">8</span></div>
+            <div class="nav-item" data-panel="video" onclick="showPanel('video',this)"><span class="nav-icon">🎬</span> Video giới thiệu</div>
+            <div class="nav-item" data-panel="missions" onclick="showPanel('missions',this)"><span class="nav-icon">🎯</span> Nhiệm vụ <span class="nav-badge" id="missionCount">8</span></div>
             <div class="nav-item" data-panel="completion" onclick="showPanel('completion',this)"><span class="nav-icon">🏆</span> Completion</div>
             <div class="nav-item" data-panel="footer" onclick="showPanel('footer',this)"><span class="nav-icon">📎</span> Footer & Links</div>
+            <div class="nav-label">Hệ thống</div>
+            <div class="nav-item" data-panel="settings" onclick="showPanel('settings',this)"><span class="nav-icon">🔐</span> Cài đặt</div>
         </nav>
         <div class="sidebar-footer">
-            <button class="preview-btn" onclick="window.open('/','_blank')">👁 Xem trang chinh</button>
-            <button class="logout-btn" onclick="doLogout()">🚪 Dang xuat</button>
+            <button class="preview-btn" onclick="window.open('/','_blank')">👁 Xem trang chính</button>
+            <button class="logout-btn" onclick="doLogout()">🚪 Đăng xuất</button>
         </div>
     </aside>
 
@@ -194,7 +202,7 @@
         <div class="main-header">
             <h2 id="panelTitle">Hero Section</h2>
             <div class="header-actions">
-                <button class="save-btn" onclick="saveAll()">💾 Luu tat ca</button>
+                <button class="save-btn" onclick="saveAll()">💾 Lưu tất cả</button>
             </div>
         </div>
 
@@ -203,30 +211,33 @@
             <div class="card">
                 <div class="card-title"><span class="ct-icon">🏠</span> Hero Section</div>
                 <div class="field"><label>Badge text</label><input id="hero-badge" placeholder="🚀 NHIEM VU TAN THU"></div>
-                <div class="field"><label>Tieu de chinh (dung \n de xuong dong)</label><input id="hero-title" placeholder="HANH TRINH REUP\nAUTOMATION 30 NGAY"></div>
-                <div class="field"><label>Phu de</label><input id="hero-subtitle" placeholder="Chao mung ban den voi..."></div>
-                <div class="field"><label>Mo ta (ho tro xuong dong)</label><textarea id="hero-description" rows="3"></textarea></div>
+                <div class="field"><label>Tiêu đề chính (dùng \n để xuống dòng)</label><input id="hero-title" placeholder="HÀNH TRÌNH REUP\nAUTOMATION 30 NGÀY"></div>
+                <div class="field"><label>Phụ đề</label><input id="hero-subtitle" placeholder="Chào mừng bạn đến với..."></div>
+                <div class="field"><label>Mô tả (hỗ trợ xuống dòng)</label><textarea id="hero-description" rows="3"></textarea></div>
                 <div class="field"><label>Highlight text</label><input id="hero-highlight"></div>
-                <div class="field"><label>Nut CTA</label><input id="hero-ctaText" placeholder="🚀 BAT DAU HANH TRINH"></div>
+                <div class="field"><label>Nút CTA</label><input id="hero-ctaText" placeholder="🚀 BẮT ĐẦU HÀNH TRÌNH"></div>
             </div>
         </div>
 
         <!-- VIDEO Panel -->
         <div class="panel" id="panel-video">
             <div class="card">
-                <div class="card-title"><span class="ct-icon">🎬</span> Video Gioi Thieu</div>
-                <div class="field"><label>Label</label><input id="video-label"></div>
-                <div class="field"><label>Tieu de</label><input id="video-title"></div>
-                <div class="field"><label>Phu de</label><input id="video-subtitle"></div>
-                <div class="field"><label>Video URL (YouTube embed hoac direct link)</label><input id="video-url" placeholder="https://www.youtube.com/embed/..."></div>
-                <div class="field-hint">De trong neu chua co video</div>
-                <div class="field"><label>Placeholder text (hien khi chua co video)</label><input id="video-placeholder"></div>
+                <div class="card-title"><span class="ct-icon">🎬</span> Video giới thiệu</div>
+                <div class="field"><label>Nhãn</label><input id="video-label"></div>
+                <div class="field"><label>Tiêu đề</label><input id="video-title"></div>
+                <div class="field"><label>Phụ đề</label><input id="video-subtitle"></div>
+                <div class="field"><label>Video URL (bất kỳ link YouTube nào)</label><input id="video-url" placeholder="https://www.youtube.com/watch?v=... hoặc https://youtu.be/..."></div>
+                <div class="field-hint">Hỗ trợ mọi dạng link YouTube: youtube.com/watch?v=..., youtu.be/..., youtube.com/shorts/..., youtube.com/embed/...</div>
+                <div class="field"><label>Placeholder text (hiện khi chưa có video)</label><input id="video-placeholder"></div>
             </div>
         </div>
 
         <!-- MISSIONS Panel -->
         <div class="panel" id="panel-missions">
-            <div class="mission-tabs" id="missionTabs"></div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+                <div class="mission-tabs" id="missionTabs" style="margin-bottom:0;flex:1"></div>
+                <button class="dyn-add" onclick="addNewMission()" style="white-space:nowrap;padding:8px 16px;font-weight:700">+ Thêm nhiệm vụ</button>
+            </div>
             <div id="missionPanels"></div>
         </div>
 
@@ -234,20 +245,20 @@
         <div class="panel" id="panel-completion">
             <div class="card">
                 <div class="card-title"><span class="ct-icon">🏆</span> Completion Screen</div>
-                <div class="field"><label>Tieu de</label><input id="comp-title"></div>
-                <div class="field"><label>Mo ta</label><input id="comp-description"></div>
-                <div class="field"><label>Phu de</label><input id="comp-subtitle"></div>
+                <div class="field"><label>Tiêu đề</label><input id="comp-title"></div>
+                <div class="field"><label>Mô tả</label><input id="comp-description"></div>
+                <div class="field"><label>Phụ đề</label><input id="comp-subtitle"></div>
                 <div class="field-row">
-                    <div class="field"><label>Nut CTA text</label><input id="comp-ctaText"></div>
-                    <div class="field"><label>Nut CTA URL</label><input id="comp-ctaUrl" placeholder="https://..."></div>
+                    <div class="field"><label>Nút CTA text</label><input id="comp-ctaText"></div>
+                    <div class="field"><label>Nút CTA URL</label><input id="comp-ctaUrl" placeholder="https://..."></div>
                 </div>
                 <div class="field"><label>Footer text</label><input id="comp-footerText"></div>
             </div>
             <div class="card">
                 <div class="card-title"><span class="ct-icon">📦</span> Action Items</div>
-                <p class="card-subtitle">Cac the hien thi sau khi hoan thanh tat ca nhiem vu</p>
+                <p class="card-subtitle">Các thẻ hiện thị sau khi hoàn thành tất cả nhiệm vụ</p>
                 <div id="compItems"></div>
-                <button class="dyn-add" onclick="addCompItem()">+ Them item</button>
+                <button class="dyn-add" onclick="addCompItem()">+ Thêm item</button>
             </div>
         </div>
 
@@ -260,7 +271,17 @@
             <div class="card">
                 <div class="card-title"><span class="ct-icon">🔗</span> Footer Links</div>
                 <div id="footerLinksContainer"></div>
-                <button class="dyn-add" onclick="addFooterLink()">+ Them link</button>
+                <button class="dyn-add" onclick="addFooterLink()">+ Thêm link</button>
+            </div>
+        </div>
+
+        <!-- SETTINGS Panel -->
+        <div class="panel" id="panel-settings">
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🔐</span> Mật khẩu mở khóa nhiệm vụ</div>
+                <p class="card-subtitle">Nhiệm vụ 1-2 miễn phí. Từ nhiệm vụ 3 trở đi cần nhập mật khẩu này để xem.</p>
+                <div class="field"><label>Mật khẩu mở khóa</label><input id="settings-unlockPassword" type="text" placeholder="Nhập mật khẩu..."></div>
+                <div class="field-hint">Để trống nếu không cần khóa nhiệm vụ</div>
             </div>
         </div>
     </main>
@@ -302,7 +323,7 @@ async function doLogin() {
             errEl.style.display = 'block';
         }
     } catch (e) {
-        errEl.textContent = 'Khong the ket noi server';
+        errEl.textContent = 'Không thể kết nối server';
         errEl.style.display = 'block';
     }
 }
@@ -318,7 +339,13 @@ async function checkAuth() {
     if (!token) return false;
     try {
         var res = await fetch('/api/auth', { headers: { Authorization: 'Bearer ' + token } });
-        return res.ok;
+        if (!res.ok) {
+            // Token invalid/expired, clear it
+            localStorage.removeItem('admin_token');
+            token = '';
+            return false;
+        }
+        return true;
     } catch(e) { return false; }
 }
 
@@ -326,14 +353,27 @@ async function checkAuth() {
 // DATA
 // ===========================
 async function loadData() {
-    var res = await fetch('/api/data');
-    data = await res.json();
-    // Ensure new fields exist
-    data.missions.forEach(function(m) {
-        if (!m.links) m.links = [];
-        if (!m.note) m.note = '';
-        if (!m.noteType) m.noteType = 'info';
-    });
+    try {
+        var res = await fetch('/api/data-admin', { headers: { Authorization: 'Bearer ' + token } });
+        if (!res.ok) {
+            // Fallback to public endpoint
+            res = await fetch('/api/data');
+        }
+        if (!res.ok) throw new Error('Server returned ' + res.status);
+        data = await res.json();
+        // Ensure new fields exist
+        if (!data.settings) data.settings = { unlockPassword: '' };
+        data.missions.forEach(function(m) {
+            if (!m.links) m.links = [];
+            if (!m.note) m.note = '';
+            if (!m.noteType) m.noteType = 'info';
+            if (!m.videos) m.videos = [];
+        });
+    } catch(e) {
+        console.error('Load data error:', e);
+        showToast('Lỗi tải dữ liệu: ' + e.message, 'error');
+        throw e;
+    }
 }
 
 async function saveAll() {
@@ -344,11 +384,23 @@ async function saveAll() {
             headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
             body: JSON.stringify(data)
         });
+
+        // If token expired or invalid, force re-login
+        if (res.status === 401) {
+            showToast('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại', 'error');
+            setTimeout(function() { doLogout(); }, 1500);
+            return;
+        }
+
         var json = await res.json();
-        if (json.success) showToast('Luu thanh cong! ✅', 'success');
-        else showToast('Loi: ' + (json.error || 'Unknown'), 'error');
+        if (json.success) {
+            showToast('Lưu thành công! ✅', 'success');
+        } else {
+            showToast('Loi: ' + (json.error || 'Unknown'), 'error');
+        }
     } catch (e) {
-        showToast('Loi ket noi server', 'error');
+        console.error('Save error:', e);
+        showToast('Lỗi kết nối server: ' + e.message, 'error');
     }
 }
 
@@ -395,6 +447,9 @@ function renderAll() {
     // Footer
     document.getElementById('footer-text').value = data.footer.text || '';
     renderFooterLinks();
+
+    // Settings
+    document.getElementById('settings-unlockPassword').value = (data.settings && data.settings.unlockPassword) || '';
 }
 
 // ===========================
@@ -438,7 +493,7 @@ function renderMissionPanel(index) {
     var linksHtml = '';
     (m.links || []).forEach(function(link) {
         linksHtml += '<div class="link-item">' +
-            '<input value="' + esc(link.text) + '" placeholder="Text nut" class="ml-text">' +
+            '<input value="' + esc(link.text) + '" placeholder="Tên nút" class="ml-text">' +
             '<input value="' + esc(link.url) + '" placeholder="URL" class="ml-url">' +
             '<select class="ml-style">' +
                 '<option value="primary"' + (link.style === 'primary' ? ' selected' : '') + '>Primary</option>' +
@@ -448,22 +503,33 @@ function renderMissionPanel(index) {
         '</div>';
     });
 
+    // Build videos list (new multi-video format)
+    var videosHtml = '';
+    var videosList = getMissionVideos(m);
+    videosList.forEach(function(vid) {
+        videosHtml += '<div class="video-item">' +
+            '<input value="' + esc(vid.title) + '" placeholder="Tiêu đề video" class="mv-title">' +
+            '<input value="' + esc(vid.url) + '" placeholder="Link YouTube (bất kỳ dạng nào)" class="mv-url">' +
+            '<button class="video-remove" onclick="this.parentElement.remove()">✕</button>' +
+        '</div>';
+    });
+
     // Note type
     var noteTypeInfo = (!m.noteType || m.noteType === 'info') ? ' selected' : '';
     var noteTypeWarning = (m.noteType === 'warning') ? ' selected' : '';
 
     container.innerHTML =
         '<div class="card">' +
-            '<div class="card-title"><span class="ct-icon">' + m.icon + '</span> Nhiem vu ' + (index + 1) + ': ' + esc(m.title) + '</div>' +
+            '<div class="card-title"><span class="ct-icon">' + m.icon + '</span> Nhiệm vụ ' + (index + 1) + ': ' + esc(m.title) + '</div>' +
             '<div class="field-row">' +
                 '<div class="field"><label>Icon (emoji)</label><input id="m-icon" value="' + esc(m.icon) + '"></div>' +
-                '<div class="field"><label>Tieu de</label><input id="m-title" value="' + esc(m.title) + '"></div>' +
+                '<div class="field"><label>Tiêu đề</label><input id="m-title" value="' + esc(m.title) + '"></div>' +
             '</div>' +
-            '<div class="field"><label>Phu de</label><input id="m-subtitle" value="' + esc(m.subtitle) + '"></div>' +
-            '<div class="field"><label>Mo ta chi tiet</label><textarea id="m-description" rows="3">' + esc(m.description) + '</textarea></div>' +
+            '<div class="field"><label>Phụ đề</label><input id="m-subtitle" value="' + esc(m.subtitle) + '"></div>' +
+            '<div class="field"><label>Mô tả chi tiết</label><textarea id="m-description" rows="3">' + esc(m.description) + '</textarea></div>' +
             '<div class="field-row">' +
                 '<div class="field">' +
-                    '<label>Mau</label>' +
+                    '<label>Màu</label>' +
                     '<div class="color-options">' +
                         colors.map(function(c) {
                             var emoji = c === 'yellow' ? '🟡' : c === 'purple' ? '🟣' : c === 'green' ? '🟢' : c === 'cyan' ? '🔵' : '🟠';
@@ -471,64 +537,57 @@ function renderMissionPanel(index) {
                         }).join('') +
                     '</div>' +
                 '</div>' +
-                '<div class="field">' +
-                    '<label>Tuan</label>' +
-                    '<select id="m-week" style="padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px">' +
-                        '<option value="w1"' + (m.week === 'w1' ? ' selected' : '') + '>Tuan 1</option>' +
-                        '<option value="w2"' + (m.week === 'w2' ? ' selected' : '') + '>Tuan 2</option>' +
-                        '<option value="w3"' + (m.week === 'w3' ? ' selected' : '') + '>Tuan 3</option>' +
-                        '<option value="w4"' + (m.week === 'w4' ? ' selected' : '') + '>Tuan 4</option>' +
-                    '</select>' +
-                '</div>' +
-            '</div>' +
         '</div>' +
 
         '<div class="card">' +
-            '<div class="card-title"><span class="ct-icon">📋</span> Cac buoc huong dan</div>' +
+            '<div class="card-title"><span class="ct-icon">📋</span> Các bước hướng dẫn</div>' +
             '<div class="dyn-list" id="m-steps">' + stepsHtml + '</div>' +
-            '<button class="dyn-add" onclick="addDynItem(\'m-steps\')">+ Them buoc</button>' +
+            '<button class="dyn-add" onclick="addDynItem(\'m-steps\')">+ Thêm bước</button>' +
         '</div>' +
 
         '<div class="card">' +
-            '<div class="card-title"><span class="ct-icon">🎬</span> Video huong dan</div>' +
-            '<div class="field-row">' +
-                '<div class="field"><label>Tieu de video</label><input id="m-videoTitle" value="' + esc(m.videoTitle) + '"></div>' +
-                '<div class="field"><label>Phu de video</label><input id="m-videoSubtitle" value="' + esc(m.videoSubtitle) + '"></div>' +
-            '</div>' +
-            '<div class="field"><label>Video URL</label><input id="m-videoUrl" value="' + esc(m.videoUrl) + '" placeholder="https://www.youtube.com/embed/..."></div>' +
-            '<div class="field-hint">Ho tro YouTube embed, Vimeo, hoac direct video URL</div>' +
+            '<div class="card-title"><span class="ct-icon">🎬</span> Video hướng dẫn</div>' +
+            '<p class="card-subtitle">Thêm nhiều video hướng dẫn cho nhiệm vụ này. Hỗ trợ mọi dạng link YouTube.</p>' +
+            '<div id="m-videos">' + videosHtml + '</div>' +
+            '<button class="dyn-add" onclick="addMissionVideo()">+ Thêm video</button>' +
         '</div>' +
 
         '<div class="card">' +
             '<div class="card-title"><span class="ct-icon">🔗</span> Links & Buttons</div>' +
-            '<p class="card-subtitle">Them cac nut/link vao nhiem vu (VD: link tai, form, zalo...)</p>' +
+            '<p class="card-subtitle">Thêm các nút/link vào nhiệm vụ (VD: link tải, form, zalo...)</p>' +
             '<div id="m-links">' + linksHtml + '</div>' +
-            '<button class="dyn-add" onclick="addMissionLink()">+ Them link/button</button>' +
+            '<button class="dyn-add" onclick="addMissionLink()">+ Thêm link/button</button>' +
         '</div>' +
 
         '<div class="card">' +
-            '<div class="card-title"><span class="ct-icon">📌</span> Ghi chu / Luu y</div>' +
-            '<div class="field"><label>Noi dung ghi chu</label><textarea id="m-note" rows="2">' + esc(m.note) + '</textarea></div>' +
+            '<div class="card-title"><span class="ct-icon">📌</span> Ghi chú / Lưu ý</div>' +
+            '<div class="field"><label>Nội dung ghi chú</label><textarea id="m-note" rows="2">' + esc(m.note) + '</textarea></div>' +
             '<div class="field">' +
-                '<label>Kieu ghi chu</label>' +
+                '<label>Kiểu ghi chú</label>' +
                 '<div class="note-type-options">' +
                     '<div class="note-type-opt' + noteTypeInfo + '" data-type="info" onclick="selectNoteType(this, \'info\')">ℹ️ Info</div>' +
                     '<div class="note-type-opt' + noteTypeWarning + '" data-type="warning" onclick="selectNoteType(this, \'warning\')">⚠️ Warning</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="field-hint">De trong neu khong can ghi chu</div>' +
+            '<div class="field-hint">Để trống nếu không cần ghi chú</div>' +
         '</div>' +
 
         '<div class="card">' +
             '<div class="card-title"><span class="ct-icon">✅</span> Checklist items</div>' +
-            '<p class="card-subtitle">Nguoi dung phai check tat ca muc nay de hoan thanh nhiem vu</p>' +
+            '<p class="card-subtitle">Người dùng phải check tất cả mục này để hoàn thành nhiệm vụ</p>' +
             '<div class="dyn-list" id="m-checklist">' + checklistHtml + '</div>' +
-            '<button class="dyn-add" onclick="addDynItem(\'m-checklist\')">+ Them item</button>' +
+            '<button class="dyn-add" onclick="addDynItem(\'m-checklist\')">+ Thêm item</button>' +
         '</div>' +
 
         '<div class="card">' +
-            '<div class="card-title"><span class="ct-icon">💡</span> Tip / Goi y</div>' +
-            '<div class="field"><label>Noi dung tip (hien o cuoi nhiem vu)</label><input id="m-tip" value="' + esc(m.tip) + '"></div>' +
+            '<div class="card-title"><span class="ct-icon">💡</span> Tip / Gợi ý</div>' +
+            '<div class="field"><label>Nội dung tip (hiện ở cuối nhiệm vụ)</label><input id="m-tip" value="' + esc(m.tip) + '"></div>' +
+        '</div>' +
+
+        '<div class="card" style="border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.03)">' +
+            '<div class="card-title" style="color:var(--red)"><span class="ct-icon">🗑️</span> Xóa nhiệm vụ</div>' +
+            '<p class="card-subtitle">Xóa nhiệm vụ ' + (index + 1) + ': ' + esc(m.title) + '. Hành động này không thể hoàn tác.</p>' +
+            '<button onclick="deleteMission(' + index + ')" style="padding:8px 20px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;color:var(--red);font-weight:700;font-size:13px;cursor:pointer;transition:all .2s">🗑️ Xóa nhiệm vụ này</button>' +
         '</div>';
 }
 
@@ -546,7 +605,7 @@ function addDynItem(containerId) {
     var list = document.getElementById(containerId);
     var div = document.createElement('div');
     div.className = 'dyn-item';
-    div.innerHTML = '<input value="" placeholder="Nhap noi dung..." autofocus><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button>';
+    div.innerHTML = '<input value="" placeholder="Nhập nội dung..." autofocus><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button>';
     list.appendChild(div);
     div.querySelector('input').focus();
 }
@@ -556,12 +615,84 @@ function addMissionLink() {
     var div = document.createElement('div');
     div.className = 'link-item';
     div.innerHTML =
-        '<input value="" placeholder="Text nut" class="ml-text">' +
+        '<input value="" placeholder="Tên nút" class="ml-text">' +
         '<input value="" placeholder="URL" class="ml-url">' +
         '<select class="ml-style"><option value="primary">Primary</option><option value="secondary">Secondary</option></select>' +
         '<button class="link-remove" onclick="this.parentElement.remove()">✕</button>';
     container.appendChild(div);
     div.querySelector('.ml-text').focus();
+}
+
+// ===========================
+// MISSION VIDEOS (multi-video)
+// ===========================
+function getMissionVideos(m) {
+    // If new videos array exists and has items, use it
+    if (m.videos && m.videos.length > 0) return m.videos;
+    // Migrate from old single-video fields
+    if (m.videoUrl || m.videoTitle) {
+        return [{ title: m.videoTitle || '', url: m.videoUrl || '' }];
+    }
+    return [];
+}
+
+function addMissionVideo() {
+    var container = document.getElementById('m-videos');
+    var div = document.createElement('div');
+    div.className = 'video-item';
+    div.innerHTML =
+        '<input value="" placeholder="Tiêu đề video" class="mv-title">' +
+        '<input value="" placeholder="Link YouTube (bất kỳ dạng nào)" class="mv-url">' +
+        '<button class="video-remove" onclick="this.parentElement.remove()">✕</button>';
+    container.appendChild(div);
+    div.querySelector('.mv-title').focus();
+}
+
+// ===========================
+// ADD / DELETE MISSION
+// ===========================
+function addNewMission() {
+    collectMissionData();
+    var newIndex = data.missions.length + 1;
+    var colors = ['yellow', 'purple', 'green', 'cyan', 'orange'];
+    data.missions.push({
+        icon: '📌',
+        title: 'NHIỆM VỤ ' + newIndex,
+        subtitle: 'Mô tả ngắn',
+        description: 'Mô tả chi tiết nhiệm vụ mới.',
+        color: colors[(newIndex - 1) % colors.length],
+        week: 'w1',
+        steps: [],
+        videoTitle: '',
+        videoSubtitle: '',
+        videoUrl: '',
+        links: [],
+        note: '',
+        noteType: 'info',
+        videos: [],
+        checklist: [],
+        tip: ''
+    });
+    currentMission = data.missions.length - 1;
+    document.getElementById('missionCount').textContent = data.missions.length;
+    renderMissionTabs();
+    renderMissionPanel(currentMission);
+    showToast('Đã thêm nhiệm vụ ' + data.missions.length + ' ✅', 'success');
+}
+
+function deleteMission(index) {
+    if (data.missions.length <= 1) {
+        showToast('Phải có ít nhất 1 nhiệm vụ!', 'error');
+        return;
+    }
+    var title = data.missions[index].title;
+    if (!confirm('Bạn có chắc muốn xóa nhiệm vụ ' + (index + 1) + ': ' + title + '?\n\nHành động này không thể hoàn tác!')) return;
+    data.missions.splice(index, 1);
+    if (currentMission >= data.missions.length) currentMission = data.missions.length - 1;
+    document.getElementById('missionCount').textContent = data.missions.length;
+    renderMissionTabs();
+    renderMissionPanel(currentMission);
+    showToast('Đã xóa nhiệm vụ: ' + title, 'success');
 }
 
 // ===========================
@@ -576,8 +707,8 @@ function renderCompItems() {
         div.dataset.idx = i;
         div.innerHTML =
             '<input value="' + esc(item.icon) + '" placeholder="Icon" class="ci-icon">' +
-            '<input value="' + esc(item.title) + '" placeholder="Tieu de" class="ci-title">' +
-            '<input value="' + esc(item.desc) + '" placeholder="Mo ta" class="ci-desc">' +
+            '<input value="' + esc(item.title) + '" placeholder="Tiêu đề" class="ci-title">' +
+            '<input value="' + esc(item.desc) + '" placeholder="Mô tả" class="ci-desc">' +
             '<button class="comp-remove" onclick="this.parentElement.remove()">✕</button>';
         container.appendChild(div);
     });
@@ -589,8 +720,8 @@ function addCompItem() {
     div.className = 'comp-item-editor';
     div.innerHTML =
         '<input value="" placeholder="Icon" class="ci-icon">' +
-        '<input value="" placeholder="Tieu de" class="ci-title">' +
-        '<input value="" placeholder="Mo ta" class="ci-desc">' +
+        '<input value="" placeholder="Tiêu đề" class="ci-title">' +
+        '<input value="" placeholder="Mô tả" class="ci-desc">' +
         '<button class="comp-remove" onclick="this.parentElement.remove()">✕</button>';
     container.appendChild(div);
     div.querySelector('.ci-icon').focus();
@@ -674,6 +805,10 @@ function collectData() {
             url: el.querySelector('.fl-url').value
         };
     });
+
+    // Settings
+    if (!data.settings) data.settings = {};
+    data.settings.unlockPassword = document.getElementById('settings-unlockPassword').value;
 }
 
 function collectMissionData() {
@@ -685,12 +820,21 @@ function collectMissionData() {
     m.title = document.getElementById('m-title').value;
     m.subtitle = document.getElementById('m-subtitle').value;
     m.description = document.getElementById('m-description').value;
-    m.week = document.getElementById('m-week').value;
-    m.videoTitle = document.getElementById('m-videoTitle').value;
-    m.videoSubtitle = document.getElementById('m-videoSubtitle').value;
-    m.videoUrl = document.getElementById('m-videoUrl').value;
     m.tip = document.getElementById('m-tip').value;
     m.note = document.getElementById('m-note').value;
+
+    // Videos (multi-video)
+    var videoItems = document.querySelectorAll('#m-videos .video-item');
+    m.videos = Array.from(videoItems).map(function(el) {
+        return {
+            title: el.querySelector('.mv-title').value,
+            url: el.querySelector('.mv-url').value
+        };
+    }).filter(function(v) { return v.title || v.url; });
+    // Clear old single-video fields (migrated to videos array)
+    m.videoTitle = '';
+    m.videoSubtitle = '';
+    m.videoUrl = '';
 
     // Note type
     var selectedNoteType = document.querySelector('.note-type-opt.selected');
@@ -730,10 +874,11 @@ function showPanel(name, el) {
 
     var titles = {
         hero: 'Hero Section',
-        video: 'Video Gioi Thieu',
-        missions: 'Nhiem Vu (' + data.missions.length + ')',
-        completion: 'Completion Screen',
-        footer: 'Footer & Links'
+        video: 'Video giới thiệu',
+        missions: 'Nhiệm vụ (' + data.missions.length + ')',
+        completion: 'Màn hình hoàn thành',
+        footer: 'Footer & Links',
+        settings: 'Cài đặt'
     };
     document.getElementById('panelTitle').textContent = titles[name] || name;
 

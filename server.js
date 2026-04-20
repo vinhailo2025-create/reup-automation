@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = 3000;
@@ -10,6 +10,7 @@ const PORT = 3000;
 // ===== CONFIG =====
 const ADMIN_EMAIL = 'vinhailo2025@gmail.com';
 const ADMIN_PASS = '123456';
+const JWT_SECRET = 'reup-automation-secret-key-2025';
 const DATA_FILE = path.join(__dirname, 'data.json');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 
@@ -29,19 +30,24 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
-// ===== AUTH =====
-const sessions = {};
-
-function generateToken() {
-    return crypto.randomBytes(32).toString('hex');
+// ===== AUTH with JWT =====
+function generateToken(email) {
+    return jwt.sign({ email }, JWT_SECRET, { expiresIn: '7d' });
 }
 
 function authMiddleware(req, res, next) {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    if (!token || !sessions[token]) {
-        return res.status(401).json({ error: 'Unauthorized' });
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ error: 'No token provided' });
     }
-    next();
+    const token = authHeader.replace('Bearer ', '');
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (e) {
+        return res.status(401).json({ error: 'Invalid or expired token' });
+    }
 }
 
 // ===== DEFAULT DATA =====
@@ -192,17 +198,14 @@ function saveData(data) {
 
 // Serve main page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'demoreup.html'));
+    res.sendFile(path.join(__dirname, 'demo.html'));
 });
 
 // Login
 app.post('/api/login', (req, res) => {
     const { email, password } = req.body;
     if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
-        const token = generateToken();
-        sessions[token] = { email, loginAt: Date.now() };
-        // Auto-expire after 24h
-        setTimeout(() => delete sessions[token], 24 * 60 * 60 * 1000);
+        const token = generateToken(email);
         return res.json({ success: true, token });
     }
     res.status(401).json({ error: 'Email hoặc mật khẩu không đúng' });
@@ -213,9 +216,37 @@ app.get('/api/auth', authMiddleware, (req, res) => {
     res.json({ success: true });
 });
 
-// Get data (public)
+// Get data (public - hide password)
 app.get('/api/data', (req, res) => {
-    res.json(loadData());
+    const data = loadData();
+    if (!data.settings) data.settings = { unlockPassword: '' };
+    const publicData = JSON.parse(JSON.stringify(data));
+    if (publicData.settings) {
+        publicData.settings.hasPassword = !!(publicData.settings.unlockPassword);
+        delete publicData.settings.unlockPassword;
+    }
+    res.json(publicData);
+});
+
+// Get full data for admin (protected - includes password)
+app.get('/api/data-admin', authMiddleware, (req, res) => {
+    const data = loadData();
+    if (!data.settings) data.settings = { unlockPassword: '' };
+    res.json(data);
+});
+
+// Verify unlock password (public)
+app.post('/api/verify-password', (req, res) => {
+    const { password } = req.body;
+    const data = loadData();
+    const correctPassword = data.settings && data.settings.unlockPassword;
+    if (!correctPassword) {
+        return res.json({ success: true });
+    }
+    if (password === correctPassword) {
+        return res.json({ success: true });
+    }
+    res.json({ success: false, error: 'Sai mật khẩu' });
 });
 
 // Save data (protected)

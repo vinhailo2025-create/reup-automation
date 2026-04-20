@@ -3,40 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reup Automation - Hanh Trinh 30 Ngay</title>
+    <title>Reup Automation - Hành Trình 30 Ngày</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         :root {
-            --bg: #0b0614;
-            --bg2: #110a1f;
-            --bg3: #1a1030;
-            --bg4: #251845;
-            --purple: #b36dff;
-            --purple-glow: rgba(179,109,255,.25);
-            --cyan: #00d4ff;
-            --cyan-glow: rgba(0,212,255,.2);
+            --bg: #0C0C12;
+            --bg2: #111118;
+            --bg3: #18181f;
+            --bg4: #222230;
+            --purple: #D129DA;
+            --yellow: #FFC017;
             --green: #22c55e;
-            --yellow: #ffd233;
             --red: #ef4444;
             --orange: #f97316;
-            --text: #f5f0ff;
-            --text2: #b8a8d4;
-            --text3: #7a6897;
-            --border: rgba(179,109,255,.1);
-            --border2: rgba(179,109,255,.2);
+            --text: #FFFFFF;
+            --text2: #b8b8c8;
+            --text3: #6e6e82;
+            --border: rgba(255,255,255,.07);
+            --border2: rgba(209,41,218,.2);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
-            background-image:
-                radial-gradient(ellipse at 0% 0%, rgba(179,109,255,.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 100% 100%, rgba(0,212,255,.04) 0%, transparent 50%);
-            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* ===== LOADING ===== */
@@ -44,141 +40,126 @@
             position: fixed; inset: 0; background: var(--bg);
             display: flex; align-items: center; justify-content: center;
             z-index: 9999; transition: opacity .6s ease;
-            background-image: radial-gradient(ellipse at 50% 50%, rgba(179,109,255,.08) 0%, transparent 70%);
         }
         .loading-screen.hide { opacity: 0; pointer-events: none; }
         .loader { text-align: center; }
-        .loader-icon { font-size: 56px; animation: pulse 1.5s infinite; }
-        .loader-text { margin-top: 16px; color: var(--text2); font-size: 14px; letter-spacing: .5px; }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        .loader-icon { font-size: 48px; animation: pulse 1.5s infinite; }
+        .loader-text { margin-top: 14px; color: var(--text2); font-size: 14px; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 
         /* ===== HERO ===== */
         .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 80px 20px 60px; position: relative;
-            background:
-                radial-gradient(ellipse at 30% 20%, rgba(179,109,255,.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(0,212,255,.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255,210,51,.04) 0%, transparent 60%);
+            text-align: center;
+            padding: 100px 24px 60px;
+            position: relative;
+            transition: margin .5s ease;
         }
-        .hero::before {
-            content: ''; position: absolute; inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        .hero-content { max-width: 720px; position: relative; z-index: 1; }
+        .hero-content { max-width: 640px; margin: 0 auto; }
         .hero-badge {
-            display: inline-block; padding: 10px 24px; border-radius: 50px;
-            background: linear-gradient(135deg, rgba(179,109,255,.15), rgba(255,210,51,.12));
-            border: 1px solid rgba(179,109,255,.35);
-            color: var(--yellow); font-size: 13px; font-weight: 800;
-            margin-bottom: 28px; letter-spacing: 1px;
+            display: inline-block; padding: 8px 22px; border-radius: 50px;
+            background: rgba(209,41,218,.1);
+            border: 1px solid rgba(209,41,218,.3);
+            color: var(--yellow); font-size: 12px; font-weight: 700;
+            margin-bottom: 24px; letter-spacing: 1px;
             text-transform: uppercase;
-            animation: fadeInDown .8s ease;
-            text-shadow: 0 0 20px rgba(255,210,51,.3);
         }
         .hero-title {
-            font-size: clamp(34px, 6vw, 58px); font-weight: 900;
-            line-height: 1.1; margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--cyan) 0%, #8bffff 30%, #fff 60%, var(--purple) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp .8s ease .2s both;
+            font-size: clamp(28px, 5.5vw, 48px); font-weight: 900;
+            line-height: 1.2; margin-bottom: 20px;
+            color: #fff;
         }
         .hero-subtitle {
-            font-size: 19px; color: var(--text2); margin-bottom: 16px; font-weight: 500;
-            animation: fadeInUp .8s ease .4s both;
+            font-size: 17px; color: #FFFFFF; margin-bottom: 14px; font-weight: 500;
         }
         .hero-desc {
-            font-size: 15px; color: var(--text3); line-height: 1.8; margin-bottom: 20px;
+            font-size: 14px; color: var(--text2); line-height: 1.8; margin-bottom: 16px;
             white-space: pre-line;
-            animation: fadeInUp .8s ease .5s both;
         }
         .hero-highlight {
-            font-size: 17px; font-weight: 800; color: var(--yellow);
-            margin-bottom: 36px;
-            animation: fadeInUp .8s ease .6s both;
-            text-shadow: 0 0 30px rgba(255,210,51,.25);
+            font-size: 16px; font-weight: 800; color: var(--yellow);
+            margin-bottom: 32px;
         }
         .hero-cta {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 18px 44px; border-radius: 16px;
-            background: linear-gradient(135deg, var(--yellow), #ffb800);
-            color: #0b0614; font-size: 17px; font-weight: 800; text-decoration: none;
+            padding: 16px 44px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--yellow), #ffb300);
+            color: #0C0C12; font-size: 16px; font-weight: 800; text-decoration: none;
             transition: all .3s; cursor: pointer; border: none;
-            box-shadow: 0 8px 40px rgba(255,210,51,.3);
-            animation: fadeInUp .8s ease .7s both;
+            box-shadow: 0 6px 30px rgba(255,192,23,.25);
+            font-family: 'Be Vietnam Pro', sans-serif;
             position: relative; overflow: hidden;
         }
         .hero-cta::before {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,.25) 50%, transparent 70%);
+            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,.3) 50%, transparent 70%);
             transform: translateX(-100%); transition: transform .6s;
         }
         .hero-cta:hover::before { transform: translateX(100%); }
-        .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(255,210,51,.4); }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,192,23,.35); }
 
-        .scroll-hint {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: var(--text3); font-size: 28px; animation: bounce 2s infinite;
+        /* ===== DIVIDER ===== */
+        .hero-divider {
+            width: 60px; height: 3px; margin: 0 auto;
+            background: linear-gradient(90deg, var(--purple), var(--yellow));
+            border-radius: 3px;
+            opacity: 0; transition: opacity .5s ease;
         }
+        .hero-divider.show { opacity: 1; }
 
-        @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes fadeInUp { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-12px); } }
+        /* ===== MAIN CONTENT ===== */
+        #mainContent {
+            max-height: 0; overflow: hidden; opacity: 0;
+            transition: max-height .6s ease, opacity .5s ease .2s;
+        }
+        #mainContent.show {
+            max-height: none; overflow: visible; opacity: 1;
+        }
 
         /* ===== SECTIONS ===== */
-        .section { padding: 80px 20px; max-width: 860px; margin: 0 auto; }
+        .section { padding: 48px 24px; max-width: 800px; margin: 0 auto; }
         .section-label {
-            display: inline-block; padding: 6px 18px; border-radius: 50px;
-            background: rgba(179,109,255,.1); border: 1px solid rgba(179,109,255,.25);
-            color: var(--purple); font-size: 12px; font-weight: 700;
-            letter-spacing: .5px; margin-bottom: 14px; text-transform: uppercase;
+            display: inline-block; padding: 5px 16px; border-radius: 50px;
+            background: rgba(209,41,218,.08); border: 1px solid rgba(209,41,218,.25);
+            color: var(--purple); font-size: 11px; font-weight: 700;
+            letter-spacing: .5px; margin-bottom: 12px; text-transform: uppercase;
         }
-        .section-title { font-size: 30px; font-weight: 900; margin-bottom: 10px; color: var(--cyan); }
-        .section-subtitle { color: var(--text2); font-size: 15px; margin-bottom: 40px; line-height: 1.6; }
+        .section-title { font-size: 24px; font-weight: 800; margin-bottom: 8px; color: #fff; }
+        .section-subtitle { color: var(--text2); font-size: 14px; margin-bottom: 32px; line-height: 1.6; }
 
-        /* ===== VIDEO SECTION ===== */
+        /* ===== VIDEO ===== */
         .video-wrapper {
-            background: var(--bg3); border: 1px solid var(--border); border-radius: 20px;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
             overflow: hidden; aspect-ratio: 16/9; display: flex; align-items: center;
-            justify-content: center; position: relative;
-            box-shadow: 0 0 40px rgba(179,109,255,.08);
+            justify-content: center;
         }
         .video-wrapper iframe { width: 100%; height: 100%; border: none; }
         .video-placeholder {
-            color: var(--text3); font-size: 16px; font-weight: 600;
-            display: flex; flex-direction: column; align-items: center; gap: 14px;
+            color: var(--text3); font-size: 14px; font-weight: 600;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
         .video-placeholder .play-icon {
-            width: 72px; height: 72px; border-radius: 50%;
-            background: linear-gradient(135deg, rgba(179,109,255,.2), rgba(0,212,255,.2));
-            border: 2px solid rgba(179,109,255,.35);
-            display: flex; align-items: center; justify-content: center; font-size: 28px;
+            width: 64px; height: 64px; border-radius: 50%;
+            background: rgba(209,41,218,.12); border: 2px solid rgba(209,41,218,.3);
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
             transition: transform .3s;
-            box-shadow: 0 0 30px rgba(179,109,255,.15);
         }
-        .video-placeholder:hover .play-icon { transform: scale(1.1); }
+        .video-placeholder:hover .play-icon { transform: scale(1.08); }
 
-        /* ===== PROGRESS BAR ===== */
+        /* ===== PROGRESS ===== */
         .progress-section {
-            background: linear-gradient(135deg, var(--bg3), var(--bg4));
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 32px; margin-bottom: 48px; text-align: center;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+            padding: 24px; margin-bottom: 32px; text-align: center;
             position: relative; overflow: hidden;
-            box-shadow: 0 4px 30px rgba(179,109,255,.06);
         }
         .progress-section::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--purple), var(--cyan), var(--yellow));
+            background: linear-gradient(90deg, var(--purple), var(--yellow));
         }
-        .progress-label { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--purple); }
-        .progress-bar {
-            height: 12px; background: var(--bg); border-radius: 12px; overflow: hidden;
-            margin-bottom: 10px; position: relative;
-        }
+        .progress-label { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--purple); }
+        .progress-bar { height: 8px; background: var(--bg); border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
         .progress-fill {
-            height: 100%; border-radius: 12px; transition: width .6s ease;
-            background: linear-gradient(90deg, var(--purple), var(--cyan), var(--yellow));
+            height: 100%; border-radius: 8px; transition: width .6s ease;
+            background: linear-gradient(90deg, var(--purple), var(--yellow));
             position: relative;
         }
         .progress-fill::after {
@@ -187,320 +168,301 @@
             animation: shimmer 2s infinite;
         }
         @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .progress-text { font-size: 14px; color: var(--text2); font-weight: 600; }
-        .progress-dots {
-            display: flex; justify-content: space-between; margin-top: 16px; padding: 0 4px;
-        }
+        .progress-text { font-size: 13px; color: var(--text2); font-weight: 600; }
+        .progress-dots { display: flex; justify-content: space-between; margin-top: 14px; padding: 0 2px; }
         .progress-dot {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: var(--bg); border: 2px solid var(--border);
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--bg); border: 2px solid rgba(255,255,255,.08);
             display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 800; color: var(--text3);
-            transition: all .3s; position: relative;
+            font-size: 11px; font-weight: 800; color: var(--text3); transition: all .3s;
         }
-        .progress-dot.completed {
-            background: var(--green); border-color: var(--green); color: #fff;
-            box-shadow: 0 0 12px rgba(34,197,94,.3);
-        }
-        .progress-dot.current {
-            border-color: var(--purple); color: var(--purple);
-            box-shadow: 0 0 15px rgba(179,109,255,.3);
-            animation: pulse 2s infinite;
-        }
+        .progress-dot.completed { background: var(--green); border-color: var(--green); color: #fff; }
+        .progress-dot.current { border-color: var(--purple); color: var(--purple); }
 
-        /* ===== MISSION SECTIONS ===== */
+        /* ===== MISSIONS ===== */
         .mission-section {
-            margin-bottom: 24px; border-radius: 20px; overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--bg2);
-            transition: all .3s;
-            box-shadow: 0 2px 20px rgba(0,0,0,.2);
+            margin-bottom: 16px; border-radius: 14px; overflow: hidden;
+            border: 1px solid var(--border); background: var(--bg2); transition: all .3s;
         }
-        .mission-section:hover:not(.locked) {
-            border-color: rgba(179,109,255,.2);
-            box-shadow: 0 4px 30px rgba(179,109,255,.08);
-        }
-        .mission-section.locked {
-            opacity: .5; pointer-events: none; filter: grayscale(.3);
-        }
-        .mission-section.completed-mission {
-            border-color: rgba(34,197,94,.25);
-            box-shadow: 0 0 20px rgba(34,197,94,.06);
-        }
+        .mission-section:hover:not(.locked) { border-color: rgba(255,255,255,.1); }
+        .mission-section.locked { opacity: .4; pointer-events: none; filter: grayscale(.3); }
+        .mission-section.completed-mission { border-color: rgba(34,197,94,.2); }
 
         .mission-header {
-            padding: 24px 28px; cursor: pointer; display: flex; align-items: center; gap: 16px;
+            padding: 18px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px;
             position: relative; transition: background .2s;
         }
         .mission-header:hover { background: rgba(255,255,255,.02); }
         .mission-header::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
         }
         .mission-section[data-color="yellow"] .mission-header::before { background: var(--yellow); }
         .mission-section[data-color="purple"] .mission-header::before { background: var(--purple); }
         .mission-section[data-color="green"] .mission-header::before { background: var(--green); }
-        .mission-section[data-color="cyan"] .mission-header::before { background: var(--cyan); }
+        .mission-section[data-color="cyan"] .mission-header::before { background: var(--purple); }
         .mission-section[data-color="orange"] .mission-header::before { background: var(--orange); }
 
         .mh-icon {
-            width: 52px; height: 52px; border-radius: 14px; display: flex;
-            align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0;
-            box-shadow: 0 0 15px rgba(0,0,0,.2);
+            width: 44px; height: 44px; border-radius: 10px; display: flex;
+            align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
         }
-        .mission-section[data-color="yellow"] .mh-icon { background: rgba(255,210,51,.15); }
-        .mission-section[data-color="purple"] .mh-icon { background: rgba(179,109,255,.15); }
-        .mission-section[data-color="green"] .mh-icon { background: rgba(34,197,94,.15); }
-        .mission-section[data-color="cyan"] .mh-icon { background: rgba(0,212,255,.15); }
-        .mission-section[data-color="orange"] .mh-icon { background: rgba(249,115,22,.15); }
+        .mission-section[data-color="yellow"] .mh-icon { background: rgba(255,192,23,.1); }
+        .mission-section[data-color="purple"] .mh-icon { background: rgba(209,41,218,.1); }
+        .mission-section[data-color="green"] .mh-icon { background: rgba(34,197,94,.1); }
+        .mission-section[data-color="cyan"] .mh-icon { background: rgba(209,41,218,.1); }
+        .mission-section[data-color="orange"] .mh-icon { background: rgba(249,115,22,.1); }
 
-        .mh-info { flex: 1; }
-        .mh-label {
-            font-size: 11px; font-weight: 800; letter-spacing: .5px;
-            text-transform: uppercase; margin-bottom: 4px;
-        }
-        .mission-section[data-color="yellow"] .mh-label { color: var(--yellow); text-shadow: 0 0 15px rgba(255,210,51,.2); }
-        .mission-section[data-color="purple"] .mh-label { color: var(--purple); text-shadow: 0 0 15px rgba(179,109,255,.2); }
-        .mission-section[data-color="green"] .mh-label { color: var(--green); text-shadow: 0 0 15px rgba(34,197,94,.2); }
-        .mission-section[data-color="cyan"] .mh-label { color: var(--cyan); text-shadow: 0 0 15px rgba(0,212,255,.2); }
-        .mission-section[data-color="orange"] .mh-label { color: var(--orange); text-shadow: 0 0 15px rgba(249,115,22,.2); }
+        .mh-info { flex: 1; min-width: 0; }
+        .mh-label { font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 2px; }
+        .mission-section[data-color="yellow"] .mh-label { color: var(--yellow); }
+        .mission-section[data-color="purple"] .mh-label { color: var(--purple); }
+        .mission-section[data-color="green"] .mh-label { color: var(--green); }
+        .mission-section[data-color="cyan"] .mh-label { color: var(--purple); }
+        .mission-section[data-color="orange"] .mh-label { color: var(--orange); }
 
-        .mh-title { font-size: 18px; font-weight: 800; color: #fff; }
-        .mh-subtitle { font-size: 13px; color: var(--text2); margin-top: 2px; }
+        .mh-title { font-size: 15px; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mh-subtitle { font-size: 12px; color: var(--text2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .mh-status {
-            display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
-            padding: 6px 14px; border-radius: 8px; flex-shrink: 0;
+            font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; white-space: nowrap;
         }
-        .mh-status.pending { color: var(--text3); background: rgba(255,255,255,.05); }
+        .mh-status.pending { color: var(--text3); background: rgba(255,255,255,.04); }
         .mh-status.done { color: var(--green); background: rgba(34,197,94,.1); }
         .mh-status.locked-status { color: var(--text3); background: rgba(255,255,255,.03); }
 
         .mh-toggle {
-            width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-            color: var(--text3); font-size: 18px; transition: transform .3s; flex-shrink: 0;
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+            color: var(--text3); font-size: 14px; transition: transform .3s; flex-shrink: 0;
         }
         .mission-section.open .mh-toggle { transform: rotate(180deg); }
 
-        .mission-body {
-            max-height: 0; overflow: hidden; transition: max-height .4s ease;
-        }
-        .mission-section.open .mission-body { max-height: 2000px; }
-
-        .mission-content {
-            padding: 0 28px 28px; border-top: 1px solid var(--border);
-        }
-
-        .mc-desc {
-            font-size: 15px; color: var(--text2); line-height: 1.7; padding-top: 24px;
-            margin-bottom: 24px;
-        }
+        .mission-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+        .mission-section.open .mission-body { max-height: 4000px; }
+        .mission-content { padding: 0 20px 20px; border-top: 1px solid var(--border); }
+        .mc-desc { font-size: 14px; color: var(--text2); line-height: 1.7; padding-top: 16px; margin-bottom: 16px; }
 
         /* Video in mission */
-        .mc-video-section { margin-bottom: 24px; }
-        .mc-video-label {
-            font-size: 12px; font-weight: 700; color: var(--text2);
-            text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px;
-            display: flex; align-items: center; gap: 8px;
-        }
+        .mc-video-section { margin-bottom: 16px; }
+        .mc-video-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 8px; }
         .mc-video-box {
-            background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
-            overflow: hidden; aspect-ratio: 16/9; display: flex;
-            align-items: center; justify-content: center;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 10px;
+            overflow: hidden; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
         }
         .mc-video-box iframe { width: 100%; height: 100%; border: none; }
+        .mc-video-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; margin-top: 4px; }
 
-        /* Steps in mission */
-        .mc-steps-section { margin-bottom: 24px; }
-        .mc-steps-label {
-            font-size: 12px; font-weight: 700; color: var(--text2);
-            text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px;
-            display: flex; align-items: center; gap: 8px;
-        }
+        /* Steps */
+        .mc-steps-section { margin-bottom: 16px; }
+        .mc-steps-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 10px; }
         .mc-step {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 14px 16px; background: var(--bg3); border: 1px solid var(--border);
-            border-radius: 12px; margin-bottom: 8px; font-size: 14px; line-height: 1.5;
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border);
+            border-radius: 8px; margin-bottom: 6px; font-size: 13px; line-height: 1.5;
         }
         .mc-step-num {
-            width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 800;
+            width: 22px; height: 22px; border-radius: 5px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;
         }
-        .mission-section[data-color="yellow"] .mc-step-num { background: rgba(255,210,51,.18); color: var(--yellow); }
-        .mission-section[data-color="purple"] .mc-step-num { background: rgba(179,109,255,.18); color: var(--purple); }
-        .mission-section[data-color="green"] .mc-step-num { background: rgba(34,197,94,.18); color: var(--green); }
-        .mission-section[data-color="cyan"] .mc-step-num { background: rgba(0,212,255,.18); color: var(--cyan); }
-        .mission-section[data-color="orange"] .mc-step-num { background: rgba(249,115,22,.18); color: var(--orange); }
+        .mission-section[data-color="yellow"] .mc-step-num { background: rgba(255,192,23,.12); color: var(--yellow); }
+        .mission-section[data-color="purple"] .mc-step-num { background: rgba(209,41,218,.12); color: var(--purple); }
+        .mission-section[data-color="green"] .mc-step-num { background: rgba(34,197,94,.12); color: var(--green); }
+        .mission-section[data-color="cyan"] .mc-step-num { background: rgba(209,41,218,.12); color: var(--purple); }
+        .mission-section[data-color="orange"] .mc-step-num { background: rgba(249,115,22,.12); color: var(--orange); }
 
-        /* Links/buttons in mission */
-        .mc-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+        /* Links */
+        .mc-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
         .mc-link {
             display: inline-flex; align-items: center; gap: 6px;
-            padding: 10px 20px; border-radius: 10px;
-            font-size: 13px; font-weight: 700; text-decoration: none;
-            transition: all .2s; cursor: pointer;
+            padding: 9px 18px; border-radius: 8px; font-size: 12px; font-weight: 700;
+            text-decoration: none; transition: all .2s; cursor: pointer;
         }
-        .mc-link.primary {
-            background: linear-gradient(135deg, var(--yellow), #ffb800);
-            color: #0b0614; border: none; font-weight: 800;
-        }
-        .mc-link.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,210,51,.3); }
-        .mc-link.secondary {
-            background: rgba(179,109,255,.08); border: 1px solid rgba(179,109,255,.25);
-            color: var(--purple);
-        }
-        .mc-link.secondary:hover { border-color: var(--purple); color: #fff; background: rgba(179,109,255,.15); }
+        .mc-link.primary { background: linear-gradient(135deg, var(--yellow), #ffb300); color: #0C0C12; border: none; font-weight: 800; }
+        .mc-link.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,192,23,.25); }
+        .mc-link.secondary { background: rgba(209,41,218,.06); border: 1px solid rgba(209,41,218,.2); color: var(--purple); }
+        .mc-link.secondary:hover { border-color: var(--purple); color: #fff; }
 
-        /* Note in mission */
-        .mc-note {
-            padding: 14px 18px; border-radius: 12px; margin-bottom: 24px;
-            font-size: 14px; line-height: 1.6;
-        }
-        .mc-note.info {
-            background: rgba(0,212,255,.08); border: 1px solid rgba(0,212,255,.2);
-            color: var(--cyan);
-        }
-        .mc-note.warning {
-            background: rgba(255,210,51,.08); border: 1px solid rgba(255,210,51,.2);
-            color: var(--yellow);
-        }
+        /* Note */
+        .mc-note { padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; }
+        .mc-note.info { background: rgba(209,41,218,.05); border: 1px solid rgba(209,41,218,.15); color: var(--purple); }
+        .mc-note.warning { background: rgba(255,192,23,.05); border: 1px solid rgba(255,192,23,.15); color: var(--yellow); }
 
-        /* Checklist in mission */
-        .mc-checklist { margin-bottom: 24px; }
-        .mc-checklist-label {
-            font-size: 12px; font-weight: 700; color: var(--text2);
-            text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px;
-            display: flex; align-items: center; gap: 8px;
-        }
+        /* Checklist */
+        .mc-checklist { margin-bottom: 16px; }
+        .mc-checklist-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 10px; }
         .check-item {
-            display: flex; align-items: center; gap: 12px; padding: 14px 16px;
-            background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
-            cursor: pointer; transition: all .2s; font-size: 14px; user-select: none;
-            margin-bottom: 8px;
+            display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+            cursor: pointer; transition: all .2s; font-size: 13px; user-select: none; margin-bottom: 6px;
         }
-        .check-item:hover { border-color: var(--border2); }
-        .check-item.checked { border-color: rgba(34,197,94,.3); background: rgba(34,197,94,.04); }
+        .check-item:hover { border-color: rgba(255,255,255,.1); }
+        .check-item.checked { border-color: rgba(34,197,94,.25); background: rgba(34,197,94,.04); }
         .check-item.checked .check-box { background: var(--green); border-color: var(--green); }
         .check-item.checked .check-box::after { content: ''; display: block; }
-        .check-item.checked .check-text { color: var(--text2); text-decoration: line-through; }
+        .check-item.checked .check-text { color: var(--text3); text-decoration: line-through; }
         .check-box {
-            width: 24px; height: 24px; border-radius: 7px; border: 2px solid var(--border2);
-            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-            transition: all .2s; position: relative;
+            width: 20px; height: 20px; border-radius: 5px; border: 2px solid rgba(255,255,255,.12);
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .2s;
         }
-        .check-box::after {
-            content: none; width: 6px; height: 11px;
-            border: solid #fff; border-width: 0 2.5px 2.5px 0;
-            transform: rotate(45deg); margin-top: -2px;
-        }
+        .check-box::after { content: none; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-top: -2px; }
         .check-text { flex: 1; }
 
-        /* Tip in mission */
+        /* Tip */
         .mc-tip {
-            padding: 16px 20px; border-radius: 12px;
-            background: rgba(255,210,51,.08); border: 1px solid rgba(255,210,51,.18);
-            color: var(--yellow); font-size: 14px; font-weight: 600;
-            display: flex; align-items: flex-start; gap: 10px;
-            margin-bottom: 24px; line-height: 1.5;
+            padding: 10px 14px; border-radius: 8px;
+            background: rgba(255,192,23,.05); border: 1px solid rgba(255,192,23,.12);
+            color: var(--yellow); font-size: 13px; font-weight: 600;
+            margin-bottom: 16px; line-height: 1.5;
         }
 
         /* Complete button */
         .mc-complete-btn {
-            width: 100%; padding: 16px; border-radius: 14px;
-            font-size: 15px; font-weight: 800; cursor: pointer;
+            width: 100%; padding: 12px; border-radius: 10px;
+            font-size: 14px; font-weight: 800; cursor: pointer;
             transition: all .3s; display: flex; align-items: center;
-            justify-content: center; gap: 8px; border: none;
+            justify-content: center; gap: 6px; border: none;
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
         .mc-complete-btn.incomplete {
-            background: linear-gradient(135deg, var(--yellow), #ffb800);
-            color: #0b0614; box-shadow: 0 6px 25px rgba(255,210,51,.25);
-            font-weight: 800;
+            background: linear-gradient(135deg, var(--yellow), #ffb300);
+            color: #0C0C12; box-shadow: 0 4px 20px rgba(255,192,23,.2);
         }
-        .mc-complete-btn.incomplete:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(255,210,51,.35); }
+        .mc-complete-btn.incomplete:hover { transform: translateY(-1px); box-shadow: 0 6px 25px rgba(255,192,23,.3); }
         .mc-complete-btn.is-completed {
-            background: rgba(34,197,94,.12); color: var(--green);
-            border: 1px solid rgba(34,197,94,.3); cursor: default;
+            background: rgba(34,197,94,.08); color: var(--green);
+            border: 1px solid rgba(34,197,94,.2); cursor: default;
         }
 
-        /* ===== COMPLETION SCREEN ===== */
-        .completion-section {
-            text-align: center; padding: 100px 20px 80px;
-            background:
-                radial-gradient(ellipse at 50% 30%, rgba(34,197,94,.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 30% 70%, rgba(179,109,255,.06) 0%, transparent 50%);
-            display: none;
-        }
+        /* ===== COMPLETION ===== */
+        .completion-section { text-align: center; padding: 60px 24px; display: none; }
         .completion-section.show { display: block; }
-        .comp-icon { font-size: 72px; margin-bottom: 24px; animation: pulse 2s infinite; }
-        .comp-title {
-            font-size: 36px; font-weight: 900; margin-bottom: 14px;
-            background: linear-gradient(135deg, var(--cyan), #8bffff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .comp-desc { font-size: 17px; color: var(--text2); margin-bottom: 10px; }
-        .comp-subtitle { font-size: 20px; color: var(--yellow); font-weight: 800; margin-bottom: 48px; }
+        .comp-icon { font-size: 56px; margin-bottom: 16px; }
+        .comp-title { font-size: 28px; font-weight: 900; margin-bottom: 10px; color: #fff; }
+        .comp-desc { font-size: 15px; color: var(--text2); margin-bottom: 6px; }
+        .comp-subtitle { font-size: 17px; color: var(--yellow); font-weight: 800; margin-bottom: 36px; }
         .comp-cards {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px; max-width: 700px; margin: 0 auto 48px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px; max-width: 640px; margin: 0 auto 36px;
         }
         .comp-card {
-            background: var(--bg3); border: 1px solid var(--border); border-radius: 16px;
-            padding: 28px; text-align: center; transition: all .3s;
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px; text-align: center; transition: all .3s;
         }
-        .comp-card:hover { transform: translateY(-4px); border-color: rgba(179,109,255,.25); box-shadow: 0 8px 30px rgba(179,109,255,.08); }
-        .comp-card-icon { font-size: 36px; margin-bottom: 12px; }
-        .comp-card-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff; }
-        .comp-card-desc { font-size: 13px; color: var(--text3); }
+        .comp-card:hover { transform: translateY(-2px); border-color: rgba(209,41,218,.15); }
+        .comp-card-icon { font-size: 28px; margin-bottom: 8px; }
+        .comp-card-title { font-size: 14px; font-weight: 800; margin-bottom: 3px; color: #fff; }
+        .comp-card-desc { font-size: 12px; color: var(--text3); }
         .comp-cta {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 18px 44px; border-radius: 16px;
-            background: linear-gradient(135deg, var(--yellow), #ffb800);
-            color: #0b0614; font-size: 17px; font-weight: 800; text-decoration: none;
-            transition: all .3s; margin-bottom: 24px;
-            box-shadow: 0 8px 35px rgba(255,210,51,.25);
+            padding: 14px 36px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--yellow), #ffb300);
+            color: #0C0C12; font-size: 15px; font-weight: 800; text-decoration: none;
+            transition: all .3s; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(255,192,23,.2);
         }
-        .comp-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 45px rgba(255,210,51,.35); }
-        .comp-footer-text { font-size: 16px; color: var(--text2); }
+        .comp-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,192,23,.3); }
+        .comp-footer-text { font-size: 14px; color: var(--text2); }
 
         /* ===== FOOTER ===== */
-        .footer {
-            text-align: center; padding: 48px 20px; border-top: 1px solid var(--border);
-            background: rgba(179,109,255,.02);
-        }
-        .footer-text { font-size: 13px; color: var(--text3); margin-bottom: 14px; }
-        .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-        .footer-links a {
-            color: var(--text2); text-decoration: none; font-size: 13px;
-            transition: color .2s; font-weight: 500;
-        }
-        .footer-links a:hover { color: var(--cyan); }
+        .footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--border); }
+        .footer-text { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
+        .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .footer-links a { color: var(--text2); text-decoration: none; font-size: 12px; transition: color .2s; }
+        .footer-links a:hover { color: var(--purple); }
 
         /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: rgba(179,109,255,.15); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(179,109,255,.3); }
+        ::-webkit-scrollbar-thumb { background: rgba(209,41,218,.12); border-radius: 2px; }
 
-        /* ===== FADE IN ON SCROLL ===== */
-        .fade-in {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity .6s ease, transform .6s ease;
-        }
+        /* ===== FADE IN ===== */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 640px) {
+        /* ===== PASSWORD LOCK ===== */
+        .mission-section.pw-locked { opacity: .55; }
+        .mission-section.pw-locked .mission-header::after {
+            content: '🔒'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+            font-size: 16px;
+        }
+        .mission-section.pw-locked .mh-toggle { display: none; }
+        .mission-section.pw-locked .mh-status { display: none; }
+
+        /* Password popup */
+        .pw-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 9000;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .pw-overlay.show { display: flex; }
+        .pw-modal {
+            background: var(--bg3); border: 1px solid var(--border2); border-radius: 16px;
+            padding: 32px; width: 400px; max-width: 90vw; text-align: center;
+            position: relative;
+        }
+        .pw-modal-icon { font-size: 40px; margin-bottom: 12px; }
+        .pw-modal-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+        .pw-modal-desc { font-size: 13px; color: var(--text2); margin-bottom: 20px; line-height: 1.5; }
+        .pw-input {
+            width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border);
+            border-radius: 10px; color: #fff; font-size: 15px; text-align: center;
+            outline: none; font-family: 'Be Vietnam Pro', sans-serif; letter-spacing: 2px;
+            margin-bottom: 12px; transition: border .2s;
+        }
+        .pw-input:focus { border-color: var(--purple); }
+        .pw-input.error { border-color: var(--red); }
+        .pw-submit {
+            width: 100%; padding: 12px; border-radius: 10px; border: none;
+            background: linear-gradient(135deg, var(--yellow), #ffb300);
+            color: #0C0C12; font-size: 14px; font-weight: 800; cursor: pointer;
+            font-family: 'Be Vietnam Pro', sans-serif; transition: all .2s;
+        }
+        .pw-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,192,23,.25); }
+        .pw-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+        .pw-error {
+            color: var(--red); font-size: 12px; font-weight: 600; margin-top: 10px;
+            display: none; line-height: 1.5;
+        }
+        .pw-error.show { display: block; }
+        .pw-close {
+            position: absolute; top: 12px; right: 16px; background: none; border: none;
+            color: var(--text3); font-size: 20px; cursor: pointer; padding: 4px;
+        }
+        .pw-close:hover { color: #fff; }
+
+        /* ===== RESPONSIVE: PHONE (<=480px) ===== */
+        @media (max-width: 480px) {
             .hero { padding: 60px 16px 40px; }
-            .section { padding: 60px 16px; }
-            .mission-header { padding: 18px 20px; gap: 12px; }
-            .mission-content { padding: 0 20px 20px; }
-            .mh-icon { width: 44px; height: 44px; font-size: 22px; border-radius: 12px; }
-            .mh-title { font-size: 16px; }
-            .mh-status { font-size: 11px; padding: 5px 10px; }
+            .hero-badge { font-size: 11px; padding: 6px 16px; }
+            .hero-cta { padding: 14px 32px; font-size: 14px; }
+            .section { padding: 32px 16px; }
+            .section-title { font-size: 20px; }
+            .mission-header { padding: 14px 14px; gap: 10px; }
+            .mission-content { padding: 0 14px 14px; }
+            .mh-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 8px; }
+            .mh-title { font-size: 13px; }
+            .mh-subtitle { font-size: 11px; }
+            .mh-status { font-size: 9px; padding: 3px 7px; }
+            .mh-toggle { width: 20px; height: 20px; font-size: 12px; }
             .progress-dots { display: none; }
-            .comp-cards { grid-template-columns: 1fr; }
+            .progress-section { padding: 18px 14px; }
+            .mc-step { font-size: 12px; padding: 8px 10px; }
+            .check-item { font-size: 12px; padding: 9px 10px; }
             .mc-links { flex-direction: column; }
+            .comp-cards { grid-template-columns: 1fr; }
+            .comp-title { font-size: 22px; }
+        }
+
+        /* ===== RESPONSIVE: TABLET (481px - 1024px) ===== */
+        @media (min-width: 481px) and (max-width: 1024px) {
+            .hero { padding: 80px 32px 50px; }
+            .section { padding: 40px 32px; max-width: 720px; }
+            .mission-header { padding: 16px 20px; }
+            .mission-content { padding: 0 20px 20px; }
+            .progress-dot { width: 28px; height: 28px; font-size: 10px; }
+        }
+
+        /* ===== RESPONSIVE: LARGE SCREEN (>1024px) ===== */
+        @media (min-width: 1025px) {
+            .section { max-width: 800px; }
         }
     </style>
 </head>
@@ -510,11 +472,11 @@
 <div class="loading-screen" id="loadingScreen">
     <div class="loader">
         <div class="loader-icon">🚀</div>
-        <div class="loader-text">Dang tai hanh trinh...</div>
+        <div class="loader-text">Đang tải hành trình...</div>
     </div>
 </div>
 
-<!-- Hero -->
+<!-- Hero (always visible) -->
 <section class="hero" id="heroSection">
     <div class="hero-content">
         <div class="hero-badge" id="heroBadge"></div>
@@ -522,83 +484,102 @@
         <p class="hero-subtitle" id="heroSubtitle"></p>
         <p class="hero-desc" id="heroDesc"></p>
         <p class="hero-highlight" id="heroHighlight"></p>
-        <button class="hero-cta" id="heroCta" onclick="scrollToMissions()"></button>
+        <button class="hero-cta" id="heroCta" onclick="startJourney()"></button>
     </div>
-    <div class="scroll-hint">&#8595;</div>
 </section>
 
-<!-- Video Section -->
-<section class="section" id="videoSection">
-    <div class="section-label" id="videoLabel"></div>
-    <h2 class="section-title" id="videoTitle"></h2>
-    <p class="section-subtitle" id="videoSubtitle"></p>
-    <div class="video-wrapper" id="videoContainer"></div>
-</section>
+<div class="hero-divider" id="heroDivider"></div>
 
-<!-- Missions -->
-<section class="section" id="missionsSection">
-    <div class="section-label">🎯 NHIEM VU</div>
-    <h2 class="section-title">Hanh trinh cua ban</h2>
-    <p class="section-subtitle">Hoan thanh tung nhiem vu de xay dung he thong kiem tien tu dong</p>
+<!-- Main Content (hidden until CTA click, appears below hero) -->
+<div id="mainContent">
+    <!-- Video -->
+    <section class="section" id="videoSection">
+        <div class="section-label" id="videoLabel"></div>
+        <h2 class="section-title" id="videoTitle"></h2>
+        <p class="section-subtitle" id="videoSubtitle"></p>
+        <div class="video-wrapper" id="videoContainer"></div>
+    </section>
 
-    <!-- Progress -->
-    <div class="progress-section">
-        <div class="progress-label" id="progressLabel">⚡ Tien do hanh trinh</div>
-        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-        <div class="progress-text" id="progressText">0 / 8 nhiem vu hoan thanh</div>
-        <div class="progress-dots" id="progressDots"></div>
+    <!-- Missions -->
+    <section class="section" id="missionsSection">
+        <div class="section-label">NHIỆM VỤ</div>
+        <h2 class="section-title">Hành trình của bạn</h2>
+        <p class="section-subtitle">Hoàn thành từng nhiệm vụ để xây dựng hệ thống kiếm tiền tự động</p>
+
+        <div class="progress-section">
+            <div class="progress-label" id="progressLabel">Tiến độ hành trình</div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+            <div class="progress-text" id="progressText">0 / 8 nhiệm vụ hoàn thành</div>
+            <div class="progress-dots" id="progressDots"></div>
+        </div>
+
+        <div id="missionsList"></div>
+    </section>
+
+    <!-- Completion -->
+    <section class="completion-section" id="completionSection"></section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footerSection">
+        <div class="footer-text" id="footerText"></div>
+        <div class="footer-links" id="footerLinks"></div>
+    </footer>
+</div>
+
+<!-- Password Popup -->
+<div class="pw-overlay" id="pwOverlay">
+    <div class="pw-modal">
+        <button class="pw-close" onclick="closePasswordPopup()">&#10005;</button>
+        <div class="pw-modal-icon">&#128272;</div>
+        <div class="pw-modal-title">Nhập mật khẩu</div>
+        <div class="pw-modal-desc">Nội dung từ nhiệm vụ 3 trở đi cần mật khẩu để mở khóa</div>
+        <input class="pw-input" id="pwInput" type="password" placeholder="Nhập mật khẩu...">
+        <button class="pw-submit" id="pwSubmit" onclick="submitPassword()">Mở khóa</button>
+        <div class="pw-error" id="pwError">Sai mật khẩu! Vui lòng nâng cấp tài khoản để xem nội dung này.</div>
     </div>
-
-    <!-- Mission Sections -->
-    <div id="missionsList"></div>
-</section>
-
-<!-- Completion -->
-<section class="completion-section" id="completionSection"></section>
-
-<!-- Footer -->
-<footer class="footer" id="footerSection">
-    <div class="footer-text" id="footerText"></div>
-    <div class="footer-links" id="footerLinks"></div>
-</footer>
+</div>
 
 <script>
-// ===========================
-// STATE
-// ===========================
-let data = null;
-let checkedItems = {};
-let completedMissions = {};
-let openMissions = {};
+var data = null;
+var checkedItems = {};
+var completedMissions = {};
+var openMissions = {};
+var unlocked = localStorage.getItem('reup_unlocked') === 'true';
+var hasPassword = false;
 
-// Load saved progress from localStorage
 try {
     checkedItems = JSON.parse(localStorage.getItem('reup_checklist') || '{}');
     completedMissions = JSON.parse(localStorage.getItem('reup_missions') || '{}');
 } catch(e) {}
 
-// ===========================
-// LOAD DATA
-// ===========================
 async function init() {
     try {
-        const res = await fetch('/api/data');
+        var res = await fetch('/api/data');
         data = await res.json();
+        hasPassword = data.settings && data.settings.hasPassword;
         render();
-        setTimeout(() => {
-            document.getElementById('loadingScreen').classList.add('hide');
-        }, 600);
-        // Setup scroll observer
-        setupScrollObserver();
+        setTimeout(function() { document.getElementById('loadingScreen').classList.add('hide'); }, 500);
     } catch(e) {
-        console.error('Cannot load data:', e);
-        document.querySelector('.loader-text').textContent = 'Loi ket noi server!';
+        document.querySelector('.loader-text').textContent = 'Lỗi kết nối server!';
     }
 }
 
-// ===========================
-// RENDER
-// ===========================
+function startJourney() {
+    showContent();
+    setTimeout(function() {
+        document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+}
+
+function showContent() {
+    document.getElementById('heroSection').style.minHeight = 'auto';
+    document.getElementById('heroSection').style.paddingTop = '60px';
+    document.getElementById('heroSection').style.paddingBottom = '40px';
+    document.getElementById('heroDivider').classList.add('show');
+    document.getElementById('mainContent').classList.add('show');
+    setupScrollObserver();
+}
+
 function render() {
     renderHero();
     renderVideo();
@@ -609,7 +590,7 @@ function render() {
 }
 
 function renderHero() {
-    const h = data.hero;
+    var h = data.hero;
     document.getElementById('heroBadge').textContent = h.badge;
     document.getElementById('heroTitle').innerHTML = escHtml(h.title).replace(/\\n|\n/g, '<br>');
     document.getElementById('heroSubtitle').textContent = h.subtitle;
@@ -619,168 +600,125 @@ function renderHero() {
 }
 
 function renderVideo() {
-    const v = data.video;
+    var v = data.video;
     document.getElementById('videoLabel').textContent = v.label;
     document.getElementById('videoTitle').textContent = v.title;
     document.getElementById('videoSubtitle').textContent = v.subtitle;
-
-    const container = document.getElementById('videoContainer');
-    if (v.url) {
-        container.innerHTML = '<iframe src="' + escAttr(v.url) + '" allowfullscreen></iframe>';
+    var container = document.getElementById('videoContainer');
+    var embedUrl = toEmbedUrl(v.url);
+    if (embedUrl) {
+        container.innerHTML = '<iframe src="' + escAttr(embedUrl) + '" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>';
     } else {
-        container.innerHTML =
-            '<div class="video-placeholder">' +
-                '<div class="play-icon">&#9654;</div>' +
-                '<span>' + escHtml(v.placeholder || 'Video sap duoc cap nhat') + '</span>' +
-            '</div>';
+        container.innerHTML = '<div class="video-placeholder"><div class="play-icon">&#9654;</div><span>' + escHtml(v.placeholder || 'Video sắp được cập nhật') + '</span></div>';
     }
 }
 
 function renderMissions() {
-    const list = document.getElementById('missionsList');
+    var list = document.getElementById('missionsList');
     list.innerHTML = '';
-
-    // Progress dots
-    const dotsEl = document.getElementById('progressDots');
+    var dotsEl = document.getElementById('progressDots');
     dotsEl.innerHTML = '';
 
     data.missions.forEach(function(m, i) {
         var isCompleted = isMissionCompleted(i);
         var isLocked = !isCompleted && i > 0 && !isMissionCompleted(i - 1) && i > getFirstIncompleteMission();
+        var isPwLocked = hasPassword && !unlocked && i >= 2;
         var isOpen = openMissions[i] || false;
 
-        // Progress dot
         var dot = document.createElement('div');
         dot.className = 'progress-dot' + (isCompleted ? ' completed' : (i === getFirstIncompleteMission() ? ' current' : ''));
-        dot.textContent = isCompleted ? '✓' : (i + 1);
+        dot.textContent = isCompleted ? '\u2713' : (i + 1);
         dotsEl.appendChild(dot);
 
-        // Mission section
         var section = document.createElement('div');
-        section.className = 'mission-section fade-in' +
-            (isOpen ? ' open' : '') +
-            (isLocked ? ' locked' : '') +
-            (isCompleted ? ' completed-mission' : '');
+        section.className = 'mission-section fade-in' + (isOpen ? ' open' : '') + (isLocked ? ' locked' : '') + (isCompleted ? ' completed-mission' : '') + (isPwLocked ? ' pw-locked' : '');
         section.dataset.color = m.color;
         section.dataset.index = i;
 
         var statusClass = isCompleted ? 'done' : (isLocked ? 'locked-status' : 'pending');
-        var statusText = isCompleted ? '✅ Hoan thanh' : (isLocked ? '🔒 Chua mo' : '⏳ Dang cho');
+        var statusText = isCompleted ? 'Hoàn thành' : (isLocked ? 'Chưa mở' : 'Đang chờ');
 
-        // Build links HTML
         var linksHtml = '';
         if (m.links && m.links.length > 0) {
             linksHtml = '<div class="mc-links">';
             m.links.forEach(function(link) {
-                var cls = link.style === 'primary' ? 'mc-link primary' : 'mc-link secondary';
-                linksHtml += '<a href="' + escAttr(link.url) + '" class="' + cls + '" target="_blank">' + escHtml(link.text) + '</a>';
+                linksHtml += '<a href="' + escAttr(link.url) + '" class="mc-link ' + (link.style === 'primary' ? 'primary' : 'secondary') + '" target="_blank">' + escHtml(link.text) + '</a>';
             });
             linksHtml += '</div>';
         }
 
-        // Build note HTML
-        var noteHtml = '';
-        if (m.note) {
-            var noteType = m.noteType || 'info';
-            noteHtml = '<div class="mc-note ' + noteType + '">📌 ' + escHtml(m.note) + '</div>';
-        }
+        var noteHtml = m.note ? '<div class="mc-note ' + (m.noteType || 'info') + '">' + escHtml(m.note) + '</div>' : '';
 
-        // Build steps HTML
         var stepsHtml = '';
         if (m.steps && m.steps.length > 0) {
-            stepsHtml = '<div class="mc-steps-section">' +
-                '<div class="mc-steps-label">📋 Cac buoc thuc hien</div>';
+            stepsHtml = '<div class="mc-steps-section"><div class="mc-steps-label">Các bước thực hiện</div>';
             m.steps.forEach(function(s, si) {
                 stepsHtml += '<div class="mc-step"><div class="mc-step-num">' + (si + 1) + '</div><span>' + escHtml(s) + '</span></div>';
             });
             stepsHtml += '</div>';
         }
 
-        // Build video HTML
         var videoHtml = '';
-        if (m.videoTitle || m.videoUrl) {
-            videoHtml = '<div class="mc-video-section">' +
-                '<div class="mc-video-label">🎬 Video huong dan</div>' +
-                '<div class="mc-video-box">';
-            if (m.videoUrl) {
-                videoHtml += '<iframe src="' + escAttr(m.videoUrl) + '" allowfullscreen></iframe>';
-            } else {
-                videoHtml += '<div class="video-placeholder"><div class="play-icon" style="width:56px;height:56px;font-size:22px">&#9654;</div><span>' + escHtml(m.videoTitle || 'Video sap cap nhat') + '</span></div>';
-            }
-            videoHtml += '</div></div>';
+        var allVideos = getVideos(m);
+        if (allVideos.length > 0) {
+            videoHtml = '<div class="mc-video-section"><div class="mc-video-label">Video hướng dẫn</div>';
+            allVideos.forEach(function(vid) {
+                var eu = toEmbedUrl(vid.url);
+                if (vid.title) videoHtml += '<div class="mc-video-title">' + escHtml(vid.title) + '</div>';
+                videoHtml += '<div class="mc-video-box">';
+                if (eu) videoHtml += '<iframe src="' + escAttr(eu) + '" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>';
+                else videoHtml += '<div class="video-placeholder"><div class="play-icon" style="width:48px;height:48px;font-size:18px">&#9654;</div><span>' + escHtml(vid.title || 'Video sắp cập nhật') + '</span></div>';
+                videoHtml += '</div>';
+            });
+            videoHtml += '</div>';
         }
 
-        // Build checklist HTML
         var checklistHtml = '';
         if (m.checklist && m.checklist.length > 0) {
-            checklistHtml = '<div class="mc-checklist">' +
-                '<div class="mc-checklist-label">✅ Xac nhan hoan thanh</div>';
+            checklistHtml = '<div class="mc-checklist"><div class="mc-checklist-label">Xác nhận hoàn thành</div>';
             m.checklist.forEach(function(c, ci) {
                 var key = 'mission_' + i + '_' + ci;
                 var checked = checkedItems[key] ? ' checked' : '';
-                checklistHtml += '<div class="check-item' + checked + '" onclick="toggleCheck(this, \'' + key + '\', ' + i + ')">' +
-                    '<div class="check-box"></div>' +
-                    '<span class="check-text">' + escHtml(c) + '</span>' +
-                '</div>';
+                checklistHtml += '<div class="check-item' + checked + '" onclick="toggleCheck(this,\'' + key + '\',' + i + ')"><div class="check-box"></div><span class="check-text">' + escHtml(c) + '</span></div>';
             });
             checklistHtml += '</div>';
         }
 
-        // Build tip HTML
-        var tipHtml = '';
-        if (m.tip) {
-            tipHtml = '<div class="mc-tip">💡 ' + escHtml(m.tip) + '</div>';
-        }
-
-        // Complete button
+        var tipHtml = m.tip ? '<div class="mc-tip">' + escHtml(m.tip) + '</div>' : '';
         var btnClass = isCompleted ? 'mc-complete-btn is-completed' : 'mc-complete-btn incomplete';
-        var btnText = isCompleted ? '✅ DA HOAN THANH' : '✔ TOI DA HOAN THANH';
+        var btnText = isCompleted ? 'ĐÃ HOÀN THÀNH' : 'TÔI ĐÃ HOÀN THÀNH';
 
         section.innerHTML =
             '<div class="mission-header" onclick="toggleMission(' + i + ')">' +
                 '<div class="mh-icon">' + m.icon + '</div>' +
                 '<div class="mh-info">' +
-                    '<div class="mh-label">NHIEM VU ' + (i + 1) + '</div>' +
+                    '<div class="mh-label">NHIỆM VỤ ' + (i + 1) + '</div>' +
                     '<div class="mh-title">' + escHtml(m.title) + '</div>' +
                     '<div class="mh-subtitle">' + escHtml(m.subtitle) + '</div>' +
                 '</div>' +
                 '<div class="mh-status ' + statusClass + '">' + statusText + '</div>' +
                 '<div class="mh-toggle">&#9662;</div>' +
             '</div>' +
-            '<div class="mission-body">' +
-                '<div class="mission-content">' +
-                    '<div class="mc-desc">' + escHtml(m.description) + '</div>' +
-                    videoHtml +
-                    stepsHtml +
-                    linksHtml +
-                    noteHtml +
-                    checklistHtml +
-                    tipHtml +
-                    '<button class="' + btnClass + '" ' + (isCompleted ? 'disabled' : 'onclick="completeMission(' + i + ')"') + '>' + btnText + '</button>' +
-                '</div>' +
-            '</div>';
+            '<div class="mission-body"><div class="mission-content">' +
+                '<div class="mc-desc">' + escHtml(m.description) + '</div>' +
+                videoHtml + stepsHtml + linksHtml + noteHtml + checklistHtml + tipHtml +
+                '<button class="' + btnClass + '" ' + (isCompleted ? 'disabled' : 'onclick="completeMission(' + i + ')"') + '>' + btnText + '</button>' +
+            '</div></div>';
 
         list.appendChild(section);
     });
+    setupScrollObserver();
 }
 
-// ===========================
-// COMPLETION SCREEN
-// ===========================
 function renderCompletion() {
     var c = data.completion;
     var section = document.getElementById('completionSection');
     var itemsHtml = '';
     if (c.items) {
         c.items.forEach(function(item) {
-            itemsHtml += '<div class="comp-card">' +
-                '<div class="comp-card-icon">' + item.icon + '</div>' +
-                '<div class="comp-card-title">' + escHtml(item.title) + '</div>' +
-                '<div class="comp-card-desc">' + escHtml(item.desc) + '</div>' +
-            '</div>';
+            itemsHtml += '<div class="comp-card"><div class="comp-card-icon">' + item.icon + '</div><div class="comp-card-title">' + escHtml(item.title) + '</div><div class="comp-card-desc">' + escHtml(item.desc) + '</div></div>';
         });
     }
-
     section.innerHTML =
         '<div class="comp-icon">🏆</div>' +
         '<h2 class="comp-title">' + escHtml(c.title) + '</h2>' +
@@ -794,148 +732,192 @@ function renderCompletion() {
 function renderFooter() {
     var f = data.footer;
     document.getElementById('footerText').textContent = f.text;
-    var linksEl = document.getElementById('footerLinks');
+    var el = document.getElementById('footerLinks');
     var html = '';
-    if (f.links) {
-        f.links.forEach(function(l) {
-            html += '<a href="' + escAttr(l.url) + '">' + escHtml(l.text) + '</a>';
-        });
-    }
-    linksEl.innerHTML = html;
+    if (f.links) f.links.forEach(function(l) { html += '<a href="' + escAttr(l.url) + '">' + escHtml(l.text) + '</a>'; });
+    el.innerHTML = html;
 }
 
-// ===========================
-// INTERACTIONS
-// ===========================
 function toggleMission(index) {
-    if (openMissions[index]) {
-        openMissions[index] = false;
-    } else {
-        openMissions[index] = true;
+    if (hasPassword && !unlocked && index >= 2) {
+        showPasswordPopup();
+        return;
     }
-    var sections = document.querySelectorAll('.mission-section');
-    sections.forEach(function(s) {
-        var idx = parseInt(s.dataset.index);
-        if (idx === index) {
-            s.classList.toggle('open', openMissions[index]);
-        }
+    openMissions[index] = !openMissions[index];
+    document.querySelectorAll('.mission-section').forEach(function(s) {
+        if (parseInt(s.dataset.index) === index) s.classList.toggle('open', openMissions[index]);
     });
 }
 
-function toggleCheck(el, key, missionIndex) {
+function toggleCheck(el, key, mi) {
     el.classList.toggle('checked');
     checkedItems[key] = el.classList.contains('checked');
     localStorage.setItem('reup_checklist', JSON.stringify(checkedItems));
-    checkAutoComplete(missionIndex);
+    checkAutoComplete(mi);
     updateProgress();
 }
 
-function checkAutoComplete(missionIndex) {
-    var m = data.missions[missionIndex];
-    if (!m.checklist || m.checklist.length === 0) return;
-    var allChecked = m.checklist.every(function(_, ci) {
-        return checkedItems['mission_' + missionIndex + '_' + ci];
-    });
-    if (allChecked && !completedMissions[missionIndex]) {
-        completedMissions[missionIndex] = true;
+function checkAutoComplete(mi) {
+    var m = data.missions[mi];
+    if (!m.checklist || !m.checklist.length) return;
+    var allChecked = m.checklist.every(function(_, ci) { return checkedItems['mission_' + mi + '_' + ci]; });
+    if (allChecked && !completedMissions[mi]) {
+        completedMissions[mi] = true;
         localStorage.setItem('reup_missions', JSON.stringify(completedMissions));
-        renderMissions();
+        updateMissionUI(mi);
+        updateProgress();
     }
 }
 
 function completeMission(index) {
     completedMissions[index] = true;
     localStorage.setItem('reup_missions', JSON.stringify(completedMissions));
-    // Also check all checklist items
     var m = data.missions[index];
-    if (m.checklist) {
-        m.checklist.forEach(function(_, ci) {
-            checkedItems['mission_' + index + '_' + ci] = true;
-        });
-        localStorage.setItem('reup_checklist', JSON.stringify(checkedItems));
-    }
-    renderMissions();
+    if (m.checklist) m.checklist.forEach(function(_, ci) { checkedItems['mission_' + index + '_' + ci] = true; });
+    localStorage.setItem('reup_checklist', JSON.stringify(checkedItems));
+    updateMissionUI(index);
     updateProgress();
 }
 
-function isMissionCompleted(index) {
-    return !!completedMissions[index];
-}
-
-function getFirstIncompleteMission() {
-    for (var i = 0; i < data.missions.length; i++) {
-        if (!completedMissions[i]) return i;
+function updateMissionUI(mi) {
+    var section = document.querySelector('.mission-section[data-index="' + mi + '"]');
+    if (!section) return;
+    var done = isMissionCompleted(mi);
+    if (done) { section.classList.add('completed-mission'); section.classList.remove('locked'); }
+    var st = section.querySelector('.mh-status');
+    if (st) { st.className = 'mh-status ' + (done ? 'done' : 'pending'); st.textContent = done ? 'Hoàn thành' : 'Đang chờ'; }
+    if (done) section.querySelectorAll('.check-item').forEach(function(item) { item.classList.add('checked'); });
+    var btn = section.querySelector('.mc-complete-btn');
+    if (btn && done) { btn.className = 'mc-complete-btn is-completed'; btn.textContent = 'ĐÃ HOÀN THÀNH'; btn.disabled = true; btn.onclick = null; }
+    var ni = mi + 1;
+    if (ni < data.missions.length) {
+        var ns = document.querySelector('.mission-section[data-index="' + ni + '"]');
+        if (ns && ns.classList.contains('locked')) {
+            ns.classList.remove('locked');
+            var nst = ns.querySelector('.mh-status');
+            if (nst) { nst.className = 'mh-status pending'; nst.textContent = 'Đang chờ'; }
+        }
     }
-    return data.missions.length;
-}
-
-// ===========================
-// PROGRESS
-// ===========================
-function updateProgress() {
-    var total = data.missions.length;
-    var done = 0;
-    for (var key in completedMissions) {
-        if (completedMissions[key]) done++;
-    }
-    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
-
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressText').textContent = done + ' / ' + total + ' nhiem vu hoan thanh (' + pct + '%)';
-
-    var compSection = document.getElementById('completionSection');
-    if (done >= total && total > 0) {
-        compSection.classList.add('show');
-    } else {
-        compSection.classList.remove('show');
-    }
-}
-
-// ===========================
-// SCROLL
-// ===========================
-function scrollToMissions() {
-    document.getElementById('missionsSection').scrollIntoView({ behavior: 'smooth' });
-}
-
-function setupScrollObserver() {
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(function(el) {
-        observer.observe(el);
+    document.querySelectorAll('.progress-dot').forEach(function(dot, i) {
+        var c = isMissionCompleted(i);
+        dot.className = 'progress-dot' + (c ? ' completed' : (i === getFirstIncompleteMission() ? ' current' : ''));
+        dot.textContent = c ? '\u2713' : (i + 1);
     });
 }
 
-// ===========================
-// HELPERS
-// ===========================
-function escHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-function escAttr(str) {
-    if (!str) return '';
-    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function isMissionCompleted(i) { return !!completedMissions[i]; }
+function getFirstIncompleteMission() {
+    for (var i = 0; i < data.missions.length; i++) { if (!completedMissions[i]) return i; }
+    return data.missions.length;
 }
 
-// ESC key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        // close all missions
-        openMissions = {};
-        document.querySelectorAll('.mission-section').forEach(function(s) { s.classList.remove('open'); });
+function updateProgress() {
+    var total = data.missions.length, done = 0;
+    for (var k in completedMissions) { if (completedMissions[k]) done++; }
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = done + ' / ' + total + ' nhiệm vụ hoàn thành (' + pct + '%)';
+    var cs = document.getElementById('completionSection');
+    if (done >= total && total > 0) cs.classList.add('show'); else cs.classList.remove('show');
+}
+
+function setupScrollObserver() {
+    var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { obs.observe(el); });
+}
+
+/* ===== PASSWORD POPUP ===== */
+function showPasswordPopup() {
+    var overlay = document.getElementById('pwOverlay');
+    var input = document.getElementById('pwInput');
+    var error = document.getElementById('pwError');
+    overlay.classList.add('show');
+    input.value = '';
+    input.classList.remove('error');
+    error.classList.remove('show');
+    setTimeout(function() { input.focus(); }, 200);
+}
+
+function closePasswordPopup() {
+    document.getElementById('pwOverlay').classList.remove('show');
+}
+
+async function submitPassword() {
+    var input = document.getElementById('pwInput');
+    var error = document.getElementById('pwError');
+    var btn = document.getElementById('pwSubmit');
+    var pw = input.value.trim();
+    if (!pw) { input.classList.add('error'); return; }
+    btn.disabled = true;
+    btn.textContent = 'Đang kiểm tra...';
+    try {
+        var res = await fetch('/api/verify-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pw })
+        });
+        var result = await res.json();
+        if (result.success) {
+            unlocked = true;
+            localStorage.setItem('reup_unlocked', 'true');
+            closePasswordPopup();
+            document.querySelectorAll('.mission-section.pw-locked').forEach(function(s) {
+                s.classList.remove('pw-locked');
+            });
+        } else {
+            input.classList.add('error');
+            error.classList.add('show');
+        }
+    } catch(e) {
+        input.classList.add('error');
+        error.textContent = 'Lỗi kết nối, vui lòng thử lại!';
+        error.classList.add('show');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Mở khóa';
+}
+
+/* Enter key in password input */
+document.addEventListener('DOMContentLoaded', function() {
+    var pwInput = document.getElementById('pwInput');
+    if (pwInput) {
+        pwInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitPassword();
+        });
     }
 });
 
-// ===========================
-// INIT
-// ===========================
+function escHtml(s) { return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') : ''; }
+function escAttr(s) { return s ? s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+
+function toEmbedUrl(url) {
+    if (!url) return '';
+    url = url.trim();
+    if (url.match(/youtube\.com\/embed\//)) return url;
+    var m;
+    if ((m = url.match(/(?:youtube\.com|youtube\..+?)\/watch\?v=([a-zA-Z0-9_-]+)/))) return 'https://www.youtube.com/embed/' + m[1];
+    if ((m = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/))) return 'https://www.youtube.com/embed/' + m[1];
+    if ((m = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/))) return 'https://www.youtube.com/embed/' + m[1];
+    if ((m = url.match(/youtube\.com\/live\/([a-zA-Z0-9_-]+)/))) return 'https://www.youtube.com/embed/' + m[1];
+    if ((m = url.match(/youtube\.com\/v\/([a-zA-Z0-9_-]+)/))) return 'https://www.youtube.com/embed/' + m[1];
+    return url;
+}
+
+function getVideos(m) {
+    if (m.videos && m.videos.length > 0) return m.videos;
+    if (m.videoUrl || m.videoTitle) return [{ title: m.videoTitle || '', url: m.videoUrl || '' }];
+    return [];
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closePasswordPopup();
+        openMissions = {}; document.querySelectorAll('.mission-section').forEach(function(s) { s.classList.remove('open'); });
+    }
+});
+
 init();
 </script>
 </body>
