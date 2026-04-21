@@ -108,9 +108,13 @@
 
         /* Mission nav */
         .mission-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-        .mission-tab{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+        .mission-tab{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:grab;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
         .mission-tab.active{background:rgba(179,109,255,.15);border-color:rgba(179,109,255,.4);color:var(--purple)}
         .mission-tab:hover:not(.active){border-color:var(--border2);color:var(--text2)}
+        .mission-tab.dragging{opacity:.45;cursor:grabbing}
+        .mission-tab.drop-before{box-shadow:inset 3px 0 0 var(--purple);border-color:rgba(179,109,255,.45)}
+        .mission-tab.drop-after{box-shadow:inset -3px 0 0 var(--purple);border-color:rgba(179,109,255,.45)}
+        .mission-tab-drag{font-size:13px;color:var(--text3)}
         .mission-panel{display:none}
         .mission-panel.active{display:block}
 
@@ -297,6 +301,7 @@
 var token = localStorage.getItem('admin_token') || '';
 var data = null;
 var currentMission = 0;
+var draggedMissionIndex = null;
 
 // ===========================
 // AUTH
@@ -460,16 +465,70 @@ function renderMissionTabs() {
     container.innerHTML = '';
     data.missions.forEach(function(m, i) {
         var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.draggable = true;
         btn.className = 'mission-tab' + (i === currentMission ? ' active' : '');
-        btn.textContent = m.icon + ' NV' + (i + 1);
+        btn.innerHTML = '<span class="mission-tab-drag">⠿</span><span>' + esc(m.icon) + ' NV' + (i + 1) + '</span>';
         btn.onclick = function() {
             collectMissionData();
             currentMission = i;
             renderMissionTabs();
             renderMissionPanel(i);
         };
+        btn.addEventListener('dragstart', function(e) {
+            draggedMissionIndex = i;
+            btn.classList.add('dragging');
+            if (e.dataTransfer) {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', String(i));
+            }
+        });
+        btn.addEventListener('dragend', function() {
+            draggedMissionIndex = null;
+            clearMissionDropStates();
+        });
+        btn.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            if (draggedMissionIndex === null || draggedMissionIndex === i) return;
+            clearMissionDropStates();
+            var rect = btn.getBoundingClientRect();
+            var before = e.clientX < rect.left + rect.width / 2;
+            btn.classList.add(before ? 'drop-before' : 'drop-after');
+            if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+        });
+        btn.addEventListener('dragleave', function() {
+            btn.classList.remove('drop-before', 'drop-after');
+        });
+        btn.addEventListener('drop', function(e) {
+            e.preventDefault();
+            if (draggedMissionIndex === null || draggedMissionIndex === i) return;
+            var rect = btn.getBoundingClientRect();
+            var insertBefore = e.clientX < rect.left + rect.width / 2;
+            reorderMission(draggedMissionIndex, i, insertBefore);
+        });
         container.appendChild(btn);
     });
+}
+
+function clearMissionDropStates() {
+    document.querySelectorAll('.mission-tab').forEach(function(el) {
+        el.classList.remove('dragging', 'drop-before', 'drop-after');
+    });
+}
+
+function reorderMission(fromIndex, targetIndex, insertBefore) {
+    if (fromIndex === targetIndex) return;
+    collectMissionData();
+    var moved = data.missions.splice(fromIndex, 1)[0];
+    var newIndex = targetIndex;
+    if (fromIndex < targetIndex) newIndex = insertBefore ? targetIndex - 1 : targetIndex;
+    else newIndex = insertBefore ? targetIndex : targetIndex + 1;
+    data.missions.splice(newIndex, 0, moved);
+    currentMission = newIndex;
+    clearMissionDropStates();
+    renderMissionTabs();
+    renderMissionPanel(currentMission);
+    showToast('Đã sắp xếp lại thứ tự nhiệm vụ ✅', 'success');
 }
 
 function renderMissionPanel(index) {
