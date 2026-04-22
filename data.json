@@ -58,8 +58,8 @@
         "Thiết lập avatar, cover & mô tả cho từng page",
         "Điền form thông tin gửi cho admin"
       ],
-      "videoTitle": "Hướng dẫn tạo Fanpage",
-      "videoSubtitle": "Cách tạo đúng chuẩn",
+      "videoTitle": "",
+      "videoSubtitle": "",
       "videoUrl": "",
       "links": [
         {
@@ -70,7 +70,12 @@
       ],
       "note": "Yêu cầu: Tạo 5 Fanpage theo chủ đề",
       "noteType": "info",
-      "videos": [],
+      "videos": [
+        {
+          "title": "Hướng dẫn tạo Fanpage",
+          "url": ""
+        }
+      ],
       "checklist": [
         "Đã tạo 5 Fanpage",
         "Đã điền form thông tin"
@@ -89,13 +94,18 @@
         "Liên kết với từng Fanpage đã tạo",
         "Test thử link affiliate trên mỗi page"
       ],
-      "videoTitle": "Hướng dẫn Shopee Affiliate",
-      "videoSubtitle": "Từ đăng ký đến liên kết",
+      "videoTitle": "",
+      "videoSubtitle": "",
       "videoUrl": "",
       "links": [],
       "note": "Đây là nguồn tiền của hệ thống",
       "noteType": "warning",
-      "videos": [],
+      "videos": [
+        {
+          "title": "Hướng dẫn Shopee Affiliate",
+          "url": ""
+        }
+      ],
       "checklist": [
         "Đã tạo tài khoản Shopee Affiliate",
         "Đã thử liên kết Fanpage"
@@ -114,13 +124,18 @@
         "Lọc sản phẩm có hoa hồng cao & dễ bán",
         "Chọn ít nhất 3 sản phẩm tiềm năng"
       ],
-      "videoTitle": "Tìm sản phẩm bằng hình ảnh",
-      "videoSubtitle": "Mẹo tìm sản phẩm hot",
+      "videoTitle": "",
+      "videoSubtitle": "",
       "videoUrl": "",
       "links": [],
       "note": "Sau bước này bạn phải biết cách tìm sản phẩm hot và biết sản phẩm nào dễ bán",
       "noteType": "info",
-      "videos": [],
+      "videos": [
+        {
+          "title": "Tìm sản phẩm bằng hình ảnh",
+          "url": ""
+        }
+      ],
       "checklist": [
         "Đã tìm được ít nhất 3 sản phẩm"
       ],
@@ -138,8 +153,8 @@
         "Đăng ký tài khoản bằng link ref",
         "Đăng nhập và kiểm tra giao diện"
       ],
-      "videoTitle": "Hướng dẫn cài Gemlogin",
-      "videoSubtitle": "Từ A đến Z",
+      "videoTitle": "",
+      "videoSubtitle": "",
       "videoUrl": "",
       "links": [
         {
@@ -155,7 +170,12 @@
       ],
       "note": "",
       "noteType": "info",
-      "videos": [],
+      "videos": [
+        {
+          "title": "Hướng dẫn cài Gemlogin",
+          "url": ""
+        }
+      ],
       "checklist": [
         "Đã tải và cài đặt Gemlogin",
         "Đã đăng nhập thành công"
@@ -312,11 +332,11 @@
     "commitButtonText": "Cam kết ngay",
     "commitPopupTitle": "Cam kết ngay",
     "commitPopupSubtitle": "Quét mã QR để chuyển khoản cam kết.",
-    "qrImage": "",
+    "qrImage": "/uploads/1776823048847-og1bnswgm.jpg",
     "commitConfirmText": "Đã chuyển khoản cam kết",
     "confirmUrl": "",
     "adminButtonText": "Thông tin admin hành trình",
-    "adminBioUrl": "",
+    "adminBioUrl": "https://bio-vinh.kingautomationai.com/",
     "tiers": [
       {
         "name": "Cam kết 499K",
@@ -345,9 +365,9 @@
         "buttonText": "Cam kết 799K",
         "popupTitle": "Cam kết 799K",
         "popupSubtitle": "Quét mã QR để chuyển khoản cam kết 799K.",
-        "qrImage": "",
-        "confirmText": "Đã chuyển khoản cam kết 799K",
-        "confirmUrl": "",
+        "qrImage": "/uploads/1776822896717-tmnhb2t5u.jpg",
+        "confirmText": "Đã chuyển khoản cam kết (Kết bạn và gửi hình chuyển khoản qua zalo cho Vinh để thêm vào nhóm bắt đầu hành trình nhé)",
+        "confirmUrl": "http://zalo.me/0905626639",
         "features": [
           "Tất cả quyền lợi của gói 499K",
           "Được hỗ trợ coach 1:1 hướng dẫn sử dụng tool",
@@ -356,7 +376,7 @@
         ]
       }
     ],
-    "conversionNote": "Phí cam kết có thể được quy đổi thành tiền mua Automation Super Reup này.\n(Dù bạn có hoàn thành hành trình hay không) A.e vẫn được học hỏi, tham gia cộng đồng và không mất gì cả...",
+    "conversionNote": "💰 Phí cam kết có thể quy đổi sang Automation Super Reup\n\n📚 Dù hoàn thành hay chưa, bạn vẫn nhận được:\n\n- Kiến thức thực chiến\n- Trải nghiệm hệ thống\n- Cộng đồng đồng hành\n\n🚀 Không phải chi phí — mà là khoản đầu tư an toàn để bắt đầu, học và giữ lại giá trị.",
     "superPricingButtonText": "Bảng giá Super Automation",
     "superPricingPopupTitle": "Bảng giá Super Automation",
     "superPricingPopupSubtitle": "Chọn gói phù hợp để đồng hành lâu dài cùng hệ thống.",
@@ -367,15 +387,15 @@
       },
       {
         "label": "3 tháng",
-        "price": "1TR"
+        "price": "1 Triệu"
       },
       {
         "label": "1 năm",
-        "price": "2TR5"
+        "price": "2 Triệu 5"
       },
       {
         "label": "Trọn đời",
-        "price": "3TR5"
+        "price": "3 triệu 5"
       }
     ]
   }

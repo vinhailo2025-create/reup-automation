@@ -324,17 +324,6 @@
                 <button class="dyn-add" onclick="addDynItem('program-giftItems')">+ Thêm mục</button>
             </div>
 
-            <div class="card">
-                <div class="card-title"><span class="ct-icon">💰</span> Phí cam kết (fallback mặc định)</div>
-                <p class="card-subtitle">Các giá trị dưới đây dùng khi không có tier nào. Nếu bạn dùng 2 tier bên dưới, card này có thể bỏ qua.</p>
-                <div class="field"><label>Nhãn</label><input id="program-priceLabel" placeholder="💰 Phí cam kết"></div>
-                <div class="field-row">
-                    <div class="field"><label>Số tiền</label><input id="program-priceAmount" placeholder="499"></div>
-                    <div class="field"><label>Đơn vị</label><input id="program-priceUnit" placeholder="K"></div>
-                </div>
-                <div class="field"><label>Ghi chú</label><input id="program-priceNote" placeholder="Hoàn 100% khi hoàn thành"></div>
-                <div class="field"><label>Text nút cam kết</label><input id="program-commitButtonText" placeholder="Cam kết ngay"></div>
-            </div>
 
             <div class="card">
                 <div class="card-title"><span class="ct-icon">🎯</span> Các mức cam kết (Tiers)</div>
@@ -360,21 +349,6 @@
                 <button class="dyn-add" onclick="addSuperPrice()">+ Thêm mức giá</button>
             </div>
 
-            <div class="card">
-                <div class="card-title"><span class="ct-icon">📱</span> Popup cam kết + QR</div>
-                <div class="field"><label>Tiêu đề popup</label><input id="program-commitPopupTitle" placeholder="Cam kết ngay"></div>
-                <div class="field"><label>Mô tả popup</label><input id="program-commitPopupSubtitle" placeholder="Quét mã QR để chuyển khoản cam kết."></div>
-                <div class="field">
-                    <label>Ảnh mã QR</label>
-                    <div class="img-input-row">
-                        <input id="program-qrImage" placeholder="/uploads/... hoặc https://...">
-                        <button type="button" class="dyn-add" onclick="uploadImage('program-qrImage')">📤 Tải lên</button>
-                    </div>
-                    <div class="img-preview" id="program-qrImage-preview"></div>
-                </div>
-                <div class="field"><label>Text nút xác nhận</label><input id="program-commitConfirmText" placeholder="Đã chuyển khoản cam kết"></div>
-                <div class="field"><label>Link quay về Zalo</label><input id="program-confirmUrl" placeholder="https://zalo.me/... hoặc link web bio"></div>
-            </div>
 
             <div class="card">
                 <div class="card-title"><span class="ct-icon">👤</span> Thông tin admin hành trình</div>
@@ -687,16 +661,6 @@ function renderProgramPanel() {
     document.getElementById('program-videoUrl').value = p.videoUrl || '';
     document.getElementById('program-workLabel').value = p.workLabel || '';
     document.getElementById('program-giftLabel').value = p.giftLabel || '';
-    document.getElementById('program-priceLabel').value = p.priceLabel || '';
-    document.getElementById('program-priceAmount').value = p.priceAmount || '';
-    document.getElementById('program-priceUnit').value = p.priceUnit || '';
-    document.getElementById('program-priceNote').value = p.priceNote || '';
-    document.getElementById('program-commitButtonText').value = p.commitButtonText || '';
-    document.getElementById('program-commitPopupTitle').value = p.commitPopupTitle || '';
-    document.getElementById('program-commitPopupSubtitle').value = p.commitPopupSubtitle || '';
-    document.getElementById('program-qrImage').value = p.qrImage || '';
-    document.getElementById('program-commitConfirmText').value = p.commitConfirmText || '';
-    document.getElementById('program-confirmUrl').value = p.confirmUrl || '';
     document.getElementById('program-adminButtonText').value = p.adminButtonText || '';
     document.getElementById('program-adminBioUrl').value = p.adminBioUrl || '';
     document.getElementById('program-highlight').value = p.highlight || '';
@@ -726,7 +690,7 @@ function renderProgramPanel() {
     });
 
     // Image previews + live update on input change
-    ['program-bannerImage', 'program-iconImage', 'program-qrImage'].forEach(function(id) {
+    ['program-bannerImage', 'program-iconImage'].forEach(function(id) {
         refreshImagePreview(id);
         var el = document.getElementById(id);
         el.oninput = function() { refreshImagePreview(id); };
@@ -1335,16 +1299,6 @@ function collectData() {
     data.program.workBody = data.program.workItems.join(' • ');
     data.program.giftLabel = document.getElementById('program-giftLabel').value;
     data.program.giftItems = Array.from(document.querySelectorAll('#program-giftItems .dyn-item input')).map(function(i) { return i.value; }).filter(function(v) { return v; });
-    data.program.priceLabel = document.getElementById('program-priceLabel').value;
-    data.program.priceAmount = document.getElementById('program-priceAmount').value;
-    data.program.priceUnit = document.getElementById('program-priceUnit').value;
-    data.program.priceNote = document.getElementById('program-priceNote').value;
-    data.program.commitButtonText = document.getElementById('program-commitButtonText').value;
-    data.program.commitPopupTitle = document.getElementById('program-commitPopupTitle').value;
-    data.program.commitPopupSubtitle = document.getElementById('program-commitPopupSubtitle').value;
-    data.program.qrImage = document.getElementById('program-qrImage').value.trim();
-    data.program.commitConfirmText = document.getElementById('program-commitConfirmText').value;
-    data.program.confirmUrl = document.getElementById('program-confirmUrl').value.trim();
     data.program.adminButtonText = document.getElementById('program-adminButtonText').value;
     data.program.adminBioUrl = document.getElementById('program-adminBioUrl').value.trim();
     data.program.highlight = document.getElementById('program-highlight').value;
