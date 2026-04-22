@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const https = require('https');
+const multer = require('multer');
 
 const app = express();
 
@@ -12,6 +13,15 @@ const JWT_SECRET = 'reup-automation-secret-key-2025';
 // ===== SUPABASE CONFIG =====
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// Prefer service-role key for storage writes (bypasses RLS); fallback to anon key.
+const SUPABASE_STORAGE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_KEY;
+const SUPABASE_BUCKET = process.env.SUPABASE_STORAGE_BUCKET || 'uploads';
+
+// ===== UPLOAD (in-memory, streamed to Supabase Storage) =====
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 } // 10 MB
+});
 
 // ===== DEFAULT DATA =====
 function getDefaultData() {
@@ -314,6 +324,63 @@ app.post('/api/data', authMiddleware, async (req, res) => {
 // Change password (protected)
 app.post('/api/change-password', authMiddleware, (req, res) => {
     res.json({ success: true, message: 'Password change not supported in serverless mode' });
+});
+
+// ===== SUPABASE STORAGE HELPER =====
+function supabaseStorageUpload(bucket, filename, buffer, contentType) {
+    return new Promise((resolve, reject) => {
+        if (!SUPABASE_URL || !SUPABASE_STORAGE_KEY) {
+            return reject(new Error('Supabase storage not configured'));
+        }
+        const url = new URL(`${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodeURIComponent(filename)}`);
+        const options = {
+            method: 'POST',
+            hostname: url.hostname,
+            path: url.pathname,
+            headers: {
+                'apikey': SUPABASE_STORAGE_KEY,
+                'Authorization': `Bearer ${SUPABASE_STORAGE_KEY}`,
+                'Content-Type': contentType || 'application/octet-stream',
+                'Content-Length': buffer.length,
+                'x-upsert': 'true',
+                'Cache-Control': '3600'
+            }
+        };
+        const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                if (res.statusCode >= 200 && res.statusCode < 300) {
+                    resolve();
+                } else {
+                    reject(new Error(`Supabase storage returned ${res.statusCode}: ${data}`));
+                }
+            });
+        });
+        req.on('error', reject);
+        req.write(buffer);
+        req.end();
+    });
+}
+
+// Upload file (protected) → Supabase Storage
+app.post('/api/upload', authMiddleware, upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+        if (!SUPABASE_URL || !SUPABASE_STORAGE_KEY) {
+            return res.status(500).json({ error: 'Supabase storage is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or NEXT_PUBLIC_SUPABASE_ANON_KEY with a permissive bucket policy).' });
+        }
+        const original = req.file.originalname || 'file';
+        const extMatch = original.match(/\.[a-zA-Z0-9]+$/);
+        const ext = extMatch ? extMatch[0] : '';
+        const filename = Date.now() + '-' + Math.random().toString(36).substr(2, 9) + ext;
+        await supabaseStorageUpload(SUPABASE_BUCKET, filename, req.file.buffer, req.file.mimetype);
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(SUPABASE_BUCKET)}/${encodeURIComponent(filename)}`;
+        res.json({ success: true, url: publicUrl, filename });
+    } catch (e) {
+        console.error('Upload error:', e);
+        res.status(500).json({ error: e.message });
+    }
 });
 
 module.exports = app;
