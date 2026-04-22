@@ -363,20 +363,34 @@ function supabaseStorageUpload(bucket, filename, buffer, contentType) {
     });
 }
 
-// Upload file (protected) → Supabase Storage
+// Upload file (protected) → Supabase Storage, with inline-data fallback
 app.post('/api/upload', authMiddleware, upload.single('file'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-        if (!SUPABASE_URL || !SUPABASE_STORAGE_KEY) {
-            return res.status(500).json({ error: 'Supabase storage is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or NEXT_PUBLIC_SUPABASE_ANON_KEY with a permissive bucket policy).' });
-        }
+
         const original = req.file.originalname || 'file';
         const extMatch = original.match(/\.[a-zA-Z0-9]+$/);
         const ext = extMatch ? extMatch[0] : '';
         const filename = Date.now() + '-' + Math.random().toString(36).substr(2, 9) + ext;
-        await supabaseStorageUpload(SUPABASE_BUCKET, filename, req.file.buffer, req.file.mimetype);
-        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(SUPABASE_BUCKET)}/${encodeURIComponent(filename)}`;
-        res.json({ success: true, url: publicUrl, filename });
+
+        if (SUPABASE_URL && SUPABASE_STORAGE_KEY) {
+            try {
+                await supabaseStorageUpload(SUPABASE_BUCKET, filename, req.file.buffer, req.file.mimetype);
+                const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(SUPABASE_BUCKET)}/${encodeURIComponent(filename)}`;
+                return res.json({ success: true, url: publicUrl, filename, storage: 'supabase' });
+            } catch (storageError) {
+                console.error('Supabase Storage upload failed, falling back to inline data URL:', storageError.message);
+            }
+        }
+
+        const dataUrl = `data:${req.file.mimetype || 'application/octet-stream'};base64,${req.file.buffer.toString('base64')}`;
+        return res.json({
+            success: true,
+            url: dataUrl,
+            filename,
+            storage: 'inline',
+            warning: 'Supabase Storage unavailable; image returned as inline data URL.'
+        });
     } catch (e) {
         console.error('Upload error:', e);
         res.status(500).json({ error: e.message });
