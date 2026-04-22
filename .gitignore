@@ -3,3 +3,8 @@ node_modules
 .env
 .env*.local
 .claude/
+
+# Local-only Supabase snapshots (never push these)
+backups/
+*.supabase_backup.json
+.supabase_service_key.tmp
