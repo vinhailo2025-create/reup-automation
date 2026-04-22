@@ -11,11 +11,11 @@ const ADMIN_PASS = '123456';
 const JWT_SECRET = 'reup-automation-secret-key-2025';
 
 // ===== SUPABASE CONFIG =====
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || '').trim();
+const SUPABASE_KEY = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '').trim();
 // Prefer service-role key for storage writes (bypasses RLS); fallback to anon key.
-const SUPABASE_STORAGE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_KEY;
-const SUPABASE_BUCKET = process.env.SUPABASE_STORAGE_BUCKET || 'uploads';
+const SUPABASE_STORAGE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_KEY || '').trim();
+const SUPABASE_BUCKET = (process.env.SUPABASE_STORAGE_BUCKET || 'uploads').trim();
 
 // ===== UPLOAD (in-memory, streamed to Supabase Storage) =====
 const upload = multer({
