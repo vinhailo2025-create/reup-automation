@@ -309,57 +309,51 @@
             </div>
 
             <div class="card">
-                <div class="card-title"><span class="ct-icon">⚙️</span> Việc của bạn</div>
-                <div class="field"><label>Tiêu đề</label><input id="program-workLabel" placeholder="⚙️ Việc của bạn"></div>
-                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Các dòng công việc (mỗi dòng một mục)</label>
-                <div class="dyn-list" id="program-workItems"></div>
-                <button class="dyn-add" onclick="addDynItem('program-workItems')">+ Thêm dòng</button>
+                <div class="card-title"><span class="ct-icon">✨</span> Quyền lợi tổng quan</div>
+                <p class="card-subtitle">Phần này là nội dung chung của offer. Gói cam kết chi tiết sẽ chỉnh riêng ở phần tiers bên dưới.</p>
+                <div class="field-row">
+                    <div>
+                        <div class="field"><label>Tiêu đề cột việc của bạn</label><input id="program-workLabel" placeholder="⚙️ Việc của bạn"></div>
+                        <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Các dòng công việc (mỗi dòng một mục)</label>
+                        <div class="dyn-list" id="program-workItems"></div>
+                        <button class="dyn-add" onclick="addDynItem('program-workItems')">+ Thêm dòng</button>
+                    </div>
+                    <div>
+                        <div class="field"><label>Tiêu đề cột bạn nhận được</label><input id="program-giftLabel" placeholder="🎁 Bạn nhận được"></div>
+                        <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Danh sách (mỗi dòng một mục)</label>
+                        <div class="dyn-list" id="program-giftItems"></div>
+                        <button class="dyn-add" onclick="addDynItem('program-giftItems')">+ Thêm mục</button>
+                    </div>
+                </div>
             </div>
-
-            <div class="card">
-                <div class="card-title"><span class="ct-icon">🎁</span> Bạn nhận được</div>
-                <div class="field"><label>Tiêu đề</label><input id="program-giftLabel" placeholder="🎁 Bạn nhận được"></div>
-                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Danh sách (mỗi dòng một mục)</label>
-                <div class="dyn-list" id="program-giftItems"></div>
-                <button class="dyn-add" onclick="addDynItem('program-giftItems')">+ Thêm mục</button>
-            </div>
-
 
             <div class="card">
                 <div class="card-title"><span class="ct-icon">🎯</span> Các mức cam kết (Tiers)</div>
-                <p class="card-subtitle">Mỗi tier hiển thị một cột. Tier được đánh dấu "Nổi bật" sẽ to hơn & có gradient vàng-tím (kiểu "ĐỀ XUẤT").</p>
+                <p class="card-subtitle">Đây là phần chính để chỉnh offer 499K / 799K. Mỗi tier có giá, quyền lợi, QR và link xác nhận riêng.</p>
                 <div id="program-tiers"></div>
                 <button class="dyn-add" onclick="addTier()">+ Thêm mức cam kết</button>
             </div>
 
             <div class="card">
-                <div class="card-title"><span class="ct-icon">🔁</span> Ghi chú quy đổi</div>
-                <p class="card-subtitle">Hiển thị ngay dưới 2 cột tier — giải thích việc phí cam kết có thể quy đổi thành tiền mua Super Automation.</p>
-                <div class="field"><label>Nội dung (hỗ trợ xuống dòng)</label><textarea id="program-conversionNote" rows="3"></textarea></div>
-            </div>
-
-            <div class="card">
-                <div class="card-title"><span class="ct-icon">💎</span> Bảng giá Super Automation</div>
-                <p class="card-subtitle">Nút mở popup bảng giá. Popup hiển thị các gói sử dụng Super Automation (tháng / năm / trọn đời...).</p>
-                <div class="field"><label>Text nút</label><input id="program-superPricingButtonText" placeholder="Bảng giá Super Automation"></div>
-                <div class="field"><label>Tiêu đề popup</label><input id="program-superPricingPopupTitle" placeholder="Bảng giá Super Automation"></div>
-                <div class="field"><label>Mô tả popup</label><input id="program-superPricingPopupSubtitle" placeholder="Chọn gói phù hợp..."></div>
-                <label style="display:block;font-size:12px;color:var(--text2);margin:10px 0 6px;font-weight:600">Các mức giá</label>
+                <div class="card-title"><span class="ct-icon">💎</span> Giá trị cộng thêm & CTA</div>
+                <p class="card-subtitle">Quản lý đoạn quy đổi phí cam kết, popup bảng giá Super Automation, nút admin và câu highlight cuối.</p>
+                <div class="field"><label>Ghi chú quy đổi (hỗ trợ xuống dòng)</label><textarea id="program-conversionNote" rows="4"></textarea></div>
+                <div class="field-row">
+                    <div class="field"><label>Text nút bảng giá</label><input id="program-superPricingButtonText" placeholder="Bảng giá Super Automation"></div>
+                    <div class="field"><label>Tiêu đề popup bảng giá</label><input id="program-superPricingPopupTitle" placeholder="Bảng giá Super Automation"></div>
+                </div>
+                <div class="field"><label>Mô tả popup bảng giá</label><input id="program-superPricingPopupSubtitle" placeholder="Chọn gói phù hợp..."></div>
+                <label style="display:block;font-size:12px;color:var(--text2);margin:10px 0 6px;font-weight:600">Các mức giá Super Automation</label>
                 <div id="program-superPrices"></div>
                 <button class="dyn-add" onclick="addSuperPrice()">+ Thêm mức giá</button>
+                <div style="height:12px"></div>
+                <div class="field-row">
+                    <div class="field"><label>Text nút thông tin admin</label><input id="program-adminButtonText" placeholder="Thông tin admin hành trình"></div>
+                    <div class="field"><label>Link web bio admin</label><input id="program-adminBioUrl" placeholder="https://..."></div>
+                </div>
+                <div class="field"><label>Câu highlight cuối</label><input id="program-highlight" placeholder="🔥 Không phải khóa học..."></div>
             </div>
 
-
-            <div class="card">
-                <div class="card-title"><span class="ct-icon">👤</span> Thông tin admin hành trình</div>
-                <div class="field"><label>Text nút</label><input id="program-adminButtonText" placeholder="Thông tin admin hành trình"></div>
-                <div class="field"><label>Link web bio</label><input id="program-adminBioUrl" placeholder="https://... "></div>
-            </div>
-
-            <div class="card">
-                <div class="card-title"><span class="ct-icon">🔥</span> Highlight cuối</div>
-                <div class="field"><label>Câu nhấn cuối card</label><input id="program-highlight" placeholder="🔥 Không phải khóa học..."></div>
-            </div>
         </div>
 
         <!-- MISSIONS Panel -->
