@@ -68,6 +68,50 @@ function getDefaultData() {
             url: "",
             placeholder: "VIDEO: GI\u1edaI THI\u1ec6U REUP AUTOMATION"
         },
+        program: {
+            enabled: true,
+            toggleText: "\u0110I\u1ec0U KI\u1ec6N THAM GIA",
+            bannerImage: "",
+            iconImage: "",
+            iconEmoji: "\ud83d\ude80",
+            title: "H\u1ec7 th\u1ed1ng Reup Automation",
+            subtitle: "Vinh h\u1ed7 tr\u1ee3 full tool (t\u1ea3i \u2192 edit \u2192 \u0111\u0103ng)",
+            demoText: "Click xem demo video",
+            videoUrl: "",
+            workLabel: "\u2699\ufe0f Vi\u1ec7c c\u1ee7a b\u1ea1n",
+            workBody: "5 page \u00d7 3 video/ng\u00e0y \u00d7 21 ng\u00e0y",
+            workItems: ["5 page", "3 video/ng\u00e0y", "21 ng\u00e0y"],
+            giftLabel: "\ud83c\udf81 B\u1ea1n nh\u1eadn \u0111\u01b0\u1ee3c",
+            giftItems: ["Tool automation reup", "Quy tr\u00ecnh th\u1ef1c chi\u1ebfn", "Support + c\u1ed9ng \u0111\u1ed3ng"],
+            tiers: [
+                {
+                    name: "Cam k\u1ebft 499K",
+                    amount: "499",
+                    unit: "K",
+                    note: "Ho\u00e0n 100% khi ho\u00e0n th\u00e0nh",
+                    features: ["Tool automation reup", "Quy tr\u00ecnh th\u1ef1c chi\u1ebfn", "Support + c\u1ed9ng \u0111\u1ed3ng"],
+                    buttonText: "Cam k\u1ebft 499K",
+                    qrImage: "",
+                    confirmText: "\u0110\u00e3 chuy\u1ec3n kho\u1ea3n cam k\u1ebft",
+                    confirmUrl: ""
+                },
+                {
+                    name: "Cam k\u1ebft 799K",
+                    amount: "799",
+                    unit: "K",
+                    note: "T\u1ea5t c\u1ea3 quy\u1ec1n l\u1ee3i + \u0111\u1ed3ng h\u00e0nh s\u00e2u h\u01a1n",
+                    features: ["T\u1ea5t c\u1ea3 quy\u1ec1n l\u1ee3i", "\u0110\u01b0\u1ee3c h\u1ed7 tr\u1ee3 coach 1:1 h\u01b0\u1edbng d\u1eabn s\u1eed d\u1ee5ng tool", "T\u1eb7ng key", "C\u00e1c c\u00e2u h\u1ecfi li\u00ean quan \u0111\u1ebfn n\u1ed9i dung h\u00e0nh tr\u00ecnh"],
+                    buttonText: "Cam k\u1ebft 799K",
+                    qrImage: "",
+                    confirmText: "\u0110\u00e3 chuy\u1ec3n kho\u1ea3n cam k\u1ebft",
+                    confirmUrl: "",
+                    featured: true
+                }
+            ],
+            adminButtonText: "Th\u00f4ng tin admin h\u00e0nh tr\u00ecnh",
+            adminBioUrl: "",
+            highlight: "\ud83d\udd25 Kh\u00f4ng ph\u1ea3i kh\u00f3a h\u1ecdc \u2013 \u0110\u00e2y l\u00e0 h\u00e0nh tr\u00ecnh Affiliate th\u1ef1c chi\u1ebfn"
+        },
         missions: [
             {
                 icon: "\ud83e\udde9", title: "CH\u1eccN H\u01af\u1edaNG", subtitle: "Ch\u1ecdn ch\u1ee7 \u0111\u1ec1 & ngu\u1ed3n video",

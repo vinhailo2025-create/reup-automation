@@ -1,7 +1,7 @@
 {
   "hero": {
     "badge": "🚀 NHIỆM VỤ TÂN THỦ",
-    "title": "HÀNH TRÌNH REUP\nAUTOMATION 30 NGÀY",
+    "title": "HÀNH TRÌNH REUPAUTOMATION 30 NGÀY",
     "subtitle": "Chào mừng bạn đến với hệ thống tự động hóa",
     "description": "Chúc mừng bạn đã bắt đầu hành trình kiếm tiền với hệ thống tự động hóa.\nĐây không phải khóa học — đây là hành trình thực chiến.",
     "highlight": "👉 Chỉ cần làm đúng – làm đủ – làm đều",
@@ -27,13 +27,18 @@
         "Chọn loại video phù hợp với sản phẩm bạn muốn quảng bá",
         "Xác định nguồn video chất lượng để reup"
       ],
-      "videoTitle": "Chọn nguồn video Reup",
-      "videoSubtitle": "Video hướng dẫn chi tiết",
+      "videoTitle": "",
+      "videoSubtitle": "",
       "videoUrl": "",
       "links": [],
       "note": "Sau bước này bạn phải xác định: Chủ đề reup, Loại video, Sản phẩm gắn",
       "noteType": "info",
-      "videos": [],
+      "videos": [
+        {
+          "title": "Chọn nguồn video Reup",
+          "url": ""
+        }
+      ],
       "checklist": [
         "Đã xem video hướng dẫn",
         "Đã chọn được chủ đề reup",
@@ -57,7 +62,11 @@
       "videoSubtitle": "Cách tạo đúng chuẩn",
       "videoUrl": "",
       "links": [
-        { "text": "📄 ĐIỀN FORM THÔNG TIN", "url": "#", "style": "primary" }
+        {
+          "text": "📄 ĐIỀN FORM THÔNG TIN",
+          "url": "#",
+          "style": "primary"
+        }
       ],
       "note": "Yêu cầu: Tạo 5 Fanpage theo chủ đề",
       "noteType": "info",
@@ -133,8 +142,16 @@
       "videoSubtitle": "Từ A đến Z",
       "videoUrl": "",
       "links": [
-        { "text": "📥 TẢI GEMLOGIN", "url": "#", "style": "primary" },
-        { "text": "🔗 LINK REF ĐĂNG KÝ", "url": "#", "style": "secondary" }
+        {
+          "text": "📥 TẢI GEMLOGIN",
+          "url": "#",
+          "style": "primary"
+        },
+        {
+          "text": "🔗 LINK REF ĐĂNG KÝ",
+          "url": "#",
+          "style": "secondary"
+        }
       ],
       "note": "",
       "noteType": "info",
@@ -263,5 +280,103 @@
   },
   "settings": {
     "unlockPassword": ""
+  },
+  "program": {
+    "enabled": true,
+    "toggleText": "ĐIỀU KIỆN THAM GIA",
+    "bannerImage": "",
+    "iconImage": "",
+    "iconEmoji": "🚀",
+    "title": "Vinh hỗ trợ Automation Reup (tải → edit → đăng-> Bình luận gắn link)",
+    "subtitle": "Hệ thống Reup Automation",
+    "demoText": "Click xem demo video",
+    "videoUrl": "",
+    "workLabel": "⚙️ Việc của bạn",
+    "workBody": "5 page • 3 video/ngày • 21 ngày",
+    "giftLabel": "🎁 Bạn nhận được",
+    "giftItems": [
+      "Tool automation reup",
+      "Quy trình thực chiến",
+      "Support + cộng đồng"
+    ],
+    "priceLabel": "💰 Phí cam kết",
+    "priceAmount": "499",
+    "priceUnit": "K",
+    "priceNote": "Hoàn 100% khi hoàn thành",
+    "highlight": "🔥 Không phải khóa học – Đây là hành trình Affiliate thực chiến",
+    "workItems": [
+      "5 page",
+      "3 video/ngày",
+      "21 ngày"
+    ],
+    "commitButtonText": "Cam kết ngay",
+    "commitPopupTitle": "Cam kết ngay",
+    "commitPopupSubtitle": "Quét mã QR để chuyển khoản cam kết.",
+    "qrImage": "",
+    "commitConfirmText": "Đã chuyển khoản cam kết",
+    "confirmUrl": "",
+    "adminButtonText": "Thông tin admin hành trình",
+    "adminBioUrl": "",
+    "tiers": [
+      {
+        "name": "Cam kết 499K",
+        "price": "499K",
+        "note": "Hoàn 100% khi hoàn thành",
+        "badge": "CƠ BẢN",
+        "featured": false,
+        "buttonText": "Cam kết 499K",
+        "popupTitle": "Cam kết 499K",
+        "popupSubtitle": "Quét mã QR để chuyển khoản cam kết 499K.",
+        "qrImage": "",
+        "confirmText": "Đã chuyển khoản cam kết 499K",
+        "confirmUrl": "",
+        "features": [
+          "Tham gia hành trình thực chiến",
+          "Được học hỏi và tham gia cộng đồng",
+          "Sử dụng hệ thống Reup Automation"
+        ]
+      },
+      {
+        "name": "Cam kết 799K",
+        "price": "799K",
+        "note": "Tất cả quyền lợi gói 499K + hỗ trợ nâng cao",
+        "badge": "ĐỀ XUẤT",
+        "featured": true,
+        "buttonText": "Cam kết 799K",
+        "popupTitle": "Cam kết 799K",
+        "popupSubtitle": "Quét mã QR để chuyển khoản cam kết 799K.",
+        "qrImage": "",
+        "confirmText": "Đã chuyển khoản cam kết 799K",
+        "confirmUrl": "",
+        "features": [
+          "Tất cả quyền lợi của gói 499K",
+          "Được hỗ trợ coach 1:1 hướng dẫn sử dụng tool",
+          "Tặng key",
+          "Giải đáp các câu hỏi liên quan đến nội dung hành trình"
+        ]
+      }
+    ],
+    "conversionNote": "Phí cam kết có thể được quy đổi thành tiền mua Automation Super Reup này.\n(Dù bạn có hoàn thành hành trình hay không) A.e vẫn được học hỏi, tham gia cộng đồng và không mất gì cả...",
+    "superPricingButtonText": "Bảng giá Super Automation",
+    "superPricingPopupTitle": "Bảng giá Super Automation",
+    "superPricingPopupSubtitle": "Chọn gói phù hợp để đồng hành lâu dài cùng hệ thống.",
+    "superPrices": [
+      {
+        "label": "1 tháng",
+        "price": "500K"
+      },
+      {
+        "label": "3 tháng",
+        "price": "1TR"
+      },
+      {
+        "label": "1 năm",
+        "price": "2TR5"
+      },
+      {
+        "label": "Trọn đời",
+        "price": "3TR5"
+      }
+    ]
   }
 }

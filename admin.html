@@ -101,6 +101,28 @@
         .comp-item-editor input:focus{border-color:var(--purple)}
         .comp-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:4px}
 
+        /* Program tiers / pricing editor */
+        .tier-editor,.super-price-editor{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+        .tier-editor-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+        .tier-editor-title{font-size:13px;font-weight:800;color:var(--yellow)}
+        .tier-remove{background:none;border:1px solid rgba(239,68,68,.25);color:var(--red);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700}
+        .tier-check{display:flex;align-items:center;gap:8px;color:var(--text2);font-size:13px;font-weight:500;padding-top:8px}
+        .mini-list-label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600}
+        .super-price-editor{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center}
+        .super-price-editor input{padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
+        .super-price-editor input:focus{border-color:var(--purple)}
+        .super-price-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:4px}
+        @media(max-width:768px){.super-price-editor{grid-template-columns:1fr}}
+        @media(max-width:768px){.tier-editor .field-row,.tier-editor .field-row-3{grid-template-columns:1fr}}
+
+        /* Image input row */
+        .img-input-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+        .img-input-row input{width:100%;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+        .img-input-row input:focus{border-color:var(--purple)}
+        .img-preview{margin-top:10px;display:none}
+        .img-preview.show{display:block}
+        .img-preview img{max-width:220px;max-height:120px;border-radius:8px;border:1px solid var(--border);background:var(--bg)}
+
         /* Footer link editor */
         .footer-link-editor{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin-bottom:8px}
         .footer-link-editor input{padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none}
@@ -189,6 +211,7 @@
             <div class="nav-label">Nội dung</div>
             <div class="nav-item active" data-panel="hero" onclick="showPanel('hero',this)"><span class="nav-icon">🏠</span> Hero Section</div>
             <div class="nav-item" data-panel="video" onclick="showPanel('video',this)"><span class="nav-icon">🎬</span> Video giới thiệu</div>
+            <div class="nav-item" data-panel="program" onclick="showPanel('program',this)"><span class="nav-icon">💎</span> Hệ thống Reup</div>
             <div class="nav-item" data-panel="missions" onclick="showPanel('missions',this)"><span class="nav-icon">🎯</span> Nhiệm vụ <span class="nav-badge" id="missionCount">8</span></div>
             <div class="nav-item" data-panel="completion" onclick="showPanel('completion',this)"><span class="nav-icon">🏆</span> Completion</div>
             <div class="nav-item" data-panel="footer" onclick="showPanel('footer',this)"><span class="nav-icon">📎</span> Footer & Links</div>
@@ -233,6 +256,135 @@
                 <div class="field"><label>Video URL (bất kỳ link YouTube nào)</label><input id="video-url" placeholder="https://www.youtube.com/watch?v=... hoặc https://youtu.be/..."></div>
                 <div class="field-hint">Hỗ trợ mọi dạng link YouTube: youtube.com/watch?v=..., youtu.be/..., youtube.com/shorts/..., youtube.com/embed/...</div>
                 <div class="field"><label>Placeholder text (hiện khi chưa có video)</label><input id="video-placeholder"></div>
+            </div>
+        </div>
+
+        <!-- PROGRAM Panel (Hệ thống Reup) -->
+        <div class="panel" id="panel-program">
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">⚙️</span> Cài đặt hiển thị</div>
+                <p class="card-subtitle">Bật/tắt section "Hệ thống Reup Automation" trên hero & chỉnh text của nút toggle.</p>
+                <div class="field-row">
+                    <div class="field">
+                        <label>Hiển thị section</label>
+                        <label style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;color:var(--text2);font-size:13px">
+                            <input id="program-enabled" type="checkbox" style="width:18px;height:18px;cursor:pointer"> Bật section này
+                        </label>
+                    </div>
+                    <div class="field"><label>Text nút toggle</label><input id="program-toggleText" placeholder="ĐIỀU KIỆN THAM GIA"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🖼️</span> Hình ảnh</div>
+                <p class="card-subtitle">Banner hiển thị phía trên card. Icon thay thế emoji 🚀 ở đầu card. Có thể dán URL hoặc tải lên.</p>
+                <div class="field">
+                    <label>Banner (ảnh rộng phía trên card)</label>
+                    <div class="img-input-row">
+                        <input id="program-bannerImage" placeholder="/uploads/... hoặc https://...">
+                        <button type="button" class="dyn-add" onclick="uploadImage('program-bannerImage')">📤 Tải lên</button>
+                    </div>
+                    <div class="img-preview" id="program-bannerImage-preview"></div>
+                </div>
+                <div class="field">
+                    <label>Icon (thay emoji trong card)</label>
+                    <div class="img-input-row">
+                        <input id="program-iconImage" placeholder="/uploads/... hoặc https://...">
+                        <button type="button" class="dyn-add" onclick="uploadImage('program-iconImage')">📤 Tải lên</button>
+                    </div>
+                    <div class="img-preview" id="program-iconImage-preview"></div>
+                    <div class="field-hint">Để trống sẽ hiển thị emoji bên dưới.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">📝</span> Nội dung chính</div>
+                <div class="field-row">
+                    <div class="field"><label>Icon emoji (fallback)</label><input id="program-iconEmoji" placeholder="🚀"></div>
+                    <div class="field"><label>Tiêu đề</label><input id="program-title" placeholder="Hệ thống Reup Automation"></div>
+                </div>
+                <div class="field"><label>Phụ đề</label><input id="program-subtitle" placeholder="Vinh hỗ trợ full tool (tải → edit → đăng)"></div>
+                <div class="field"><label>Text nút demo</label><input id="program-demoText" placeholder="Click xem demo video"></div>
+                <div class="field"><label>Video URL (link YouTube)</label><input id="program-videoUrl" placeholder="https://youtu.be/... (để trống sẽ dùng Video giới thiệu)"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">⚙️</span> Việc của bạn</div>
+                <div class="field"><label>Tiêu đề</label><input id="program-workLabel" placeholder="⚙️ Việc của bạn"></div>
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Các dòng công việc (mỗi dòng một mục)</label>
+                <div class="dyn-list" id="program-workItems"></div>
+                <button class="dyn-add" onclick="addDynItem('program-workItems')">+ Thêm dòng</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🎁</span> Bạn nhận được</div>
+                <div class="field"><label>Tiêu đề</label><input id="program-giftLabel" placeholder="🎁 Bạn nhận được"></div>
+                <label style="display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">Danh sách (mỗi dòng một mục)</label>
+                <div class="dyn-list" id="program-giftItems"></div>
+                <button class="dyn-add" onclick="addDynItem('program-giftItems')">+ Thêm mục</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">💰</span> Phí cam kết (fallback mặc định)</div>
+                <p class="card-subtitle">Các giá trị dưới đây dùng khi không có tier nào. Nếu bạn dùng 2 tier bên dưới, card này có thể bỏ qua.</p>
+                <div class="field"><label>Nhãn</label><input id="program-priceLabel" placeholder="💰 Phí cam kết"></div>
+                <div class="field-row">
+                    <div class="field"><label>Số tiền</label><input id="program-priceAmount" placeholder="499"></div>
+                    <div class="field"><label>Đơn vị</label><input id="program-priceUnit" placeholder="K"></div>
+                </div>
+                <div class="field"><label>Ghi chú</label><input id="program-priceNote" placeholder="Hoàn 100% khi hoàn thành"></div>
+                <div class="field"><label>Text nút cam kết</label><input id="program-commitButtonText" placeholder="Cam kết ngay"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🎯</span> Các mức cam kết (Tiers)</div>
+                <p class="card-subtitle">Mỗi tier hiển thị một cột. Tier được đánh dấu "Nổi bật" sẽ to hơn & có gradient vàng-tím (kiểu "ĐỀ XUẤT").</p>
+                <div id="program-tiers"></div>
+                <button class="dyn-add" onclick="addTier()">+ Thêm mức cam kết</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🔁</span> Ghi chú quy đổi</div>
+                <p class="card-subtitle">Hiển thị ngay dưới 2 cột tier — giải thích việc phí cam kết có thể quy đổi thành tiền mua Super Automation.</p>
+                <div class="field"><label>Nội dung (hỗ trợ xuống dòng)</label><textarea id="program-conversionNote" rows="3"></textarea></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">💎</span> Bảng giá Super Automation</div>
+                <p class="card-subtitle">Nút mở popup bảng giá. Popup hiển thị các gói sử dụng Super Automation (tháng / năm / trọn đời...).</p>
+                <div class="field"><label>Text nút</label><input id="program-superPricingButtonText" placeholder="Bảng giá Super Automation"></div>
+                <div class="field"><label>Tiêu đề popup</label><input id="program-superPricingPopupTitle" placeholder="Bảng giá Super Automation"></div>
+                <div class="field"><label>Mô tả popup</label><input id="program-superPricingPopupSubtitle" placeholder="Chọn gói phù hợp..."></div>
+                <label style="display:block;font-size:12px;color:var(--text2);margin:10px 0 6px;font-weight:600">Các mức giá</label>
+                <div id="program-superPrices"></div>
+                <button class="dyn-add" onclick="addSuperPrice()">+ Thêm mức giá</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">📱</span> Popup cam kết + QR</div>
+                <div class="field"><label>Tiêu đề popup</label><input id="program-commitPopupTitle" placeholder="Cam kết ngay"></div>
+                <div class="field"><label>Mô tả popup</label><input id="program-commitPopupSubtitle" placeholder="Quét mã QR để chuyển khoản cam kết."></div>
+                <div class="field">
+                    <label>Ảnh mã QR</label>
+                    <div class="img-input-row">
+                        <input id="program-qrImage" placeholder="/uploads/... hoặc https://...">
+                        <button type="button" class="dyn-add" onclick="uploadImage('program-qrImage')">📤 Tải lên</button>
+                    </div>
+                    <div class="img-preview" id="program-qrImage-preview"></div>
+                </div>
+                <div class="field"><label>Text nút xác nhận</label><input id="program-commitConfirmText" placeholder="Đã chuyển khoản cam kết"></div>
+                <div class="field"><label>Link quay về Zalo</label><input id="program-confirmUrl" placeholder="https://zalo.me/... hoặc link web bio"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">👤</span> Thông tin admin hành trình</div>
+                <div class="field"><label>Text nút</label><input id="program-adminButtonText" placeholder="Thông tin admin hành trình"></div>
+                <div class="field"><label>Link web bio</label><input id="program-adminBioUrl" placeholder="https://... "></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><span class="ct-icon">🔥</span> Highlight cuối</div>
+                <div class="field"><label>Câu nhấn cuối card</label><input id="program-highlight" placeholder="🔥 Không phải khóa học..."></div>
             </div>
         </div>
 
@@ -368,6 +520,65 @@ async function loadData() {
         data = await res.json();
         // Ensure new fields exist
         if (!data.settings) data.settings = { unlockPassword: '' };
+        if (!data.program) data.program = {
+            enabled: true,
+            toggleText: 'ĐIỀU KIỆN THAM GIA',
+            bannerImage: '',
+            iconImage: '',
+            iconEmoji: '🚀',
+            title: 'Hệ thống Reup Automation',
+            subtitle: 'Vinh hỗ trợ full tool (tải → edit → đăng)',
+            demoText: 'Click xem demo video',
+            videoUrl: '',
+            workLabel: '⚙️ Việc của bạn',
+            workBody: '5 page × 3 video/ngày × 21 ngày',
+            workItems: ['5 page', '3 video/ngày', '21 ngày'],
+            giftLabel: '🎁 Bạn nhận được',
+            giftItems: ['Tool automation reup', 'Quy trình thực chiến', 'Support + cộng đồng'],
+            priceLabel: '💰 Phí cam kết',
+            priceAmount: '499',
+            priceUnit: 'K',
+            priceNote: 'Hoàn 100% khi hoàn thành',
+            commitButtonText: 'Cam kết ngay',
+            commitPopupTitle: 'Cam kết ngay',
+            commitPopupSubtitle: 'Quét mã QR để chuyển khoản cam kết.',
+            qrImage: '',
+            commitConfirmText: 'Đã chuyển khoản cam kết',
+            confirmUrl: '',
+            adminButtonText: 'Thông tin admin hành trình',
+            adminBioUrl: '',
+            highlight: '🔥 Không phải khóa học – Đây là hành trình Affiliate thực chiến'
+        };
+        if (!data.program.giftItems) data.program.giftItems = [];
+        if (!data.program.workItems) data.program.workItems = data.program.workBody ? [data.program.workBody] : [];
+        if (!data.program.tiers || !data.program.tiers.length) {
+            data.program.tiers = [{
+                name: 'Cam kết ' + (data.program.priceAmount || '499') + (data.program.priceUnit || 'K'),
+                price: (data.program.priceAmount || '499') + (data.program.priceUnit || 'K'),
+                note: data.program.priceNote || '',
+                badge: 'CƠ BẢN',
+                featured: false,
+                buttonText: data.program.commitButtonText || 'Cam kết ngay',
+                popupTitle: data.program.commitPopupTitle || 'Cam kết ngay',
+                popupSubtitle: data.program.commitPopupSubtitle || 'Quét mã QR để chuyển khoản cam kết.',
+                qrImage: data.program.qrImage || '',
+                confirmText: data.program.commitConfirmText || 'Đã chuyển khoản cam kết',
+                confirmUrl: data.program.confirmUrl || '',
+                features: (data.program.giftItems || []).slice()
+            }];
+        }
+        if (typeof data.program.conversionNote !== 'string') data.program.conversionNote = '';
+        if (!data.program.superPricingButtonText) data.program.superPricingButtonText = 'Bảng giá Super Automation';
+        if (!data.program.superPricingPopupTitle) data.program.superPricingPopupTitle = 'Bảng giá Super Automation';
+        if (!data.program.superPricingPopupSubtitle) data.program.superPricingPopupSubtitle = 'Chọn gói phù hợp để đồng hành lâu dài cùng hệ thống.';
+        if (!data.program.superPrices || !data.program.superPrices.length) {
+            data.program.superPrices = [
+                { label: '1 tháng', price: '500K' },
+                { label: '3 tháng', price: '1TR' },
+                { label: '1 năm', price: '2TR5' },
+                { label: 'Trọn đời', price: '3TR5' }
+            ];
+        }
         data.missions.forEach(function(m) {
             if (!m.links) m.links = [];
             if (!m.note) m.note = '';
@@ -436,6 +647,9 @@ function renderAll() {
     document.getElementById('video-url').value = data.video.url || '';
     document.getElementById('video-placeholder').value = data.video.placeholder || '';
 
+    // Program (Hệ thống Reup)
+    renderProgramPanel();
+
     // Missions
     renderMissionTabs();
     renderMissionPanel(0);
@@ -455,6 +669,277 @@ function renderAll() {
 
     // Settings
     document.getElementById('settings-unlockPassword').value = (data.settings && data.settings.unlockPassword) || '';
+}
+
+// ===========================
+// PROGRAM (Hệ thống Reup)
+// ===========================
+function renderProgramPanel() {
+    var p = data.program || {};
+    document.getElementById('program-enabled').checked = p.enabled !== false;
+    document.getElementById('program-toggleText').value = p.toggleText || '';
+    document.getElementById('program-bannerImage').value = p.bannerImage || '';
+    document.getElementById('program-iconImage').value = p.iconImage || '';
+    document.getElementById('program-iconEmoji').value = p.iconEmoji || '';
+    document.getElementById('program-title').value = p.title || '';
+    document.getElementById('program-subtitle').value = p.subtitle || '';
+    document.getElementById('program-demoText').value = p.demoText || '';
+    document.getElementById('program-videoUrl').value = p.videoUrl || '';
+    document.getElementById('program-workLabel').value = p.workLabel || '';
+    document.getElementById('program-giftLabel').value = p.giftLabel || '';
+    document.getElementById('program-priceLabel').value = p.priceLabel || '';
+    document.getElementById('program-priceAmount').value = p.priceAmount || '';
+    document.getElementById('program-priceUnit').value = p.priceUnit || '';
+    document.getElementById('program-priceNote').value = p.priceNote || '';
+    document.getElementById('program-commitButtonText').value = p.commitButtonText || '';
+    document.getElementById('program-commitPopupTitle').value = p.commitPopupTitle || '';
+    document.getElementById('program-commitPopupSubtitle').value = p.commitPopupSubtitle || '';
+    document.getElementById('program-qrImage').value = p.qrImage || '';
+    document.getElementById('program-commitConfirmText').value = p.commitConfirmText || '';
+    document.getElementById('program-confirmUrl').value = p.confirmUrl || '';
+    document.getElementById('program-adminButtonText').value = p.adminButtonText || '';
+    document.getElementById('program-adminBioUrl').value = p.adminBioUrl || '';
+    document.getElementById('program-highlight').value = p.highlight || '';
+    document.getElementById('program-conversionNote').value = p.conversionNote || '';
+    document.getElementById('program-superPricingButtonText').value = p.superPricingButtonText || '';
+    document.getElementById('program-superPricingPopupTitle').value = p.superPricingPopupTitle || '';
+    document.getElementById('program-superPricingPopupSubtitle').value = p.superPricingPopupSubtitle || '';
+
+    // Work items dynamic list
+    var workList = document.getElementById('program-workItems');
+    workList.innerHTML = '';
+    (p.workItems && p.workItems.length ? p.workItems : (p.workBody ? [p.workBody] : [])).forEach(function(item) {
+        var div = document.createElement('div');
+        div.className = 'dyn-item';
+        div.innerHTML = '<input value="' + esc(item) + '"><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button>';
+        workList.appendChild(div);
+    });
+
+    // Gift items dynamic list
+    var list = document.getElementById('program-giftItems');
+    list.innerHTML = '';
+    (p.giftItems || []).forEach(function(item) {
+        var div = document.createElement('div');
+        div.className = 'dyn-item';
+        div.innerHTML = '<input value="' + esc(item) + '"><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button>';
+        list.appendChild(div);
+    });
+
+    // Image previews + live update on input change
+    ['program-bannerImage', 'program-iconImage', 'program-qrImage'].forEach(function(id) {
+        refreshImagePreview(id);
+        var el = document.getElementById(id);
+        el.oninput = function() { refreshImagePreview(id); };
+    });
+
+    renderTiers();
+    renderSuperPrices();
+}
+
+// ===========================
+// TIERS (program.tiers)
+// ===========================
+function renderTiers() {
+    var container = document.getElementById('program-tiers');
+    if (!container) return;
+    container.innerHTML = '';
+    (data.program.tiers || []).forEach(function(tier, index) {
+        var tierId = 'tier-' + index;
+        var featuresHtml = (tier.features || []).map(function(f) {
+            return '<div class="dyn-item"><input value="' + esc(f) + '"><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button></div>';
+        }).join('');
+        var qrPreview = tier.qrImage ? '<div class="img-preview show" id="' + tierId + '-qr-preview"><img src="' + esc(tier.qrImage) + '" alt=""></div>' : '<div class="img-preview" id="' + tierId + '-qr-preview"></div>';
+
+        var div = document.createElement('div');
+        div.className = 'tier-editor';
+        div.dataset.idx = index;
+        div.innerHTML =
+            '<div class="tier-editor-header">' +
+                '<div class="tier-editor-title">Mức cam kết #' + (index + 1) + '</div>' +
+                '<button class="tier-remove" onclick="removeTier(' + index + ')">🗑️ Xóa</button>' +
+            '</div>' +
+            '<div class="field-row">' +
+                '<div class="field"><label>Tên hiển thị</label><input class="t-name" value="' + esc(tier.name) + '" placeholder="Cam kết 499K"></div>' +
+                '<div class="field"><label>Giá hiển thị</label><input class="t-price" value="' + esc(tier.price) + '" placeholder="499K"></div>' +
+            '</div>' +
+            '<div class="field-row">' +
+                '<div class="field"><label>Badge (nhãn nhỏ phía trên)</label><input class="t-badge" value="' + esc(tier.badge) + '" placeholder="CƠ BẢN / ĐỀ XUẤT"></div>' +
+                '<div class="field"><label>Text nút cam kết</label><input class="t-btn" value="' + esc(tier.buttonText) + '" placeholder="Cam kết 499K"></div>' +
+            '</div>' +
+            '<div class="field"><label>Ghi chú dưới giá</label><input class="t-note" value="' + esc(tier.note) + '" placeholder="Hoàn 100% khi hoàn thành"></div>' +
+            '<div class="field">' +
+                '<label class="mini-list-label">Quyền lợi (mỗi dòng 1 gạch đầu dòng)</label>' +
+                '<div class="dyn-list t-features">' + featuresHtml + '</div>' +
+                '<button class="dyn-add" type="button" onclick="addTierFeature(this)">+ Thêm quyền lợi</button>' +
+            '</div>' +
+            '<div class="field tier-check">' +
+                '<input type="checkbox" class="t-featured"' + (tier.featured ? ' checked' : '') + ' style="width:18px;height:18px;cursor:pointer">' +
+                '<label style="cursor:pointer">Đánh dấu là tier nổi bật (gradient vàng-tím + to hơn)</label>' +
+            '</div>' +
+            '<div class="field-row">' +
+                '<div class="field"><label>Popup: Tiêu đề</label><input class="t-popupTitle" value="' + esc(tier.popupTitle) + '"></div>' +
+                '<div class="field"><label>Popup: Mô tả</label><input class="t-popupSubtitle" value="' + esc(tier.popupSubtitle) + '"></div>' +
+            '</div>' +
+            '<div class="field">' +
+                '<label>Ảnh QR chuyển khoản</label>' +
+                '<div class="img-input-row">' +
+                    '<input class="t-qr" id="' + tierId + '-qr" value="' + esc(tier.qrImage) + '" placeholder="/uploads/... hoặc https://...">' +
+                    '<button type="button" class="dyn-add" onclick="uploadImage(\'' + tierId + '-qr\')">📤 Tải lên</button>' +
+                '</div>' +
+                qrPreview +
+            '</div>' +
+            '<div class="field-row">' +
+                '<div class="field"><label>Text nút xác nhận</label><input class="t-confirmText" value="' + esc(tier.confirmText) + '" placeholder="Đã chuyển khoản cam kết"></div>' +
+                '<div class="field"><label>Link quay về sau khi xác nhận</label><input class="t-confirmUrl" value="' + esc(tier.confirmUrl) + '" placeholder="https://zalo.me/..."></div>' +
+            '</div>';
+        container.appendChild(div);
+
+        // Live QR preview
+        var qrInput = div.querySelector('.t-qr');
+        qrInput.oninput = function() {
+            var val = qrInput.value.trim();
+            var box = document.getElementById(tierId + '-qr-preview');
+            if (!box) return;
+            if (val) { box.innerHTML = '<img src="' + esc(val) + '" alt="">'; box.classList.add('show'); }
+            else { box.innerHTML = ''; box.classList.remove('show'); }
+        };
+    });
+}
+
+function addTier() {
+    collectTiers();
+    data.program.tiers.push({
+        name: 'Cam kết mới',
+        price: '0K',
+        note: '',
+        badge: 'CƠ BẢN',
+        featured: false,
+        buttonText: 'Cam kết ngay',
+        popupTitle: 'Cam kết ngay',
+        popupSubtitle: 'Quét mã QR để chuyển khoản cam kết.',
+        qrImage: '',
+        confirmText: 'Đã chuyển khoản cam kết',
+        confirmUrl: '',
+        features: []
+    });
+    renderTiers();
+}
+
+function removeTier(index) {
+    if (!confirm('Xóa mức cam kết này?')) return;
+    collectTiers();
+    data.program.tiers.splice(index, 1);
+    renderTiers();
+}
+
+function addTierFeature(btn) {
+    var list = btn.previousElementSibling;
+    var div = document.createElement('div');
+    div.className = 'dyn-item';
+    div.innerHTML = '<input value="" placeholder="Quyền lợi..." autofocus><button class="dyn-remove" onclick="this.parentElement.remove()">✕</button>';
+    list.appendChild(div);
+    div.querySelector('input').focus();
+}
+
+function collectTiers() {
+    var editors = document.querySelectorAll('#program-tiers .tier-editor');
+    data.program.tiers = Array.from(editors).map(function(el) {
+        return {
+            name: el.querySelector('.t-name').value,
+            price: el.querySelector('.t-price').value,
+            note: el.querySelector('.t-note').value,
+            badge: el.querySelector('.t-badge').value,
+            featured: el.querySelector('.t-featured').checked,
+            buttonText: el.querySelector('.t-btn').value,
+            popupTitle: el.querySelector('.t-popupTitle').value,
+            popupSubtitle: el.querySelector('.t-popupSubtitle').value,
+            qrImage: el.querySelector('.t-qr').value.trim(),
+            confirmText: el.querySelector('.t-confirmText').value,
+            confirmUrl: el.querySelector('.t-confirmUrl').value.trim(),
+            features: Array.from(el.querySelectorAll('.t-features .dyn-item input')).map(function(i) { return i.value; }).filter(function(v) { return v; })
+        };
+    });
+}
+
+// ===========================
+// SUPER PRICES
+// ===========================
+function renderSuperPrices() {
+    var container = document.getElementById('program-superPrices');
+    if (!container) return;
+    container.innerHTML = '';
+    (data.program.superPrices || []).forEach(function(row) {
+        var div = document.createElement('div');
+        div.className = 'super-price-editor';
+        div.innerHTML =
+            '<input class="sp-label" value="' + esc(row.label) + '" placeholder="Nhãn (VD: 1 tháng)">' +
+            '<input class="sp-price" value="' + esc(row.price) + '" placeholder="Giá (VD: 500K)">' +
+            '<button class="super-price-remove" onclick="this.parentElement.remove()">✕</button>';
+        container.appendChild(div);
+    });
+}
+
+function addSuperPrice() {
+    var container = document.getElementById('program-superPrices');
+    var div = document.createElement('div');
+    div.className = 'super-price-editor';
+    div.innerHTML =
+        '<input class="sp-label" value="" placeholder="Nhãn (VD: 1 tháng)">' +
+        '<input class="sp-price" value="" placeholder="Giá (VD: 500K)">' +
+        '<button class="super-price-remove" onclick="this.parentElement.remove()">✕</button>';
+    container.appendChild(div);
+    div.querySelector('.sp-label').focus();
+}
+
+function collectSuperPrices() {
+    var rows = document.querySelectorAll('#program-superPrices .super-price-editor');
+    data.program.superPrices = Array.from(rows).map(function(el) {
+        return {
+            label: el.querySelector('.sp-label').value,
+            price: el.querySelector('.sp-price').value
+        };
+    }).filter(function(r) { return r.label || r.price; });
+}
+
+function refreshImagePreview(inputId) {
+    var val = document.getElementById(inputId).value.trim();
+    var box = document.getElementById(inputId + '-preview');
+    if (!box) return;
+    if (val) {
+        box.innerHTML = '<img src="' + esc(val) + '" alt="">';
+        box.classList.add('show');
+    } else {
+        box.innerHTML = '';
+        box.classList.remove('show');
+    }
+}
+
+async function uploadImage(targetInputId) {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async function() {
+        var file = input.files && input.files[0];
+        if (!file) return;
+        var fd = new FormData();
+        fd.append('file', file);
+        try {
+            var res = await fetch('/api/upload', {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + token },
+                body: fd
+            });
+            if (!res.ok) throw new Error('Upload failed (' + res.status + ')');
+            var json = await res.json();
+            if (!json.success || !json.url) throw new Error('Upload response invalid');
+            document.getElementById(targetInputId).value = json.url;
+            refreshImagePreview(targetInputId);
+            showToast('Tải ảnh thành công ✅', 'success');
+        } catch (e) {
+            showToast('Lỗi tải ảnh: ' + e.message, 'error');
+        }
+    };
+    input.click();
 }
 
 // ===========================
@@ -834,6 +1319,42 @@ function collectData() {
     data.video.url = document.getElementById('video-url').value;
     data.video.placeholder = document.getElementById('video-placeholder').value;
 
+    // Program (Hệ thống Reup)
+    if (!data.program) data.program = {};
+    data.program.enabled = document.getElementById('program-enabled').checked;
+    data.program.toggleText = document.getElementById('program-toggleText').value;
+    data.program.bannerImage = document.getElementById('program-bannerImage').value.trim();
+    data.program.iconImage = document.getElementById('program-iconImage').value.trim();
+    data.program.iconEmoji = document.getElementById('program-iconEmoji').value;
+    data.program.title = document.getElementById('program-title').value;
+    data.program.subtitle = document.getElementById('program-subtitle').value;
+    data.program.demoText = document.getElementById('program-demoText').value;
+    data.program.videoUrl = document.getElementById('program-videoUrl').value.trim();
+    data.program.workLabel = document.getElementById('program-workLabel').value;
+    data.program.workItems = Array.from(document.querySelectorAll('#program-workItems .dyn-item input')).map(function(i) { return i.value; }).filter(function(v) { return v; });
+    data.program.workBody = data.program.workItems.join(' • ');
+    data.program.giftLabel = document.getElementById('program-giftLabel').value;
+    data.program.giftItems = Array.from(document.querySelectorAll('#program-giftItems .dyn-item input')).map(function(i) { return i.value; }).filter(function(v) { return v; });
+    data.program.priceLabel = document.getElementById('program-priceLabel').value;
+    data.program.priceAmount = document.getElementById('program-priceAmount').value;
+    data.program.priceUnit = document.getElementById('program-priceUnit').value;
+    data.program.priceNote = document.getElementById('program-priceNote').value;
+    data.program.commitButtonText = document.getElementById('program-commitButtonText').value;
+    data.program.commitPopupTitle = document.getElementById('program-commitPopupTitle').value;
+    data.program.commitPopupSubtitle = document.getElementById('program-commitPopupSubtitle').value;
+    data.program.qrImage = document.getElementById('program-qrImage').value.trim();
+    data.program.commitConfirmText = document.getElementById('program-commitConfirmText').value;
+    data.program.confirmUrl = document.getElementById('program-confirmUrl').value.trim();
+    data.program.adminButtonText = document.getElementById('program-adminButtonText').value;
+    data.program.adminBioUrl = document.getElementById('program-adminBioUrl').value.trim();
+    data.program.highlight = document.getElementById('program-highlight').value;
+    data.program.conversionNote = document.getElementById('program-conversionNote').value;
+    data.program.superPricingButtonText = document.getElementById('program-superPricingButtonText').value;
+    data.program.superPricingPopupTitle = document.getElementById('program-superPricingPopupTitle').value;
+    data.program.superPricingPopupSubtitle = document.getElementById('program-superPricingPopupSubtitle').value;
+    collectTiers();
+    collectSuperPrices();
+
     // Current mission
     collectMissionData();
 
@@ -934,6 +1455,7 @@ function showPanel(name, el) {
     var titles = {
         hero: 'Hero Section',
         video: 'Video giới thiệu',
+        program: 'Hệ thống Reup Automation',
         missions: 'Nhiệm vụ (' + data.missions.length + ')',
         completion: 'Màn hình hoàn thành',
         footer: 'Footer & Links',
