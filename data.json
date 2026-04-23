@@ -299,7 +299,8 @@
     ]
   },
   "settings": {
-    "unlockPassword": ""
+    "unlockPassword": "",
+    "lockFromMission": 3
   },
   "program": {
     "enabled": true,

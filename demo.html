@@ -918,7 +918,7 @@
         <button class="pw-close" onclick="closePasswordPopup()">&#10005;</button>
         <div class="pw-modal-icon">&#128272;</div>
         <div class="pw-modal-title">Nhập mật khẩu</div>
-        <div class="pw-modal-desc">Nội dung từ nhiệm vụ 3 trở đi cần mật khẩu để mở khóa</div>
+        <div class="pw-modal-desc" id="pwModalDesc">Nội dung từ nhiệm vụ 3 trở đi cần mật khẩu để mở khóa</div>
         <input class="pw-input" id="pwInput" type="password" placeholder="Nhập mật khẩu...">
         <button class="pw-submit" id="pwSubmit" onclick="submitPassword()">Mở khóa</button>
         <div class="pw-error" id="pwError">Sai mật khẩu! Vui lòng nâng cấp tài khoản để xem nội dung này.</div>
@@ -932,6 +932,7 @@ var completedMissions = {};
 var openMissions = {};
 var unlocked = localStorage.getItem('reup_unlocked') === 'true';
 var hasPassword = false;
+var lockFromMission = 0; // 1-indexed; 0 = no lock by mission
 
 try {
     checkedItems = JSON.parse(localStorage.getItem('reup_checklist') || '{}');
@@ -944,6 +945,14 @@ async function init() {
         data = await res.json();
         if (data && data.program) normalizeProgramData(data.program);
         hasPassword = data.settings && data.settings.hasPassword;
+        var rawLock = data.settings && data.settings.lockFromMission;
+        lockFromMission = Math.max(0, parseInt(rawLock, 10) || 0);
+        var descEl = document.getElementById('pwModalDesc');
+        if (descEl) {
+            descEl.textContent = lockFromMission > 0
+                ? ('Nội dung từ nhiệm vụ ' + lockFromMission + ' trở đi cần mật khẩu để mở khóa')
+                : 'Nội dung này cần mật khẩu để mở khóa';
+        }
         render();
         setTimeout(function() { document.getElementById('loadingScreen').classList.add('hide'); }, 500);
     } catch(e) {
@@ -1213,7 +1222,7 @@ function renderMissions() {
     data.missions.forEach(function(m, i) {
         var isCompleted = isMissionCompleted(i);
         var isLocked = !isCompleted && i > 0 && !isMissionCompleted(i - 1) && i > getFirstIncompleteMission();
-        var isPwLocked = hasPassword && !unlocked && i >= 2;
+        var isPwLocked = hasPassword && !unlocked && lockFromMission > 0 && (i + 1) >= lockFromMission;
         var isOpen = openMissions[i] || false;
 
         var dot = document.createElement('div');
@@ -1330,7 +1339,7 @@ function renderFooter() {
 }
 
 function toggleMission(index) {
-    if (hasPassword && !unlocked && index >= 2) {
+    if (hasPassword && !unlocked && lockFromMission > 0 && (index + 1) >= lockFromMission) {
         showPasswordPopup();
         return;
     }

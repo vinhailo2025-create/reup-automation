@@ -403,9 +403,11 @@
         <div class="panel" id="panel-settings">
             <div class="card">
                 <div class="card-title"><span class="ct-icon">🔐</span> Mật khẩu mở khóa nhiệm vụ</div>
-                <p class="card-subtitle">Nhiệm vụ 1-2 miễn phí. Từ nhiệm vụ 3 trở đi cần nhập mật khẩu này để xem.</p>
+                <p class="card-subtitle">Đặt mật khẩu + chọn nhiệm vụ bắt đầu khóa. Các nhiệm vụ từ số đó trở đi sẽ yêu cầu nhập mật khẩu.</p>
                 <div class="field"><label>Mật khẩu mở khóa</label><input id="settings-unlockPassword" type="text" placeholder="Nhập mật khẩu..."></div>
-                <div class="field-hint">Để trống nếu không cần khóa nhiệm vụ</div>
+                <div class="field-hint">Để trống nếu không cần khóa nhiệm vụ nào.</div>
+                <div class="field"><label>Bắt đầu khóa từ nhiệm vụ số</label><input id="settings-lockFromMission" type="number" min="1" step="1" placeholder="3"></div>
+                <div class="field-hint">Đặt <strong>1</strong> để khóa toàn bộ nhiệm vụ, <strong>3</strong> để chỉ khóa từ nhiệm vụ 3 trở đi, để trống hoặc 0 để tắt khóa theo nhiệm vụ.</div>
             </div>
         </div>
     </main>
@@ -487,7 +489,10 @@ async function loadData() {
         if (!res.ok) throw new Error('Server returned ' + res.status);
         data = await res.json();
         // Ensure new fields exist
-        if (!data.settings) data.settings = { unlockPassword: '' };
+        if (!data.settings) data.settings = { unlockPassword: '', lockFromMission: 3 };
+        if (typeof data.settings.lockFromMission !== 'number') {
+            data.settings.lockFromMission = data.settings.lockFromMission ? parseInt(data.settings.lockFromMission, 10) || 0 : 3;
+        }
         if (!data.program) data.program = {
             enabled: true,
             toggleText: 'ĐIỀU KIỆN THAM GIA',
@@ -637,6 +642,8 @@ function renderAll() {
 
     // Settings
     document.getElementById('settings-unlockPassword').value = (data.settings && data.settings.unlockPassword) || '';
+    var lfm = data.settings && data.settings.lockFromMission;
+    document.getElementById('settings-lockFromMission').value = (lfm === 0 || lfm) ? lfm : 3;
 }
 
 // ===========================
@@ -1337,6 +1344,8 @@ function collectData() {
     // Settings
     if (!data.settings) data.settings = {};
     data.settings.unlockPassword = document.getElementById('settings-unlockPassword').value;
+    var lfmRaw = document.getElementById('settings-lockFromMission').value.trim();
+    data.settings.lockFromMission = lfmRaw === '' ? 0 : Math.max(0, parseInt(lfmRaw, 10) || 0);
 }
 
 function collectMissionData() {

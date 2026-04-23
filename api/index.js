@@ -147,7 +147,8 @@ function getDefaultData() {
             ]
         },
         settings: {
-            unlockPassword: ""
+            unlockPassword: "",
+            lockFromMission: 3
         }
     };
 }
@@ -262,7 +263,10 @@ app.get('/api/auth', authMiddleware, (req, res) => {
 app.get('/api/data', async (req, res) => {
     try {
         const data = await loadData();
-        if (!data.settings) data.settings = { unlockPassword: '' };
+        if (!data.settings) data.settings = { unlockPassword: '', lockFromMission: 3 };
+        if (typeof data.settings.lockFromMission !== 'number') {
+            data.settings.lockFromMission = data.settings.lockFromMission ? parseInt(data.settings.lockFromMission, 10) || 0 : 3;
+        }
         const publicData = JSON.parse(JSON.stringify(data));
         if (publicData.settings) {
             publicData.settings.hasPassword = !!(publicData.settings.unlockPassword);
